@@ -1287,12 +1287,29 @@ function bind() {
     userDropdown.addEventListener('click', function (event) {
       event.stopPropagation();
     });
-    document.addEventListener('click', function () {
-      if (userMenu.classList.contains('is-open')) setUserMenuOpen(false);
-    });
-    document.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape') setUserMenuOpen(false);
-    });
+    if (!window.__80landUserMenuGlobalBound) {
+      document.addEventListener('click', function (event) {
+        const currentMenu = document.querySelector('.user-menu');
+        if (!currentMenu || currentMenu.classList.contains('is-open') === false) return;
+        if (event.target.closest('.user-menu')) return;
+        currentMenu.classList.remove('is-open');
+        const trigger = currentMenu.querySelector('#userMenuTrigger');
+        const dropdown = currentMenu.querySelector('#userDropdown');
+        if (trigger) trigger.setAttribute('aria-expanded', 'false');
+        if (dropdown) dropdown.setAttribute('aria-hidden', 'true');
+      });
+      document.addEventListener('keydown', function (event) {
+        if (event.key !== 'Escape') return;
+        const currentMenu = document.querySelector('.user-menu');
+        if (!currentMenu) return;
+        currentMenu.classList.remove('is-open');
+        const trigger = currentMenu.querySelector('#userMenuTrigger');
+        const dropdown = currentMenu.querySelector('#userDropdown');
+        if (trigger) trigger.setAttribute('aria-expanded', 'false');
+        if (dropdown) dropdown.setAttribute('aria-hidden', 'true');
+      });
+      window.__80landUserMenuGlobalBound = true;
+    }
     const logoutBtn = document.querySelector('#logoutBtn');
     if (logoutBtn) {
       logoutBtn.addEventListener('click', function () {
@@ -1470,15 +1487,17 @@ function bind() {
     });
   });
 
-  document.addEventListener('click', function (event) {
-    if (!event.target.closest('.sort-control')) {
+  if (!window.__80landSortGlobalBound) {
+    document.addEventListener('click', function (event) {
+      if (event.target.closest('.sort-control')) return;
       const menu = document.querySelector('#searchSortMenu');
       if (menu) {
         menu.classList.remove('is-open');
         menu.setAttribute('aria-hidden', 'true');
       }
-    }
-  });
+    });
+    window.__80landSortGlobalBound = true;
+  }
 
   document.querySelectorAll('[data-detail-save]').forEach(function (button) {
     button.addEventListener('click', function (event) {
