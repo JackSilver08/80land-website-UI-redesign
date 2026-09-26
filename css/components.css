@@ -4486,3 +4486,66 @@ html,body,#app{max-width:100%;overflow-x:hidden}
     font-size:7px;
   }
 }
+
+
+/* Header notification control */
+.header-notification{
+  position:relative;
+  width:40px;
+  height:40px;
+  display:grid;
+  place-items:center;
+  margin-left:1px;
+  color:#3f3834;
+  border:1px solid transparent;
+  border-radius:10px;
+  text-decoration:none;
+  transition:background .16s ease,color .16s ease,border-color .16s ease;
+}
+.header-notification:hover{
+  background:#faf5f3;
+  border-color:#eee4e0;
+  color:var(--80-red-dark);
+}
+.header-notification-icon{
+  width:34px;
+  height:34px;
+  display:grid;
+  place-items:center;
+}
+.header-notification-icon .material-symbols-outlined,
+.header-notification-icon .material-symbols-rounded{
+  font-size:21px;
+}
+.header-notification-badge{
+  position:absolute;
+  top:1px;
+  right:0;
+  min-width:17px;
+  height:17px;
+  padding:0 4px;
+  display:grid;
+  place-items:center;
+  border:2px solid #fff;
+  border-radius:999px;
+  background:var(--80-red);
+  color:#fff;
+  font-size:8px;
+  font-weight:900;
+  line-height:1;
+}
+@media(max-width:767.98px){
+  .header-notification{
+    width:38px;
+    height:38px;
+    margin-left:0;
+  }
+  .header-notification-icon{
+    width:32px;
+    height:32px;
+  }
+  .header-notification-badge{
+    top:0;
+    right:-1px;
+  }
+}
