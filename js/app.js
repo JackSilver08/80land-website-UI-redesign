@@ -49,22 +49,32 @@ function header() {
 }
 
 function mobileNav() {
+  const path = location.pathname || '/';
   const items = [
     ['/','home','Trang chủ'],
     ['/search','search','Tìm phòng'],
-    ['/landlord','add','Đăng tin'],
+    ['/landlord','add_circle','Đăng tin'],
     ['/saved','favorite','Đã lưu'],
     ['/profile','person','Tài khoản']
   ];
-  return '<nav class="mobile-bottom fixed-bottom bg-white border-top"><div class="container-fluid"><div class="row g-0 text-center">' +
-    items.map(function (item, index) {
-      const visual = index === 4
-        ? '<span class="mobile-nav-avatar" aria-hidden="true">QT</span>'
-        : icon(item[1]);
-      return '<div class="col"><a href="' + item[0] + '" data-link class="d-block py-2 small text-secondary"><div class="mobile-nav-icon">' + visual + '</div><span>' + item[2] + '</span></a></div>';
+  return '<nav class="mobile-bottom" aria-label="Điều hướng chính"><div class="mobile-bottom-inner">' +
+    items.map(function (item) {
+      const active = item[0] === '/'
+        ? path === '/'
+        : item[0] === '/search'
+          ? path === '/search' || path === '/map'
+          : path === '/saved'
+            ? path === '/saved'
+            : path === item[0];
+      const visual = '<span class="mobile-nav-icon-wrap">' + icon(item[1]) + '</span>';
+      return '<a href="' + item[0] + '" data-link class="mobile-nav-item' + (active ? ' is-active' : '') + '" aria-current="' + (active ? 'page' : 'false') + '">' +
+        visual +
+        '<span class="mobile-nav-label">' + item[2] + '</span>' +
+      '</a>';
     }).join('') +
-    '</div></div></nav>';
+  '</div></nav>';
 }
+
 
 function propertyCard(item) {
   return [
