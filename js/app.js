@@ -53,8 +53,11 @@ function mobileNav() {
     ['/profile','person','Tài khoản']
   ];
   return '<nav class="mobile-bottom fixed-bottom bg-white border-top"><div class="container-fluid"><div class="row g-0 text-center">' +
-    items.map(function (item) {
-      return '<div class="col"><a href="' + item[0] + '" data-link class="d-block py-2 small text-secondary"><div>' + icon(item[1]) + '</div><span>' + item[2] + '</span></a></div>';
+    items.map(function (item, index) {
+      const visual = index === 4
+        ? '<span class="mobile-nav-avatar" aria-hidden="true">QT</span>'
+        : icon(item[1]);
+      return '<div class="col"><a href="' + item[0] + '" data-link class="d-block py-2 small text-secondary"><div class="mobile-nav-icon">' + visual + '</div><span>' + item[2] + '</span></a></div>';
     }).join('') +
     '</div></div></nav>';
 }
