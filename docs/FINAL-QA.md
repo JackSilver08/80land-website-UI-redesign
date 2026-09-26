@@ -4,6 +4,9 @@
 Final cross-phase QA for the 80Land UI redesign after Phases 1–9. This pass focuses on route integrity, JavaScript syntax, page rendering smoke tests, state persistence, navigation context, responsive CSS coverage, and the main user journeys.
 
 ## Final hardening completed
+- Expanded Home “Đề xuất cho bạn” to 15 distinct demo listings, producing three full desktop rows of product cards.
+- Added a compact fourth row with prototype pagination: 1, 2, 3, …, 98, 99, 100 and the current-range label.
+- Added explicit listing types to the expanded demo dataset so apartment/room filtering remains coherent.
 - Restored the `/messages` route with a working message/conversation page instead of leaving a broken `messagesPage()` reference.
 - Made marketplace favorite buttons persist through `80land:saved:<id>`, not only through a legacy `lastSaved` marker.
 - Added Enter-to-search behavior to the results search field.
@@ -44,9 +47,11 @@ The smoke harness rendered all 23 tested states successfully:
 All 23 routes produced a `<main>` page without a JavaScript exception in the isolated render harness.
 
 ## JavaScript integrity
-- Parentheses: 1969 / 1969.
+- Parentheses: 1973 / 1973.
 - Braces: 450 / 450.
 - Brackets: 256 / 256.
+- Final smoke harness: 23 / 23 tested route states rendered successfully.
+- Home recommendation smoke check: 15 property-card instances rendered.
 - 80 function definitions detected.
 - No duplicate function definitions detected.
 - All Page functions referenced by the router are defined.
