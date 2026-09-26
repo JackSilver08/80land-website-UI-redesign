@@ -87,7 +87,7 @@ function hero() {
       '<div class="hero-orbit" aria-hidden="true"></div>',
       '<div class="hero-search">',
         '<div class="hero-search-row">',
-          '<label class="hero-search-input"><span>' + icon('search') + '</span><input type="text" placeholder="Tìm phòng, khu vực, quận huyện..." aria-label="Tìm phòng"></label>',
+          '<label class="hero-search-input"><span>' + icon('search') + '</span><input id="heroSearchInput" name="q" type="search" inputmode="search" autocomplete="off" placeholder="Tìm phòng, khu vực, quận huyện..." aria-label="Tìm phòng"></label>',
           '<a href="/search" data-link class="hero-filter-btn" data-tooltip="Bộ lọc">' + icon('tune') + '<span class="filter-label">Bộ lọc</span></a>',
         '</div>',
       '</div>',
@@ -269,6 +269,15 @@ function bind() {
       element.classList.remove('border-danger');
     });
   });
+  const heroSearchInput = document.querySelector('#heroSearchInput');
+  if (heroSearchInput) {
+    heroSearchInput.addEventListener('keydown', function (event) {
+      if (event.key !== 'Enter') return;
+      event.preventDefault();
+      const q = heroSearchInput.value.trim();
+      navigate(q ? '/search?q=' + encodeURIComponent(q) : '/search');
+    });
+  }
   const form = document.querySelector('#chatForm');
   if (form) {
     form.addEventListener('submit', function (event) {
