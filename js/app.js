@@ -481,6 +481,22 @@ function detailPage(id) {
   ].join('');
 }
 
+
+function messagesPage() {
+  const rows = chats.map(function (chat) {
+    return '<article class="card-80 p-3">' +
+      '<div class="d-flex align-items-start gap-2"><span class="account-profile-avatar" style="width:42px;height:42px;flex-basis:42px;font-size:11px">80</span><div class="flex-grow-1"><div class="d-flex justify-content-between gap-2"><strong>' + chat.name + '</strong><small class="text-80-muted">' + chat.time + '</small></div><small class="text-80-muted d-block mt-1">' + chat.property + '</small><p class="mb-0 mt-2 small">' + chat.last + '</p></div></div>' +
+      '</article>';
+  }).join('');
+  return [
+    '<main class="page-content page-content-mobile messages-page"><div class="container-xl">',
+      '<section class="page-hero"><div><span class="assistant-kicker">' + icon('chat_bubble') + ' TIN NHẮN</span><h1>Trao đổi về tin thuê</h1><p>Khu vực tin nhắn giữ lại các cuộc trao đổi mẫu. Với việc tìm phòng bằng nhu cầu tự nhiên, 80Land Assistant là luồng chính.</p></div><a href="/assistant" data-link class="btn btn-80-primary">' + icon('auto_awesome') + ' Mở 80Land Assistant</a></section>',
+      '<div class="row g-3"><section class="col-lg-7"><div class="d-grid gap-2">' + rows + '</div></section>',
+      '<aside class="col-lg-5"><section class="card-80 p-4 h-100"><span class="assistant-kicker">' + icon('auto_awesome') + ' 80LAND ASSISTANT</span><h2 class="h5 mt-2">Tìm phòng bằng nhu cầu của bạn</h2><p class="text-80-muted small">Nói mức giá, khu vực và tiện ích mong muốn. Assistant sẽ chuyển yêu cầu thành bộ lọc tìm phòng.</p><a href="/assistant" data-link class="btn btn-80-primary w-100">' + icon('chat') + ' Bắt đầu tìm phòng</a></section></aside></div>',
+    '</div></main>'
+  ].join('');
+}
+
 function simpleListPage(title, subtitle, rows, actions) {
   return '<main class="page-content page-content-mobile"><div class="container-xl"><section class="page-hero"><h1>' + title + '</h1><p>' + subtitle + '</p></section><div class="d-grid gap-2">' +
     rows.map(function (row) {
@@ -499,7 +515,8 @@ function getProfileState() {
 }
 
 function getNotificationRows() {
-  const read = JSON.parse(localStorage.getItem('80land:notifications:read') || '[]');
+  let read = [];
+  try { read = JSON.parse(localStorage.getItem('80land:notifications:read') || '[]'); } catch (error) {}
   return notifications.map(function (item) {
     return Object.assign({}, item, { unread: item.unread && read.indexOf(item.id) === -1 });
   });
@@ -1233,11 +1250,20 @@ function bind() {
     });
   });
   document.querySelectorAll('[data-save]').forEach(function (element) {
+    const id = element.dataset.save;
+    const saved = localStorage.getItem('80land:saved:' + id) === '1';
+    element.innerHTML = icon(saved ? 'favorite' : 'favorite_border');
+    element.classList.toggle('is-saved', saved);
+    element.setAttribute('aria-pressed', String(saved));
     element.addEventListener('click', function (event) {
       event.preventDefault();
       event.stopPropagation();
-      localStorage.setItem('80land:lastSaved', element.dataset.save);
-      element.innerHTML = icon('favorite');
+      const next = localStorage.getItem('80land:saved:' + id) !== '1';
+      localStorage.setItem('80land:saved:' + id, next ? '1' : '0');
+      localStorage.setItem('80land:lastSaved', id);
+      element.innerHTML = icon(next ? 'favorite' : 'favorite_border');
+      element.classList.toggle('is-saved', next);
+      element.setAttribute('aria-pressed', String(next));
     });
   });
   document.querySelectorAll('[data-notification]').forEach(function (element) {
@@ -1276,6 +1302,16 @@ function bind() {
       });
     }
   }
+  const resultSearchInput = document.querySelector('#resultSearchInput');
+  if (resultSearchInput) {
+    resultSearchInput.addEventListener('keydown', function (event) {
+      if (event.key !== 'Enter') return;
+      event.preventDefault();
+      const q = resultSearchInput.value.trim();
+      navigate(q ? '/search?q=' + encodeURIComponent(q) : '/search');
+    });
+  }
+
   const heroSearchInput = document.querySelector('#heroSearchInput');
   if (heroSearchInput) {
     heroSearchInput.addEventListener('keydown', function (event) {
@@ -1989,31 +2025,39 @@ function bind() {
     updateListingPreview();
   }
 
+  function canAdvanceLandlordStep() {
+    const value=listingFormValues();
+    if(landlordStep===1 && (!value.title || !value.price || !value.area)){
+      const hint=document.querySelector('#listingBasicHint');
+      if(hint){ hint.classList.add('is-error'); hint.textContent='Vui lòng điền tiêu đề, giá thuê và diện tích trước khi tiếp tục.'; }
+      return false;
+    }
+    if(landlordStep===2 && !value.amenities.length){
+      alert('Hãy chọn ít nhất một tiện ích nổi bật cho tin đăng.');
+      return false;
+    }
+    if(landlordStep===3 && (!value.province || !value.district || !value.address)){
+      alert('Vui lòng điền đủ khu vực và địa chỉ hiển thị.');
+      return false;
+    }
+    return true;
+  }
+
   document.querySelectorAll('[data-landlord-step]').forEach(function (button) {
     button.addEventListener('click', function () {
       const target=Number(button.dataset.landlordStep);
       if(target<landlordStep){ setLandlordStep(target); return; }
-      if(target===landlordStep+1){ setLandlordStep(target); return; }
+      if(target===landlordStep+1){
+        if(canAdvanceLandlordStep()) setLandlordStep(target);
+        return;
+      }
       if(target===landlordStep){ return; }
     });
   });
 
   const landlordNext=document.querySelector('#listingNextStep');
   if(landlordNext) landlordNext.addEventListener('click', function () {
-    const value=listingFormValues();
-    if(landlordStep===1 && (!value.title || !value.price || !value.area)){
-      const hint=document.querySelector('#listingBasicHint');
-      if(hint){ hint.classList.add('is-error'); hint.textContent='Vui lòng điền tiêu đề, giá thuê và diện tích trước khi tiếp tục.'; }
-      return;
-    }
-    if(landlordStep===2 && !value.amenities.length){
-      alert('Hãy chọn ít nhất một tiện ích nổi bật cho tin đăng.');
-      return;
-    }
-    if(landlordStep===3 && (!value.province || !value.district || !value.address)){
-      alert('Vui lòng điền đủ khu vực và địa chỉ hiển thị.');
-      return;
-    }
+    if(!canAdvanceLandlordStep()) return;
     setLandlordStep(landlordStep+1);
   });
 
