@@ -290,7 +290,7 @@ function searchPage() {
   const markerPositions = [[18,26],[46,47],[70,30],[34,68],[78,65],[59,20]];
   const mapItems = results.slice(0, markerPositions.length);
   const cards = results.map(function (item) {
-    return '<a href="/property/' + item.id + '" data-link class="text-decoration-none text-dark"><article class="result-card result-card-modern">' +
+    return '<a href="' + detailHref(item.id) + '" data-link class="text-decoration-none text-dark"><article class="result-card result-card-modern">' +
       '<div class="thumb"><img src="' + item.image + '" alt="' + item.title.replace(/"/g, '&quot;') + '" loading="lazy"><button class="result-save" type="button" data-save="' + item.id + '">' + icon('favorite_border') + '</button>' +
       (item.verified ? '<span class="result-verified">' + icon('verified') + ' Xác thực</span>' : '') + '</div>' +
       '<div class="result-card-body"><div class="property-price">' + item.price + '/tháng</div><div class="property-title">' + item.title + '</div>' +
@@ -364,7 +364,7 @@ function mapPage() {
         '</div>',
       '</div>',
       '<div class="map-mobile-results"><div class="section-label-row"><strong>Phòng gần bạn</strong><a href="' + statePath('/search', state) + '" data-link>Xem danh sách</a></div><div class="horizontal-property-list">' +
-        results.slice(0, 3).map(function (item) { return '<a href="/property/' + item.id + '" data-link>' + propertyCard(item) + '</a>'; }).join('') +
+        results.slice(0, 3).map(function (item) { return '<a href="' + detailHref(item.id) + '" data-link>' + propertyCard(item) + '</a>'; }).join('') +
       '</div></div>',
       renderFilterSheet('mapFilterSheet', 'Bộ lọc bản đồ', 'Thu hẹp khu vực theo nhu cầu', state, '/map'),
     '</div></main>'
@@ -546,7 +546,7 @@ function provincesPage() {
 
 function provincePage(id) {
   const province = provinces.find(function (item) { return item.id === id; }) || provinces[0];
-  return '<main class="page-content page-content-mobile"><div class="container-xl"><section class="page-hero"><a href="/provinces" data-link class="text-80-muted small">← Khu vực</a><h1 class="mt-2">Tìm phòng tại ' + province.name + '</h1><p>' + province.count + ' tin mẫu · ' + province.districts.slice(0,3).join(' · ') + '</p></section><div class="card-80 p-4 mb-3"><h2 class="h5">Khu vực nổi bật</h2><div class="d-flex flex-wrap gap-2">' + province.districts.map(function (district) { return '<span class="quick-pill">' + district + '</span>'; }).join('') + '</div><a href="/search" data-link class="btn btn-80-primary mt-3">Xem phòng</a></div><div class="row g-3">' + listings.slice(0,2).map(function (item) { return '<div class="col-6"><a href="/property/' + item.id + '" data-link class="text-dark text-decoration-none">' + propertyCard(item) + '</a></div>'; }).join('') + '</div><div class="card-80 p-3 mt-3"><h2 class="h5">Tìm quanh khu vực</h2><div class="split-map mt-2" style="min-height:260px"><span class="map-pin" style="left:45%;top:43%"></span></div><a href="/map" data-link class="btn btn-outline-secondary w-100 mt-2">Mở bản đồ</a></div></div></main>';
+  return '<main class="page-content page-content-mobile"><div class="container-xl"><section class="page-hero"><a href="/provinces" data-link class="text-80-muted small">← Khu vực</a><h1 class="mt-2">Tìm phòng tại ' + province.name + '</h1><p>' + province.count + ' tin mẫu · ' + province.districts.slice(0,3).join(' · ') + '</p></section><div class="card-80 p-4 mb-3"><h2 class="h5">Khu vực nổi bật</h2><div class="d-flex flex-wrap gap-2">' + province.districts.map(function (district) { return '<span class="quick-pill">' + district + '</span>'; }).join('') + '</div><a href="/search" data-link class="btn btn-80-primary mt-3">Xem phòng</a></div><div class="row g-3">' + listings.slice(0,2).map(function (item) { return '<div class="col-6"><a href="' + detailHref(item.id) + '" data-link class="text-dark text-decoration-none">' + propertyCard(item) + '</a></div>'; }).join('') + '</div><div class="card-80 p-3 mt-3"><h2 class="h5">Tìm quanh khu vực</h2><div class="split-map mt-2" style="min-height:260px"><span class="map-pin" style="left:45%;top:43%"></span></div><a href="/map" data-link class="btn btn-outline-secondary w-100 mt-2">Mở bản đồ</a></div></div></main>';
 }
 
 function landlordPage() {
@@ -800,7 +800,7 @@ function bind() {
       document.querySelectorAll('.map-pin-button').forEach(function (pin) { pin.classList.remove('is-selected'); });
       marker.classList.add('is-selected');
       document.querySelectorAll('.map-preview-card').forEach(function (card) {
-        card.innerHTML = '<div><span class="badge-verified">' + icon('verified') + ' Tin xác thực</span><strong>' + item.title + '</strong><span>' + item.price + '/tháng · ' + item.location + '</span></div><a href="/property/' + item.id + '" data-link>' + icon('arrow_forward') + '</a>';
+        card.innerHTML = '<div><span class="badge-verified">' + icon('verified') + ' Tin xác thực</span><strong>' + item.title + '</strong><span>' + item.price + '/tháng · ' + item.location + '</span></div><a href="' + detailHref(item.id) + '" data-link>' + icon('arrow_forward') + '</a>';
         card.classList.add('has-selection');
         const link = card.querySelector('[data-link]');
         if (link) link.addEventListener('click', function (navEvent) {
