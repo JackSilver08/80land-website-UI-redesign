@@ -1,2 +1,84 @@
 :root{--80-red:#E53935;--80-red-dark:#B7131A;--80-ink:#151515;--80-muted:#707070;--80-surface:#fff;--80-bg:#F5F5F3;--80-line:#E5E5E0;--80-success:#2E7D32;--80-radius-sm:4px;--80-radius-md:8px;--80-radius-lg:12px;--80-radius-xl:16px;--80-radius-pill:999px;--80-shadow-1:0 4px 12px rgba(21,21,21,.06);--80-shadow-2:0 8px 24px rgba(21,21,21,.12)}
 html{scroll-behavior:smooth}body{margin:0;background:var(--80-bg);color:var(--80-ink);font-family:"Be Vietnam Pro",system-ui,sans-serif}a{text-decoration:none;color:inherit}button,input,select,textarea{font:inherit}#app{min-height:100vh}.text-80-muted{color:var(--80-muted)!important}.bg-80-bg{background:var(--80-bg)!important}.bg-80-surface{background:var(--80-surface)!important}.border-80{border-color:var(--80-line)!important}.btn-80-primary{--bs-btn-bg:var(--80-red);--bs-btn-border-color:var(--80-red);--bs-btn-hover-bg:var(--80-red-dark);--bs-btn-hover-border-color:var(--80-red-dark);--bs-btn-color:#fff;--bs-btn-hover-color:#fff}.btn-80-dark{--bs-btn-bg:var(--80-ink);--bs-btn-border-color:var(--80-ink);--bs-btn-hover-bg:#000;--bs-btn-hover-border-color:#000;--bs-btn-color:#fff;--bs-btn-hover-color:#fff}.card-80{background:#fff;border:1px solid var(--80-line);border-radius:var(--80-radius-lg);box-shadow:none}.card-80:hover{box-shadow:var(--80-shadow-1)}.section-space{padding-block:32px}@media(max-width:767.98px){.section-space{padding-block:20px}}
+
+/* 80Land Phase 1: UI foundation + responsive contract */
+:root{
+  --80-content-max:1320px;
+  --80-gutter-desktop:24px;
+  --80-gutter-mobile:14px;
+  --80-space-1:4px;
+  --80-space-2:8px;
+  --80-space-3:12px;
+  --80-space-4:16px;
+  --80-space-5:20px;
+  --80-space-6:24px;
+  --80-space-7:32px;
+  --80-space-8:40px;
+  --80-radius-xs:6px;
+  --80-radius-sm:8px;
+  --80-radius-md:10px;
+  --80-radius-lg:12px;
+  --80-radius-xl:16px;
+  --80-radius-2xl:20px;
+  --80-focus:0 0 0 3px rgba(229,57,53,.16);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{min-width:320px}
+body{min-width:320px;overflow-x:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{max-width:100%;vertical-align:middle}
+button,a,input,select,textarea{touch-action:manipulation}
+button{cursor:pointer}
+button:disabled{cursor:not-allowed}
+:focus-visible{outline:0;box-shadow:var(--80-focus)!important}
+::selection{background:#ffd9d7;color:var(--80-ink)}
+.material-symbols-outlined{font-size:20px;line-height:1;vertical-align:middle}
+.container-xl{max-width:var(--80-content-max)}
+.page-content{min-width:0}
+.btn-80-primary,.btn-80-dark{min-height:40px;border-radius:var(--80-radius-md);font-weight:700}
+.btn-80-outline{
+  --bs-btn-color:var(--80-ink);
+  --bs-btn-bg:#fff;
+  --bs-btn-border-color:var(--80-line);
+  --bs-btn-hover-color:var(--80-red-dark);
+  --bs-btn-hover-bg:#fffafa;
+  --bs-btn-hover-border-color:#efb5b2;
+  min-height:40px;
+  border-radius:var(--80-radius-md);
+  font-weight:700;
+}
+.rounded-80{border-radius:var(--80-radius-md)!important}
+.form-control,.form-select{
+  border-color:var(--80-line);
+  border-radius:var(--80-radius-md);
+  min-height:42px;
+}
+.form-control:focus,.form-select:focus{
+  border-color:#d7c9c5;
+  box-shadow:var(--80-focus);
+}
+.card-80{
+  transition:box-shadow .16s ease,border-color .16s ease,transform .16s ease;
+}
+.card-80:focus-within{border-color:#d8cbc7}
+.section-title-80{font-size:clamp(20px,2vw,28px);line-height:1.2;font-weight:700;letter-spacing:-.02em}
+.section-subtitle-80{font-size:12px;line-height:1.5;color:var(--80-muted)}
+.text-80-red{color:var(--80-red)!important}
+.surface-80{background:#fff;border:1px solid var(--80-line);border-radius:var(--80-radius-lg)}
+.icon-button-80{
+  width:40px;height:40px;display:grid;place-items:center;
+  border:1px solid var(--80-line);border-radius:var(--80-radius-md);
+  background:#fff;color:var(--80-ink);
+}
+.icon-button-80:hover{background:#faf7f6;border-color:#dcd4d0}
+@media(max-width:767.98px){
+  :root{
+    --80-gutter-mobile:12px;
+  }
+  .container-xl{width:100%;max-width:none;padding-left:var(--80-gutter-mobile);padding-right:var(--80-gutter-mobile)}
+  .page-content{padding-bottom:0}
+  .btn-80-primary,.btn-80-dark,.btn-80-outline{min-height:40px}
+  .material-symbols-outlined{font-size:19px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}
+}
