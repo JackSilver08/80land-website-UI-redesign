@@ -14,18 +14,27 @@ function layout(content) {
 
 function header() {
   return [
-    '<header class="site-header"><div class="container-xl"><div class="inner d-flex align-items-center gap-2 py-2">',
+    '<header class="site-header"><div class="container-xl"><div class="inner d-flex align-items-center justify-content-between gap-3 py-2">',
       '<a class="brand flex-shrink-0" href="/" data-link><span class="brand-mark">',
         icon('home'),
       '</span><span class="brand-copy"><strong>80Land</strong><span>Tìm phòng nhanh</span></span></a>',
-      '<div class="vr d-none d-md-block"></div>',
-      '<button class="header-icon d-none d-md-grid" data-tooltip="Khu vực">' + icon('location_on') + '</button>',
-            '<div class="d-flex align-items-center gap-1">',
-        '<a href="/saved" data-link class="header-icon" data-tooltip="Tin đã lưu">' + icon('favorite') + '<span class="count">3</span></a>',
+      '<div class="header-actions d-flex align-items-center gap-2">',
         '<a href="/messages" data-link class="header-icon" data-tooltip="Tin nhắn">' + icon('chat_bubble') + '</a>',
-        '<a href="/notifications" data-link class="header-icon" data-tooltip="Thông báo">' + icon('notifications') + '<span class="count">3</span></a>',
-        '<a href="/profile" data-link class="header-icon" data-tooltip="Tài khoản">' + icon('person') + '</a>',
-        '<a href="/landlord" data-link class="btn btn-sm btn-80-primary ms-1 rounded-80 d-none d-md-inline-flex align-items-center gap-1 px-3">' + icon('add') + ' Đăng tin</a>',
+        '<a href="/landlord" data-link class="btn btn-sm btn-80-primary ms-1 rounded-80 d-inline-flex align-items-center gap-1 px-3">' + icon('add') + ' Đăng tin</a>',
+        '<div class="user-menu">',
+          '<button type="button" class="user-menu-trigger" id="userMenuTrigger" aria-expanded="false" aria-haspopup="true">',
+            '<span class="user-avatar" aria-hidden="true">QT</span>',
+            '<span class="user-name">Quang Tuấn</span>',
+            '<span class="user-chevron">' + icon('expand_more') + '</span>',
+          '</button>',
+          '<div class="user-dropdown" id="userDropdown" role="menu" aria-hidden="true">',
+            '<a href="/saved" data-link class="user-dropdown-item" role="menuitem">' + icon('favorite') + '<span>Tin đã lưu</span><span class="menu-count">3</span></a>',
+            '<a href="/notifications" data-link class="user-dropdown-item" role="menuitem">' + icon('notifications') + '<span>Thông báo</span><span class="menu-count">3</span></a>',
+            '<a href="/profile" data-link class="user-dropdown-item" role="menuitem">' + icon('person') + '<span>Trang cá nhân</span></a>',
+            '<div class="user-dropdown-divider"></div>',
+            '<button type="button" class="user-dropdown-item user-logout" id="logoutBtn" role="menuitem">' + icon('logout') + '<span>Đăng xuất</span></button>',
+          '</div>',
+        '</div>',
       '</div>',
     '</div></div></header>',
     '<div class="utility-bar py-2"><div class="container-xl d-flex justify-content-between gap-3 flex-wrap">',
@@ -269,6 +278,37 @@ function bind() {
       element.classList.remove('border-danger');
     });
   });
+  const userMenu = document.querySelector('.user-menu');
+  const userMenuTrigger = document.querySelector('#userMenuTrigger');
+  const userDropdown = document.querySelector('#userDropdown');
+  if (userMenu && userMenuTrigger && userDropdown) {
+    const setUserMenuOpen = function (open) {
+      userMenu.classList.toggle('is-open', open);
+      userMenuTrigger.setAttribute('aria-expanded', String(open));
+      userDropdown.setAttribute('aria-hidden', String(!open));
+    };
+    userMenuTrigger.addEventListener('click', function (event) {
+      event.stopPropagation();
+      setUserMenuOpen(!userMenu.classList.contains('is-open'));
+    });
+    userDropdown.addEventListener('click', function (event) {
+      event.stopPropagation();
+    });
+    document.addEventListener('click', function () {
+      if (userMenu.classList.contains('is-open')) setUserMenuOpen(false);
+    }, { once: true });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') setUserMenuOpen(false);
+    });
+    const logoutBtn = document.querySelector('#logoutBtn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', function () {
+        localStorage.removeItem('80land:lastSaved');
+        setUserMenuOpen(false);
+        alert('Bạn đã đăng xuất khỏi 80Land.');
+      });
+    }
+  }
   const heroSearchInput = document.querySelector('#heroSearchInput');
   if (heroSearchInput) {
     heroSearchInput.addEventListener('keydown', function (event) {
