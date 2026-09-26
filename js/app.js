@@ -172,91 +172,201 @@ function homePage() {
   ].join('');
 }
 
+function searchState() {
+  const params = new URLSearchParams(location.search);
+  return {
+    q: (params.get('q') || '').trim(),
+    price: params.get('price') || 'all',
+    type: params.get('type') || 'all',
+    amenities: (params.get('amenities') || '').split(',').filter(Boolean),
+    sort: params.get('sort') || 'relevance',
+    radius: params.get('r') || '2'
+  };
+}
+
+function listingType(item) {
+  return item.id === 3 || item.id === 5 ? 'Chung cư' : 'Phòng trọ';
+}
+
+function listingPrice(item) {
+  return Number(String(item.price).replace(/[^0-9,]/g, '').replace(',', '.')) || 0;
+}
+
+function listingMatches(item, state) {
+  const query = state.q.toLowerCase();
+  const haystack = [item.title, item.location, item.area, item.features.join(' '), listingType(item)].join(' ').toLowerCase();
+  if (query && haystack.indexOf(query) === -1) return false;
+
+  const price = listingPrice(item);
+  if (state.price === 'under-4' && price >= 4) return false;
+  if (state.price === '4-6' && (price < 4 || price > 6)) return false;
+  if (state.price === '6-10' && (price < 6 || price > 10)) return false;
+
+  if (state.type !== 'all' && listingType(item) !== state.type) return false;
+  if (state.amenities.length && state.amenities.some(function (amenity) { return item.features.indexOf(amenity) === -1; })) return false;
+
+  return true;
+}
+
+function filteredListings(state) {
+  const result = listings.filter(function (item) { return listingMatches(item, state); });
+  if (state.sort === 'price-asc') result.sort(function (a, b) { return listingPrice(a) - listingPrice(b); });
+  if (state.sort === 'price-desc') result.sort(function (a, b) { return listingPrice(b) - listingPrice(a); });
+  if (state.sort === 'area-desc') result.sort(function (a, b) { return Number.parseFloat(b.area) - Number.parseFloat(a.area); });
+  return result;
+}
+
+function statePath(base, state, overrides) {
+  const next = Object.assign({}, state, overrides || {});
+  const params = new URLSearchParams();
+  if (next.q) params.set('q', next.q);
+  if (next.price && next.price !== 'all') params.set('price', next.price);
+  if (next.type && next.type !== 'all') params.set('type', next.type);
+  if (next.amenities && next.amenities.length) params.set('amenities', next.amenities.join(','));
+  if (next.sort && next.sort !== 'relevance') params.set('sort', next.sort);
+  if (base === '/map' && next.radius) params.set('r', next.radius);
+  const query = params.toString();
+  return query ? base + '?' + query : base;
+}
+
+function filterOption(group, value, label, active) {
+  return '<button type="button" class="filter-option' + (active ? ' active' : '') + '" data-filter-option data-filter-group="' + group + '" data-filter-value="' + value + '">' + label + '</button>';
+}
+
+function renderFilterSheet(id, title, subtitle, state, base) {
+  const priceOptions = [
+    ['all', 'Tất cả'],
+    ['under-4', 'Dưới 4 triệu'],
+    ['4-6', '4–6 triệu'],
+    ['6-10', '6–10 triệu']
+  ];
+  const typeOptions = [
+    ['all', 'Tất cả'],
+    ['Phòng trọ', 'Phòng trọ'],
+    ['Chung cư', 'Chung cư']
+  ];
+  const amenities = ['WC riêng', 'Máy lạnh', 'Ban công', 'Gác'];
+  return [
+    '<div class="filter-sheet-backdrop" id="' + id + 'Backdrop"></div>',
+    '<aside class="filter-sheet" id="' + id + '" data-filter-base="' + base + '" aria-hidden="true">',
+      '<div class="filter-sheet-grabber"></div>',
+      '<div class="filter-sheet-head"><div><strong>' + title + '</strong><small>' + subtitle + '</small></div><button type="button" class="icon-button" data-filter-close aria-label="Đóng bộ lọc">' + icon('close') + '</button></div>',
+      '<div class="filter-sheet-body">',
+        '<div class="filter-group"><span>Khoảng giá</span><div class="filter-option-row">' + priceOptions.map(function (item) { return filterOption('price', item[0], item[1], state.price === item[0]); }).join('') + '</div></div>',
+        '<div class="filter-group"><span>Loại hình</span><div class="filter-option-row">' + typeOptions.map(function (item) { return filterOption('type', item[0], item[1], state.type === item[0]); }).join('') + '</div></div>',
+        '<div class="filter-group"><span>Tiện ích bắt buộc</span><div class="filter-check-grid">' + amenities.map(function (amenity) {
+          return '<label><input type="checkbox" data-filter-amenity="' + amenity + '"' + (state.amenities.indexOf(amenity) > -1 ? ' checked' : '') + '> ' + amenity + '</label>';
+        }).join('') + '</div></div>',
+      '</div>',
+      '<div class="filter-sheet-foot"><button type="button" class="btn btn-80-outline" data-filter-reset>Đặt lại</button><button type="button" class="btn btn-80-primary flex-grow-1" data-filter-apply>Áp dụng</button></div>',
+    '</aside>'
+  ].join('');
+}
+
+function renderSortMenu(state, base) {
+  const items = [
+    ['relevance', 'Phù hợp nhất'],
+    ['price-asc', 'Giá thấp đến cao'],
+    ['price-desc', 'Giá cao đến thấp'],
+    ['area-desc', 'Diện tích lớn nhất']
+  ];
+  return '<div class="sort-menu" id="searchSortMenu" aria-hidden="true">' +
+    items.map(function (item) {
+      return '<button type="button" class="' + (state.sort === item[0] ? 'active' : '') + '" data-sort-value="' + item[0] + '" data-sort-base="' + base + '">' + icon(state.sort === item[0] ? 'check' : 'sort') + '<span>' + item[1] + '</span></button>';
+    }).join('') +
+  '</div>';
+}
+
 function searchPage() {
+  const state = searchState();
+  const results = filteredListings(state);
+  const searchLabel = state.q || 'TP. Hồ Chí Minh';
+  const resultCount = results.length;
+  const activeFilterCount = (state.price !== 'all' ? 1 : 0) + (state.type !== 'all' ? 1 : 0) + state.amenities.length;
+  const priceLabel = state.price === 'under-4' ? 'Dưới 4 triệu' : state.price === '4-6' ? '4–6 triệu' : state.price === '6-10' ? '6–10 triệu' : 'Giá';
+  const typeLabel = state.type === 'all' ? 'Loại phòng' : state.type;
+  const amenitiesLabel = state.amenities.length ? 'Tiện ích (' + state.amenities.length + ')' : 'Tiện ích';
+  const sortLabel = state.sort === 'price-asc' ? 'Giá thấp đến cao' : state.sort === 'price-desc' ? 'Giá cao đến thấp' : state.sort === 'area-desc' ? 'Diện tích lớn nhất' : 'Phù hợp nhất';
+  const markerPositions = [[18,26],[46,47],[70,30],[34,68],[78,65],[59,20]];
+  const mapItems = results.slice(0, markerPositions.length);
+  const cards = results.map(function (item) {
+    return '<a href="/property/' + item.id + '" data-link class="text-decoration-none text-dark"><article class="result-card result-card-modern">' +
+      '<div class="thumb"><img src="' + item.image + '" alt="' + item.title.replace(/"/g, '&quot;') + '" loading="lazy"><button class="result-save" type="button" data-save="' + item.id + '">' + icon('favorite_border') + '</button>' +
+      (item.verified ? '<span class="result-verified">' + icon('verified') + ' Xác thực</span>' : '') + '</div>' +
+      '<div class="result-card-body"><div class="property-price">' + item.price + '/tháng</div><div class="property-title">' + item.title + '</div>' +
+      '<div class="result-meta-row"><span>' + icon('location_on') + ' ' + item.location + '</span><span>' + icon('straighten') + ' ' + item.area + '</span></div>' +
+      '<div class="result-feature-row">' + item.features.slice(0, 2).map(function (feature) { return '<span>' + feature + '</span>'; }).join('') + '</div></div>' +
+    '</article></a>';
+  }).join('');
+  const emptyState = '<div class="search-empty-state"><span>' + icon('travel_explore') + '</span><strong>Chưa có tin phù hợp</strong><p>Thử bỏ bớt bộ lọc hoặc đổi khu vực tìm kiếm.</p><a href="/search" data-link class="btn btn-80-outline">Xóa bộ lọc</a></div>';
+  const markers = mapItems.map(function (item, index) {
+    const position = markerPositions[index];
+    return '<button type="button" class="map-pin map-pin-button" style="left:' + position[0] + '%;top:' + position[1] + '%" data-map-item="' + item.id + '"><span class="map-pin-price">' + item.price.replace(' triệu', 'tr') + '</span></button>';
+  }).join('');
   return [
     '<main class="page-content page-content-mobile search-page"><div class="container-xl">',
       '<section class="search-toolbar">',
         '<div class="search-toolbar-main">',
-          '<a href="/" data-link class="search-back">' + icon('arrow_back') + '</a>',
-          '<div class="search-toolbar-input"><span>' + icon('search') + '</span><input id="resultSearchInput" value="TP. Hồ Chí Minh" aria-label="Tìm kiếm"></div>',
-          '<button type="button" class="search-toolbar-location" data-location><span>' + icon('my_location') + '</span><span>Quanh tôi</span></button>',
+          '<a href="/" data-link class="search-back" aria-label="Quay lại">' + icon('arrow_back') + '</a>',
+          '<label class="search-toolbar-input"><span>' + icon('search') + '</span><input id="resultSearchInput" value="' + searchLabel.replace(/"/g, '&quot;') + '" placeholder="Tìm quận, thành phố hoặc từ khóa" aria-label="Tìm kiếm"></label>',
+          '<button type="button" class="search-toolbar-location" data-location aria-label="Tìm quanh tôi"><span>' + icon('my_location') + '</span><span>Quanh tôi</span></button>',
         '</div>',
         '<div class="search-toolbar-actions">',
-          '<button type="button" class="filter-chip active" data-filter-toggle><span>' + icon('tune') + '</span> Bộ lọc</button>',
-          '<button type="button" class="filter-chip">Giá</button>',
-          '<button type="button" class="filter-chip">Loại phòng</button>',
-          '<button type="button" class="filter-chip">Tiện ích</button>',
-          '<button type="button" class="filter-chip filter-chip-sort">Phù hợp nhất ' + icon('expand_more') + '</button>',
+          '<button type="button" class="filter-chip' + (activeFilterCount ? ' active' : '') + '" data-filter-toggle><span>' + icon('tune') + '</span> Bộ lọc' + (activeFilterCount ? ' (' + activeFilterCount + ')' : '') + '</button>',
+          '<button type="button" class="filter-chip' + (state.price !== 'all' ? ' active' : '') + '" data-filter-toggle data-filter-focus="price">' + priceLabel + '</button>',
+          '<button type="button" class="filter-chip' + (state.type !== 'all' ? ' active' : '') + '" data-filter-toggle data-filter-focus="type">' + typeLabel + '</button>',
+          '<button type="button" class="filter-chip' + (state.amenities.length ? ' active' : '') + '" data-filter-toggle data-filter-focus="amenity">' + amenitiesLabel + '</button>',
+          '<div class="sort-control"><button type="button" class="filter-chip filter-chip-sort" data-sort-toggle>' + sortLabel + ' ' + icon('expand_more') + '</button>' + renderSortMenu(state, '/search') + '</div>',
         '</div>',
       '</section>',
-      '<div class="search-status-row"><div><strong>1.420 phòng</strong><span> tại TP. Hồ Chí Minh</span></div><a href="/assistant" data-link class="recommend-link">' + icon('auto_awesome') + ' Gợi ý theo nhu cầu</a></div>',
+      '<div class="search-status-row"><div><strong>' + resultCount + ' tin mẫu</strong><span> tại ' + searchLabel + '</span></div><div class="search-status-actions"><a href="/assistant" data-link class="recommend-link">' + icon('auto_awesome') + ' Gợi ý theo nhu cầu</a><a href="' + statePath('/map', state) + '" data-link class="mobile-map-link">' + icon('map') + ' Mở bản đồ</a></div></div>',
       '<div class="search-layout">',
         '<section class="search-results-column">',
-          '<div class="search-result-grid">',
-            listings.map(function (item) {
-              return '<a href="/property/' + item.id + '" data-link class="text-decoration-none text-dark"><article class="result-card result-card-modern">' +
-                '<div class="thumb"><img src="' + item.image + '" alt="' + item.title.replace(/"/g, '&quot;') + '" loading="lazy"><button class="result-save" type="button" data-save="' + item.id + '">' + icon('favorite_border') + '</button>' +
-                (item.verified ? '<span class="result-verified">' + icon('verified') + ' Xác thực</span>' : '') + '</div>' +
-                '<div class="result-card-body"><div class="property-price">' + item.price + '/tháng</div><div class="property-title">' + item.title + '</div>' +
-                '<div class="result-meta-row"><span>' + icon('location_on') + ' ' + item.location + '</span><span>' + icon('straighten') + ' ' + item.area + '</span></div>' +
-                '<div class="result-feature-row">' + item.features.slice(0, 2).map(function (feature) { return '<span>' + feature + '</span>'; }).join('') + '</div></div>' +
-              '</article></a>';
-            }).join(''),
-          '</div>',
+          '<div class="search-result-grid">' + (cards || emptyState) + '</div>',
         '</section>',
         '<aside class="search-map-panel">',
-          '<div class="map-panel-head"><div><strong>Bản đồ khu vực</strong><small>Hiển thị phòng đang có trong khu vực tìm kiếm</small></div><button class="map-locate-btn" type="button" data-location>' + icon('my_location') + '</button></div>',
+          '<div class="map-panel-head"><div><strong>Bản đồ khu vực</strong><small>' + resultCount + ' tin mẫu trong vùng tìm kiếm</small></div><button class="map-locate-btn" type="button" data-location aria-label="Lấy vị trí">' + icon('my_location') + '</button></div>',
           '<div class="split-map search-map">',
             '<span class="map-neighborhood-label label-a">Bình Thạnh</span><span class="map-neighborhood-label label-b">Thủ Đức</span><span class="map-neighborhood-label label-c">Quận 7</span>',
-            '<button type="button" class="map-pin map-pin-button" style="left:22%;top:28%" data-map-item="1"><span class="map-pin-price">4,2tr</span></button>',
-            '<button type="button" class="map-pin map-pin-button" style="left:55%;top:50%" data-map-item="2"><span class="map-pin-price">3,8tr</span></button>',
-            '<button type="button" class="map-pin map-pin-button" style="left:72%;top:33%" data-map-item="3"><span class="map-pin-price">5,0tr</span></button>',
-            '<button type="button" class="map-pin map-pin-button" style="left:44%;top:72%" data-map-item="4"><span class="map-pin-price">3,2tr</span></button>',
-            '<div class="map-preview-card" id="mapPreviewCard"><div><span class="badge-verified">' + icon('verified') + ' Chính chủ</span><strong>Chọn một điểm trên bản đồ</strong><span>Giá và thông tin phòng sẽ hiện tại đây.</span></div></div>',
+            markers || '<span class="map-no-results">' + icon('search_off') + ' Không có điểm phù hợp</span>',
+            '<div class="map-preview-card" id="mapPreviewCard"><div><span class="badge-verified">' + icon('verified') + ' Tin xác thực</span><strong>Chọn một điểm trên bản đồ</strong><span>Thông tin phòng sẽ hiện tại đây.</span></div></div>',
           '</div>',
         '</aside>',
       '</div>',
-      '<div class="filter-sheet-backdrop" id="filterBackdrop"></div>',
-      '<aside class="filter-sheet" id="searchFilterSheet" aria-hidden="true">',
-        '<div class="filter-sheet-grabber"></div>',
-        '<div class="filter-sheet-head"><div><strong>Bộ lọc tìm phòng</strong><small>Chọn tiêu chí bạn thực sự cần</small></div><button type="button" class="icon-button" data-filter-close>' + icon('close') + '</button></div>',
-        '<div class="filter-sheet-body">',
-          '<div class="filter-group"><span>Khoảng giá</span><div class="filter-option-row"><button class="filter-option active">Dưới 4 triệu</button><button class="filter-option">4–6 triệu</button><button class="filter-option">6–10 triệu</button></div></div>',
-          '<div class="filter-group"><span>Loại hình</span><div class="filter-option-row"><button class="filter-option active">Phòng trọ</button><button class="filter-option">Chung cư</button><button class="filter-option">Nhà nguyên căn</button></div></div>',
-          '<div class="filter-group"><span>Ưu tiên</span><div class="filter-check-grid"><label><input type="checkbox" checked> WC riêng</label><label><input type="checkbox" checked> Có máy lạnh</label><label><input type="checkbox"> Ban công</label><label><input type="checkbox"> Không chung chủ</label></div></div>',
-        '</div>',
-        '<div class="filter-sheet-foot"><button type="button" class="btn btn-80-outline" data-filter-close>Đặt lại</button><button type="button" class="btn btn-80-primary flex-grow-1" data-filter-close>Hiển thị 1.420 phòng</button></div>',
-      '</aside>',
-    '</div></main>'
+      renderFilterSheet('searchFilterSheet', 'Bộ lọc tìm phòng', 'Chọn tiêu chí bạn thực sự cần', state, '/search'),
+    '</div></main>',
   ].join('');
 }
 
 function mapPage() {
+  const state = searchState();
+  const radius = state.radius || '2';
+  const results = filteredListings(state);
+  const markerPositions = [[18,26],[46,47],[70,30],[34,68],[78,65],[59,20]];
+  const mapItems = results.slice(0, markerPositions.length);
+  const markerHtml = mapItems.map(function (item, index) {
+    const position = markerPositions[index];
+    return '<button type="button" class="map-pin map-pin-button" style="left:' + position[0] + '%;top:' + position[1] + '%" data-map-item="' + item.id + '"><span class="map-pin-price">' + item.price.replace(' triệu', 'tr') + '</span></button>';
+  }).join('');
+  const radiusOptions = ['1','2','5'].map(function (value) {
+    return '<a href="' + statePath('/map', state, { radius: value }) + '" data-link class="' + (radius === value ? 'active' : '') + '">' + value + ' km</a>';
+  }).join('');
   return [
     '<main class="page-content page-content-mobile"><div class="container-xl">',
-      '<section class="page-hero map-page-hero"><div><a href="/search" data-link class="text-80-muted small">' + icon('arrow_back') + ' Kết quả</a><h1>Tìm phòng quanh bạn</h1><p>Chọn bán kính hoặc dùng vị trí hiện tại để khám phá phòng gần nhất.</p></div><div class="map-radius-picker"><span>Bán kính</span><button class="active">1 km</button><button>2 km</button><button>5 km</button></div></section>',
+      '<section class="page-hero map-page-hero"><div><a href="' + statePath('/search', state) + '" data-link class="text-80-muted small">' + icon('arrow_back') + ' Kết quả</a><h1>Tìm phòng quanh bạn</h1><p>Chọn bán kính hoặc dùng vị trí hiện tại để khám phá phòng gần nhất.</p></div><div class="map-radius-picker"><span>Bán kính</span>' + radiusOptions + '</div></section>',
       '<div class="map-experience">',
         '<div class="split-map full-map">',
           '<span class="map-neighborhood-label label-a">Bình Thạnh</span><span class="map-neighborhood-label label-b">Thủ Đức</span><span class="map-neighborhood-label label-c">Quận 7</span>',
-          '<button type="button" class="map-pin map-pin-button" style="left:22%;top:28%" data-map-item="1"><span class="map-pin-price">4,2tr</span></button>',
-          '<button type="button" class="map-pin map-pin-button" style="left:55%;top:50%" data-map-item="2"><span class="map-pin-price">3,8tr</span></button>',
-          '<button type="button" class="map-pin map-pin-button" style="left:72%;top:33%" data-map-item="3"><span class="map-pin-price">5,0tr</span></button>',
-          '<button type="button" class="map-pin map-pin-button" style="left:44%;top:72%" data-map-item="4"><span class="map-pin-price">3,2tr</span></button>',
+          markerHtml || '<span class="map-no-results">' + icon('search_off') + ' Không có điểm phù hợp</span>',
           '<button type="button" class="map-control map-control-locate" data-location>' + icon('my_location') + '<span>Vị trí của tôi</span></button>',
           '<button type="button" class="map-control map-control-filter" data-filter-toggle>' + icon('tune') + '<span>Bộ lọc</span></button>',
-          '<div class="map-floating-summary"><strong>24 phòng trong 2 km</strong><span>TP.HCM · dưới 6 triệu · WC riêng</span><a href="/search" data-link>Danh sách ' + icon('arrow_forward') + '</a></div>',
+          '<div class="map-floating-summary"><strong>' + results.length + ' tin mẫu trong ' + radius + ' km</strong><span>' + (state.q || 'TP.HCM') + ' · ' + (state.price === 'all' ? 'mọi mức giá' : state.price === 'under-4' ? 'dưới 4 triệu' : state.price === '4-6' ? '4–6 triệu' : '6–10 triệu') + (state.amenities.length ? ' · ' + state.amenities.join(', ') : '') + '</span><a href="' + statePath('/search', state) + '" data-link>Danh sách ' + icon('arrow_forward') + '</a></div>',
         '</div>',
       '</div>',
-      '<div class="map-mobile-results"><div class="section-label-row"><strong>Phòng gần bạn</strong><a href="/search" data-link>Xem danh sách</a></div><div class="horizontal-property-list">' +
-        listings.slice(0, 3).map(function (item) { return '<a href="/property/' + item.id + '" data-link>' + propertyCard(item) + '</a>'; }).join('') +
+      '<div class="map-mobile-results"><div class="section-label-row"><strong>Phòng gần bạn</strong><a href="' + statePath('/search', state) + '" data-link>Xem danh sách</a></div><div class="horizontal-property-list">' +
+        results.slice(0, 3).map(function (item) { return '<a href="/property/' + item.id + '" data-link>' + propertyCard(item) + '</a>'; }).join('') +
       '</div></div>',
-      '<div class="filter-sheet-backdrop" id="filterBackdropMap"></div>',
-      '<aside class="filter-sheet" id="mapFilterSheet" aria-hidden="true">',
-        '<div class="filter-sheet-grabber"></div>',
-        '<div class="filter-sheet-head"><div><strong>Bộ lọc bản đồ</strong><small>Thu hẹp khu vực theo nhu cầu</small></div><button type="button" class="icon-button" data-filter-close>' + icon('close') + '</button></div>',
-        '<div class="filter-sheet-body"><div class="filter-group"><span>Khu vực</span><div class="filter-option-row"><button class="filter-option active">Quanh tôi</button><button class="filter-option">TP.HCM</button><button class="filter-option">Đồng Nai</button></div></div><div class="filter-group"><span>Khoảng giá</span><div class="filter-option-row"><button class="filter-option active">Dưới 6 triệu</button><button class="filter-option">6–10 triệu</button></div></div></div>',
-        '<div class="filter-sheet-foot"><button type="button" class="btn btn-80-outline" data-filter-close>Đặt lại</button><button type="button" class="btn btn-80-primary flex-grow-1" data-filter-close>Áp dụng</button></div>',
-      '</aside>',
+      renderFilterSheet('mapFilterSheet', 'Bộ lọc bản đồ', 'Thu hẹp khu vực theo nhu cầu', state, '/map'),
     '</div></main>'
   ].join('');
 }
@@ -505,17 +615,55 @@ function bind() {
   document.querySelectorAll('[data-filter-toggle]').forEach(function (element) {
     element.addEventListener('click', function () {
       const sheet = document.querySelector('#searchFilterSheet') || document.querySelector('#mapFilterSheet');
-      const backdrop = document.querySelector('#filterBackdrop') || document.querySelector('#filterBackdropMap');
+      const backdrop = sheet ? document.querySelector('#' + sheet.id + 'Backdrop') : null;
       if (!sheet) return;
       sheet.classList.add('is-open');
       sheet.setAttribute('aria-hidden', 'false');
       if (backdrop) backdrop.classList.add('is-open');
     });
   });
+
+  document.querySelectorAll('[data-filter-option]').forEach(function (option) {
+    option.addEventListener('click', function () {
+      const group = option.dataset.filterGroup;
+      option.parentElement.querySelectorAll('[data-filter-option][data-filter-group="' + group + '"]').forEach(function (item) {
+        item.classList.remove('active');
+      });
+      option.classList.add('active');
+    });
+  });
+
+  document.querySelectorAll('[data-filter-apply]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      const sheet = button.closest('.filter-sheet');
+      if (!sheet) return;
+      const base = sheet.dataset.filterBase || '/search';
+      const current = searchState();
+      const price = sheet.querySelector('[data-filter-option][data-filter-group="price"].active');
+      const type = sheet.querySelector('[data-filter-option][data-filter-group="type"].active');
+      const amenities = Array.from(sheet.querySelectorAll('[data-filter-amenity]:checked')).map(function (input) { return input.dataset.filterAmenity; });
+      navigate(statePath(base, current, {
+        price: price ? price.dataset.filterValue : 'all',
+        type: type ? type.dataset.filterValue : 'all',
+        amenities: amenities,
+        radius: current.radius
+      }));
+    });
+  });
+
+  document.querySelectorAll('[data-filter-reset]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      const sheet = button.closest('.filter-sheet');
+      const base = sheet ? (sheet.dataset.filterBase || '/search') : '/search';
+      const current = searchState();
+      navigate(statePath(base, current, { price: 'all', type: 'all', amenities: [], radius: current.radius }));
+    });
+  });
+
   document.querySelectorAll('[data-filter-close]').forEach(function (element) {
     element.addEventListener('click', function () {
       const sheet = element.closest('.filter-sheet');
-      const backdrop = document.querySelector('#filterBackdrop.is-open') || document.querySelector('#filterBackdropMap.is-open');
+      const backdrop = sheet ? document.querySelector('#' + sheet.id + 'Backdrop') : null;
       if (sheet) {
         sheet.classList.remove('is-open');
         sheet.setAttribute('aria-hidden', 'true');
@@ -523,16 +671,35 @@ function bind() {
       if (backdrop) backdrop.classList.remove('is-open');
     });
   });
+
   document.querySelectorAll('.filter-sheet-backdrop').forEach(function (backdrop) {
     backdrop.addEventListener('click', function () {
-      const sheet = document.querySelector('.filter-sheet.is-open');
-      if (sheet) {
+      const sheet = backdrop.previousElementSibling;
+      if (sheet && sheet.classList.contains('filter-sheet')) {
         sheet.classList.remove('is-open');
         sheet.setAttribute('aria-hidden', 'true');
       }
       backdrop.classList.remove('is-open');
     });
   });
+
+  document.querySelectorAll('[data-sort-toggle]').forEach(function (button) {
+    button.addEventListener('click', function (event) {
+      event.stopPropagation();
+      const menu = document.querySelector('#searchSortMenu');
+      if (menu) {
+        const open = menu.classList.toggle('is-open');
+        menu.setAttribute('aria-hidden', String(!open));
+      }
+    });
+  });
+
+  document.querySelectorAll('[data-sort-value]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      navigate(statePath(button.dataset.sortBase || '/search', searchState(), { sort: button.dataset.sortValue }));
+    });
+  });
+
   document.querySelectorAll('.map-pin-button').forEach(function (marker) {
     marker.addEventListener('click', function (event) {
       event.preventDefault();
@@ -543,13 +710,15 @@ function bind() {
       document.querySelectorAll('.map-preview-card').forEach(function (card) {
         card.innerHTML = '<div><span class="badge-verified">' + icon('verified') + ' Tin xác thực</span><strong>' + item.title + '</strong><span>' + item.price + '/tháng · ' + item.location + '</span></div><a href="/property/' + item.id + '" data-link>' + icon('arrow_forward') + '</a>';
         card.classList.add('has-selection');
-        card.querySelector('[data-link]').addEventListener('click', function (navEvent) {
+        const link = card.querySelector('[data-link]');
+        if (link) link.addEventListener('click', function (navEvent) {
           navEvent.preventDefault();
           navigate('/property/' + item.id);
         });
       });
     });
   });
+
   document.querySelectorAll('[data-location]').forEach(function (element) {
     element.addEventListener('click', function () {
       const original = element.innerHTML;
@@ -576,42 +745,17 @@ function bind() {
       );
     });
   });
-  document.querySelectorAll('.assistant-choice').forEach(function (choice) {
-    choice.addEventListener('click', function () {
-      const multi = choice.closest('.assistant-multi');
-      if (multi) choice.classList.toggle('active');
-      else {
-        Array.from(choice.parentElement.children).forEach(function (item) { item.classList.remove('active'); });
-        choice.classList.add('active');
+
+  document.addEventListener('click', function (event) {
+    if (!event.target.closest('.sort-control')) {
+      const menu = document.querySelector('#searchSortMenu');
+      if (menu) {
+        menu.classList.remove('is-open');
+        menu.setAttribute('aria-hidden', 'true');
       }
-    });
+    }
   });
-  const savePreferences = document.querySelector('#savePreferences');
-  if (savePreferences) {
-    savePreferences.addEventListener('click', function () {
-      localStorage.setItem('80land:preferences', 'saved');
-      navigate('/search?personalized=1');
-    });
-  }
-  const nextListingStep = document.querySelector('#nextListingStep');
-  if (nextListingStep) {
-    nextListingStep.addEventListener('click', function () {
-      document.querySelectorAll('.listing-stepper .listing-step').forEach(function (step, index) {
-        step.classList.toggle('active', index === 1);
-      });
-      const progress = document.querySelector('.listing-progress i');
-      if (progress) progress.style.width = '50%';
-      const label = document.querySelector('.listing-progress span');
-      if (label) label.textContent = '50% hoàn thành';
-      nextListingStep.innerHTML = 'Tiếp tục ' + icon('arrow_forward');
-    });
-  }
-  const resultSearchInput = document.querySelector('#resultSearchInput');
-  if (resultSearchInput) {
-    resultSearchInput.addEventListener('keydown', function (event) {
-      if (event.key === 'Enter') navigate('/search?q=' + encodeURIComponent(resultSearchInput.value.trim()));
-    });
-  }
+
   initHero();
 }
 
