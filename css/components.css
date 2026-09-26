@@ -1071,3 +1071,181 @@ html,body,#app{max-width:100%;overflow-x:hidden}
   .home-tool-content h2{font-size:18px}
   .home-assistant-card{min-height:258px}
 }
+
+
+/* Phase 3: Search + Filter + Map */
+.sort-control{position:relative;display:inline-flex}
+.sort-menu{
+  position:absolute;
+  z-index:1105;
+  top:calc(100% + 7px);
+  right:0;
+  width:200px;
+  padding:5px;
+  border:1px solid var(--80-line);
+  border-radius:12px;
+  background:#fff;
+  box-shadow:0 18px 38px rgba(21,21,21,.14);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transform:translateY(-4px);
+  transition:.16s ease;
+}
+.sort-menu.is-open{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transform:translateY(0);
+}
+.sort-menu button{
+  width:100%;
+  min-height:36px;
+  border:0;
+  border-radius:8px;
+  background:#fff;
+  color:#514945;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:0 9px;
+  text-align:left;
+  font-size:10px;
+  font-weight:600;
+}
+.sort-menu button:hover{background:#faf6f4}
+.sort-menu button.active{background:#fff1f0;color:var(--80-red-dark);font-weight:800}
+.sort-menu .material-symbols-outlined{font-size:16px}
+.search-status-actions{display:flex;align-items:center;justify-content:flex-end;gap:12px}
+.mobile-map-link{
+  display:none;
+  align-items:center;
+  gap:4px;
+  color:var(--80-ink);
+  font-size:10px;
+  font-weight:800;
+  white-space:nowrap;
+}
+.mobile-map-link:hover{color:var(--80-red-dark)}
+.search-empty-state{
+  min-height:280px;
+  grid-column:1 / -1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  padding:30px 18px;
+  border:1px dashed #dccfcb;
+  border-radius:16px;
+  background:#fff;
+  text-align:center;
+}
+.search-empty-state>span{
+  width:44px;
+  height:44px;
+  display:grid;
+  place-items:center;
+  border-radius:12px;
+  background:#fff1f0;
+  color:var(--80-red);
+}
+.search-empty-state>span .material-symbols-outlined{font-size:24px}
+.search-empty-state strong{font-size:13px}
+.search-empty-state p{margin:0;color:var(--80-muted);font-size:10px}
+.search-empty-state .btn{margin-top:8px;font-size:10px}
+.map-no-results{
+  position:absolute;
+  z-index:3;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  color:#6c6762;
+  font-size:10px;
+  font-weight:700;
+  pointer-events:none;
+}
+.map-no-results .material-symbols-outlined{font-size:18px}
+.map-radius-picker>a{
+  border:1px solid var(--80-line);
+  background:#fff;
+  color:var(--80-ink);
+  border-radius:999px;
+  padding:6px 9px;
+  font-size:10px;
+  text-decoration:none;
+}
+.map-radius-picker>a:hover{border-color:#d8bbb7;color:var(--80-red-dark)}
+.map-radius-picker>a.active{
+  background:var(--80-ink);
+  border-color:var(--80-ink);
+  color:#fff;
+}
+.search-map-panel .map-pin-button,
+.full-map .map-pin-button{
+  width:14px;
+  height:14px;
+  position:absolute;
+  padding:0;
+  border-radius:50% 50% 50% 0;
+  background:var(--80-ink);
+  transform:rotate(-45deg);
+  box-shadow:0 6px 12px rgba(21,21,21,.18);
+}
+.search-map-panel .map-pin-button .map-pin-price,
+.full-map .map-pin-button .map-pin-price{
+  right:-7px;
+  top:-20px;
+}
+.search-map-panel .map-pin-button.is-selected,
+.full-map .map-pin-button.is-selected{
+  transform:rotate(-45deg) scale(1.18);
+  background:var(--80-red);
+}
+@media(max-width:991.98px){
+  .search-map-panel{display:none}
+  .mobile-map-link{display:inline-flex}
+}
+@media(max-width:767.98px){
+  .search-status-row{
+    align-items:flex-start;
+    flex-wrap:wrap;
+  }
+  .search-status-actions{
+    width:100%;
+    justify-content:space-between;
+    gap:8px;
+  }
+  .search-status-actions .recommend-link,
+  .search-status-actions .mobile-map-link{
+    font-size:9px;
+  }
+  .sort-control{position:static}
+  .sort-menu{
+    position:fixed;
+    top:auto;
+    left:14px;
+    right:14px;
+    bottom:76px;
+    width:auto;
+    border-radius:14px;
+    padding:7px;
+    box-shadow:0 20px 50px rgba(21,21,21,.18);
+  }
+  .sort-menu button{min-height:42px;font-size:11px}
+  .map-radius-picker{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+  }
+  .map-radius-picker span{
+    width:100%;
+    margin:0 0 1px;
+  }
+  .search-empty-state{
+    min-height:220px;
+    padding:24px 15px;
+  }
+}
