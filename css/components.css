@@ -30,3 +30,40 @@
   .hero-art::before{inset:18px 16px 18px 25%}
   .detail-gallery img{min-height:300px}
 }
+
+/* V4 hero: Chợ Tốt-inspired search-first composition, adapted to 80Land */
+.hero-stage{position:relative;padding-bottom:92px;background:var(--80-bg);overflow:hidden}
+.hero-banner{position:relative;height:340px;overflow:hidden;border-radius:0 0 54px 54px;background:
+  linear-gradient(90deg,rgba(255,248,247,.74) 0%,rgba(255,248,247,.38) 34%,rgba(255,248,247,.08) 72%),
+  url("/assets/images/80land-banner.jpg") center 42%/cover no-repeat,
+  url("https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1800&q=82") center/cover no-repeat;
+  box-shadow:0 12px 30px rgba(21,21,21,.07)}
+.hero-banner::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(229,57,53,.07));pointer-events:none}
+.hero-message{position:relative;z-index:2;width:min(560px,48%);padding:54px 0 0 36px}
+.hero-message h1{margin:14px 0 8px;font-size:38px;line-height:1.08;letter-spacing:-.035em;font-weight:700;color:var(--80-ink)}
+.hero-message p{margin:0;max-width:510px;color:#625c59;font-size:14px;line-height:1.65}
+.hero-message-actions{display:flex;gap:9px;margin-top:18px;flex-wrap:wrap}
+.hero-orbit{position:absolute;z-index:1;left:50%;bottom:-105px;transform:translateX(-50%);width:min(1020px,78vw);height:255px;border-radius:50%;background:var(--80-bg);box-shadow:0 -16px 28px rgba(21,21,21,.03)}
+.hero-orbit::before{content:"";position:absolute;left:50%;top:-26px;transform:translateX(-50%);width:72%;height:104px;border-radius:50%;background:rgba(255,255,255,.82);filter:blur(2px)}
+.hero-search{position:absolute;z-index:4;left:50%;bottom:-34px;transform:translateX(-50%);width:min(1180px,calc(100% - 80px));margin:0;background:#fff;border:1px solid var(--80-line);border-radius:22px;box-shadow:0 18px 42px rgba(21,21,21,.14);padding:15px 16px}
+.hero-search .search-tabs{gap:7px}
+.hero-search .search-tab{padding:9px 13px;font-size:11px}
+.hero-search .filter-field{height:58px;background:#fff}
+.hero-search .quick-pill{background:#f7f3f2}
+.category-tile{height:82px}
+@media(max-width:1199.98px){
+  .hero-message{width:56%;padding-left:28px}
+  .hero-message h1{font-size:33px}
+  .hero-orbit{width:82vw}
+}
+@media(max-width:767.98px){
+  .hero-stage{padding-bottom:38px}
+  .hero-banner{height:430px;border-radius:0 0 38px 38px;background-position:center 42%}
+  .hero-message{width:100%;padding:28px 18px 0}
+  .hero-message h1{font-size:28px;max-width:340px}
+  .hero-message p{max-width:300px;font-size:12px}
+  .hero-message-actions .btn{font-size:11px}
+  .hero-orbit{bottom:-80px;width:130vw;height:190px}
+  .hero-search{position:relative;left:auto;bottom:auto;transform:none;width:calc(100% - 24px);margin:-78px 12px 0;padding:11px;border-radius:17px}
+  .hero-search .filter-field{height:52px}
+}
