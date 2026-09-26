@@ -137,7 +137,7 @@ function homePage() {
       '<section class="home-section home-recommendation-section">',
         '<div class="home-section-head"><div><span class="home-eyebrow">' + icon('auto_awesome') + ' Cá nhân hóa</span><h2>Đề xuất cho bạn</h2><p>Ưu tiên theo khu vực, mức giá và tiện ích bạn quan tâm.</p></div><a href="/assistant" data-link class="home-section-link">Thiết lập nhu cầu ' + icon('arrow_forward') + '</a></div>',
         '<div class="row g-3">' + listings.map(function (item) {
-          return '<div class="col-6 col-lg"><a href="/property/' + item.id + '" data-link class="text-decoration-none text-dark">' + propertyCard(item) + '</a></div>';
+          return '<div class="col-6 col-lg"><a href="' + detailHref(item.id) + '" data-link class="text-decoration-none text-dark">' + propertyCard(item) + '</a></div>';
         }).join('') + '</div>',
       '</section>',
 
@@ -371,20 +371,112 @@ function mapPage() {
   ].join('');
 }
 
+function detailHref(id) {
+  const source = (location.pathname === '/search' || location.pathname === '/map') ? location.pathname + location.search : '';
+  return '/property/' + id + (source ? '?from=' + encodeURIComponent(source) : '');
+}
+
+function detailBackHref() {
+  const from = new URLSearchParams(location.search).get('from') || '';
+  return /^\/(search|map)(\?|$)/.test(from) ? from : '/search';
+}
+
 function detailPage(id) {
   const item = listings.find(function (entry) { return String(entry.id) === String(id); }) || listings[0];
+  const gallery = item.gallery && item.gallery.length ? item.gallery : [item.image];
+  const backHref = detailBackHref();
+  const related = listings.filter(function (entry) { return entry.id !== item.id; }).slice(0, 3);
+  const featureIcons = ['bathroom', 'ac_unit', 'balcony', 'lock'];
   return [
-    '<main class="page-content page-content-mobile"><div class="container-xl">',
-      '<section class="page-hero"><a href="/search" data-link class="text-80-muted small">← Kết quả tìm kiếm</a></section>',
-      '<div class="row g-3"><div class="col-12 col-lg-7"><div class="detail-gallery"><img src="' + item.image + '" alt="' + item.title.replace(/"/g, '&quot;') + '"></div></div>',
-      '<div class="col-12 col-lg-5"><div class="detail-side"><span class="badge-verified">' + icon('verified') + ' Tin xác thực</span><h1 class="h3 mt-3">' + item.title + '</h1><div class="detail-price">' + item.price + '/tháng</div><p class="small text-80-muted mb-2">📍 ' + item.location + '</p>',
-      '<div class="row g-2"><div class="col-6"><div class="spec-card"><b>' + item.area + '</b><span>Diện tích</span></div></div><div class="col-6"><div class="spec-card"><b>1 phòng</b><span>Không gian</span></div></div><div class="col-6"><div class="spec-card"><b>WC riêng</b><span>Tiện ích</span></div></div><div class="col-6"><div class="spec-card"><b>Máy lạnh</b><span>Thiết bị</span></div></div></div>',
-      '<div class="d-flex gap-2 mt-3"><button type="button" class="btn btn-80-primary flex-grow-1" data-action="save">♡ Lưu tin</button><a class="btn btn-80-dark flex-grow-1" href="/messages" data-link>💬 Nhắn chủ</a></div></div></div>',
-      '<div class="col-12"><div class="card-80 p-3"><h2 class="h5">Mô tả phòng</h2><p class="small text-80-muted mb-0">Phòng sạch, thoáng, đầy đủ nội thất cơ bản. Khu vực an ninh, thuận tiện đi các quận trung tâm. Có chỗ để xe và giờ giấc tự do.</p></div></div>',
-      '<div class="col-12"><div class="card-80 p-3"><h2 class="h5">Tiện ích</h2><div class="d-flex gap-2 flex-wrap">' + item.features.map(function (feature) { return '<span class="badge rounded-pill bg-light text-dark border">' + feature + '</span>'; }).join('') + '</div></div></div>',
-      '<div class="col-12 col-lg-5"><div class="card-80 p-3"><div class="d-flex align-items-center gap-2"><div class="category-icon">' + icon('person') + '</div><div><strong>Nguyễn Minh</strong><div class="small text-80-muted">Phản hồi nhanh · 96% đánh giá tốt</div></div></div><div class="d-flex gap-2 mt-3"><button class="btn btn-outline-secondary flex-grow-1" type="button">☎ Gọi</button><a href="/messages" data-link class="btn btn-80-dark flex-grow-1">💬 Nhắn tin</a></div></div></div>',
-      '<div class="col-12 col-lg-7"><div class="card-80 p-3"><h2 class="h5">Vị trí</h2><div class="split-map" style="min-height:280px"><span class="map-pin" style="left:45%;top:43%"></span></div><a href="/map" data-link class="btn btn-outline-secondary mt-2 w-100">📍 Mở bản đồ</a></div></div>',
-    '</div></div></main>'
+    '<main class="page-content page-content-mobile detail-page"><div class="container-xl">',
+      '<div class="detail-breadcrumb"><a href="' + backHref + '" data-link>' + icon('arrow_back') + ' Kết quả tìm kiếm</a><span>/</span><span>' + item.location + '</span></div>',
+      '<div class="detail-hero-grid">',
+        '<section class="detail-gallery-shell">',
+          '<div class="detail-main-media">',
+            '<img id="detailMainImage" src="' + gallery[0] + '" alt="' + item.title.replace(/"/g, '&quot;') + '">',
+            '<div class="detail-media-top">',
+              item.verified ? '<span class="badge-verified">' + icon('verified') + ' Tin xác thực</span>' : '<span class="detail-media-label">' + icon('visibility') + ' Tin mẫu</span>',
+              '<button type="button" class="detail-media-action" data-detail-save="' + item.id + '" aria-pressed="false">' + icon('favorite_border') + '<span>Lưu</span></button>',
+            '</div>',
+          '</div>',
+          '<div class="detail-gallery-strip">' +
+            gallery.map(function (src, index) {
+              return '<button type="button" class="gallery-thumb' + (index === 0 ? ' active' : '') + '" data-gallery-src="' + src + '" data-gallery-index="' + index + '" aria-label="Xem ảnh ' + (index + 1) + '"><img src="' + src + '" alt=""></button>';
+            }).join('') +
+          '</div>',
+        '</section>',
+        '<aside class="detail-summary card-80">',
+          '<div class="detail-summary-kicker"><span>' + icon(listingType(item) === 'Chung cư' ? 'apartment' : 'home_work') + ' ' + listingType(item) + '</span><span>' + (item.verified ? 'Đã xác thực' : 'Thông tin mẫu') + '</span></div>',
+          '<h1>' + item.title + '</h1>',
+          '<div class="detail-price">' + item.price + '<small>/tháng</small></div>',
+          '<a href="/map" data-link class="detail-location">' + icon('location_on') + '<span>' + item.location + '</span><span class="material-symbols-outlined">arrow_forward</span></a>',
+          '<div class="detail-stat-grid">',
+            '<div class="detail-stat"><span>' + icon('straighten') + '</span><div><strong>' + item.area + '</strong><small>Diện tích</small></div></div>',
+            '<div class="detail-stat"><span>' + icon('category') + '</span><div><strong>' + listingType(item) + '</strong><small>Loại hình</small></div></div>',
+            '<div class="detail-stat"><span>' + icon('verified') + '</span><div><strong>' + (item.verified ? 'Đã xác thực' : 'Đang cập nhật') + '</strong><small>Trạng thái</small></div></div>',
+            '<div class="detail-stat"><span>' + icon('bolt') + '</span><div><strong>' + item.features[0] + '</strong><small>Nổi bật</small></div></div>',
+          '</div>',
+          '<div class="detail-summary-features"><div class="detail-section-label">Điểm nổi bật</div><div class="detail-feature-pills">' +
+            item.features.map(function (feature, index) {
+              return '<span><i>' + icon(featureIcons[index % featureIcons.length]) + '</i>' + feature + '</span>';
+            }).join('') +
+          '</div></div>',
+          '<div class="detail-primary-actions">',
+            '<button type="button" class="btn btn-80-primary" data-detail-save="' + item.id + '" aria-pressed="false">' + icon('favorite_border') + ' Lưu tin</button>',
+            '<a href="/assistant" data-link class="btn btn-80-dark">' + icon('auto_awesome') + ' Hỏi 80Land Assistant</a>',
+          '</div>',
+          '<div class="detail-safety-note"><span>' + icon('shield') + '</span><div><strong>An toàn khi tìm phòng</strong><small>Không chuyển cọc trước khi xác minh phòng và người đăng.</small></div></div>',
+        '</aside>',
+      '</div>',
+
+      '<div class="detail-content-grid">',
+        '<div class="detail-content-main">',
+          '<section class="detail-panel card-80">',
+            '<div class="detail-panel-head"><div><span class="detail-overline">Thông tin</span><h2>Mô tả phòng</h2></div></div>',
+            '<p>Đây là nội dung mô tả mẫu của 80Land. Phòng có diện tích <strong>' + item.area + '</strong>, nằm tại <strong>' + item.location + '</strong> và được đăng với mức giá <strong>' + item.price + '/tháng</strong>.</p>',
+            '<p>Tin đăng sẽ hiển thị đầy đủ thông tin do người cho thuê cung cấp, bao gồm tình trạng phòng, quy định, chi phí liên quan và thời gian có thể vào ở.</p>',
+          '</section>',
+          '<section class="detail-panel card-80">',
+            '<div class="detail-panel-head"><div><span class="detail-overline">Tiện ích</span><h2>Tiện nghi của phòng</h2></div></div>',
+            '<div class="detail-amenity-grid">' +
+              item.features.map(function (feature, index) {
+                return '<div class="detail-amenity"><span>' + icon(featureIcons[index % featureIcons.length]) + '</span><div><strong>' + feature + '</strong><small>Được người đăng cung cấp trong tin</small></div></div>';
+              }).join('') +
+              '<div class="detail-amenity"><span>' + icon('directions_car') + '</span><div><strong>Thông tin gửi xe</strong><small>Liên hệ người đăng để xác nhận</small></div></div>' +
+              '<div class="detail-amenity"><span>' + icon('payments') + '</span><div><strong>Chi phí khác</strong><small>Chưa cập nhật trong dữ liệu mẫu</small></div></div>',
+            '</div>',
+          '</section>',
+          '<section class="detail-panel card-80">',
+            '<div class="detail-panel-head"><div><span class="detail-overline">Vị trí</span><h2>Khám phá khu vực</h2></div><a href="/map" data-link>' + icon('map') + ' Mở bản đồ</a></div>',
+            '<div class="detail-map">',
+              '<span class="detail-map-road road-one"></span><span class="detail-map-road road-two"></span>',
+              '<span class="detail-map-area area-one">Bình Thạnh</span><span class="detail-map-area area-two">Thủ Đức</span>',
+              '<span class="detail-map-pin">' + icon('location_on') + '</span>',
+              '<div class="detail-map-caption"><strong>' + item.location + '</strong><span>Vị trí hiển thị ở mức khu vực để bảo vệ thông tin riêng tư.</span></div>',
+            '</div>',
+          '</section>',
+        '</div>',
+        '<aside class="detail-content-side">',
+          '<section class="detail-panel card-80 detail-poster-card">',
+            '<span class="detail-overline">Người đăng</span>',
+            '<div class="detail-poster-head"><div class="detail-poster-avatar">NM</div><div><strong>Người cho thuê</strong><small>Hồ sơ mẫu trên 80Land</small></div></div>',
+            '<div class="detail-poster-status"><span>' + icon('verified') + ' Đã xác thực tin</span><span>' + icon('schedule') + ' Phản hồi nhanh</span></div>',
+            '<button type="button" class="btn btn-80-outline w-100" data-contact-demo>' + icon('call') + ' Liên hệ chủ nhà</button>',
+            '<a href="/assistant" data-link class="btn btn-80-primary w-100 mt-2">' + icon('auto_awesome') + ' Hỏi 80Land Assistant</a>',
+            '<div class="detail-contact-notice" id="detailContactNotice" hidden>' + icon('info') + '<span>Dữ liệu đang ở chế độ demo. Khi kết nối backend, nút này sẽ mở thông tin liên hệ của người đăng.</span></div>',
+          '</section>',
+          '<section class="detail-panel card-80 detail-trust-card"><span class="detail-overline">Lưu ý an toàn</span><div class="detail-trust-row"><span>' + icon('verified_user') + '</span><div><strong>Kiểm tra trước khi cọc</strong><small>Xem phòng, xác nhận người đăng và thống nhất toàn bộ chi phí.</small></div></div><div class="detail-trust-row"><span>' + icon('report') + '</span><div><strong>Báo cáo tin bất thường</strong><small>Không chia sẻ OTP hoặc chuyển tiền khi chưa xác minh.</small></div></div></section>',
+        '</aside>',
+      '</div>',
+
+      '<section class="detail-related"><div class="detail-related-head"><div><span class="detail-overline">Gợi ý tiếp theo</span><h2>Có thể bạn cũng quan tâm</h2></div><a href="/search" data-link>Xem thêm ' + icon('arrow_forward') + '</a></div><div class="row g-3">' +
+        related.map(function (entry) {
+          return '<div class="col-6 col-lg-4"><a href="' + detailHref(entry.id) + '" data-link class="text-decoration-none text-dark">' + propertyCard(entry) + '</a></div>';
+        }).join('') +
+      '</div></section>',
+    '</div>',
+    '<div class="detail-mobile-bar"><button type="button" class="detail-mobile-save" data-detail-save="' + item.id + '" aria-pressed="false">' + icon('favorite_border') + '<span>Lưu</span></button><a href="/assistant" data-link class="btn btn-80-primary">' + icon('auto_awesome') + ' Hỏi 80Land Assistant</a></div>',
+    '</main>'
   ].join('');
 }
 
@@ -754,6 +846,49 @@ function bind() {
         menu.setAttribute('aria-hidden', 'true');
       }
     }
+  });
+
+  document.querySelectorAll('[data-detail-save]').forEach(function (button) {
+    button.addEventListener('click', function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      const id = button.dataset.detailSave;
+      const key = '80land:saved:' + id;
+      const saved = localStorage.getItem(key) === '1';
+      const next = !saved;
+      localStorage.setItem(key, next ? '1' : '0');
+      document.querySelectorAll('[data-detail-save="' + id + '"]').forEach(function (target) {
+        target.setAttribute('aria-pressed', String(next));
+        target.classList.toggle('is-saved', next);
+        target.innerHTML = icon(next ? 'favorite' : 'favorite_border') + '<span>' + (next ? 'Đã lưu' : 'Lưu tin') + '</span>';
+      });
+    });
+    const id = button.dataset.detailSave;
+    if (localStorage.getItem('80land:saved:' + id) === '1') {
+      button.setAttribute('aria-pressed', 'true');
+      button.classList.add('is-saved');
+      button.innerHTML = icon('favorite') + '<span>Đã lưu</span>';
+    }
+  });
+
+  document.querySelectorAll('.gallery-thumb').forEach(function (thumb) {
+    thumb.addEventListener('click', function () {
+      const image = document.querySelector('#detailMainImage');
+      if (!image) return;
+      image.src = thumb.dataset.gallerySrc;
+      document.querySelectorAll('.gallery-thumb').forEach(function (item) { item.classList.remove('active'); });
+      thumb.classList.add('active');
+    });
+  });
+
+  document.querySelectorAll('[data-contact-demo]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      const notice = document.querySelector('#detailContactNotice');
+      if (!notice) return;
+      notice.hidden = false;
+      button.innerHTML = icon('info') + ' Đang ở chế độ demo';
+      button.disabled = true;
+    });
   });
 
   initHero();
