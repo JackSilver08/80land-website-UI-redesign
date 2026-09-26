@@ -1,0 +1,1 @@
+.page-content{background:var(--80-bg);min-height:calc(100vh - 68px)}.property-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}@media(max-width:991.98px){.property-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:575.98px){.property-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}
