@@ -67,3 +67,88 @@
   .hero-search{position:relative;left:auto;bottom:auto;transform:none;width:calc(100% - 24px);margin:-78px 12px 0;padding:11px;border-radius:17px}
   .hero-search .filter-field{height:52px}
 }
+
+/* V5 compact search: one field + filter action */
+.site-header .inner{min-height:78px}
+.site-header .header-icon{flex:0 0 auto}
+.hero-stage{padding-bottom:64px}
+.hero-banner{height:325px;border-radius:0 0 58px 58px}
+.hero-message{padding-top:50px}
+.hero-message-actions{margin-top:16px}
+.hero-message-actions .btn-80-primary{display:none}
+
+.hero-orbit{bottom:-112px;width:min(900px,72vw);height:220px}
+.hero-orbit::before{top:-18px;width:78%;height:82px}
+
+.hero-search{
+  bottom:-28px;
+  width:min(760px,calc(100% - 48px));
+  padding:10px;
+  border-radius:18px;
+  box-shadow:0 16px 34px rgba(21,21,21,.13);
+}
+.hero-search-row{display:flex;align-items:center;gap:9px}
+.hero-search-input{
+  flex:1;
+  height:54px;
+  margin:0;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:0 17px;
+  border:1px solid var(--80-line);
+  border-radius:14px;
+  background:#fff;
+  cursor:text;
+}
+.hero-search-input span{display:inline-flex;color:#211d1c}
+.hero-search-input input{
+  width:100%;
+  min-width:0;
+  border:0;
+  outline:0;
+  background:transparent;
+  font:inherit;
+  font-size:13px;
+  color:var(--80-ink);
+}
+.hero-search-input input::placeholder{color:#8e8580}
+.hero-filter-btn{
+  width:54px;
+  height:54px;
+  flex:0 0 54px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  border-radius:14px;
+  background:var(--80-red);
+  color:#fff;
+  text-decoration:none;
+  box-shadow:0 8px 18px rgba(227,30,36,.22);
+}
+.hero-filter-btn:hover{color:#fff;background:var(--80-red-dark)}
+.hero-filter-btn .material-symbols-rounded{font-size:22px}
+.filter-label{display:none}
+
+@media(max-width:767.98px){
+  .site-header .inner{min-height:68px}
+  .site-header .brand-copy span{display:none}
+  .site-header .brand-copy strong{font-size:18px}
+  .site-header .vr,.site-header .header-icon[data-tooltip="Khu vực"]{display:none!important}
+  .hero-stage{padding-bottom:34px}
+  .hero-banner{height:360px;border-radius:0 0 40px 40px}
+  .hero-message{padding:30px 18px 0;width:90%}
+  .hero-message h1{font-size:27px}
+  .hero-message p{max-width:300px}
+  .hero-orbit{bottom:-76px;width:125vw;height:165px}
+  .hero-search{
+    bottom:-23px;
+    width:calc(100% - 24px);
+    padding:8px;
+    border-radius:16px;
+  }
+  .hero-search-input{height:48px;padding:0 13px;border-radius:12px}
+  .hero-search-input input{font-size:12px}
+  .hero-filter-btn{width:48px;height:48px;flex-basis:48px;border-radius:12px}
+}
