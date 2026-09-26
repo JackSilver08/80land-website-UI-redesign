@@ -488,12 +488,31 @@ function simpleListPage(title, subtitle, rows, actions) {
     '</div>' + (actions || '') + '</div></main>';
 }
 
+function getProfileState() {
+  let profile = { name:'Quang Tuấn', city:'TP. Hồ Chí Minh' };
+  try {
+    const stored = JSON.parse(localStorage.getItem('80land:profile') || 'null');
+    if (stored) profile = Object.assign(profile, stored);
+  } catch (error) {}
+  return profile;
+}
+
+function getNotificationRows() {
+  const read = JSON.parse(localStorage.getItem('80land:notifications:read') || '[]');
+  return notifications.map(function (item) {
+    return Object.assign({}, item, { unread: item.unread && read.indexOf(item.id) === -1 });
+  });
+}
+
 function getSavedListingIds() {
-  const ids = listings.filter(function (item) {
+  const marker = localStorage.getItem('80land:saved:initialized');
+  if (!marker) {
+    [1, 2, 3].forEach(function (id) { localStorage.setItem('80land:saved:' + id, '1'); });
+    localStorage.setItem('80land:saved:initialized', '1');
+  }
+  return listings.filter(function (item) {
     return localStorage.getItem('80land:saved:' + item.id) === '1';
   }).map(function (item) { return item.id; });
-  if (ids.length) return ids;
-  return [1, 2, 3];
 }
 
 function savedPage() {
@@ -516,12 +535,13 @@ function savedPage() {
 }
 
 function notificationsPage() {
-  const unread = notifications.filter(function (item) { return item.unread; });
+  const rows = getNotificationRows();
+  const unread = rows.filter(function (item) { return item.unread; });
   return [
     '<main class="page-content page-content-mobile account-page"><div class="container-xl">',
       '<section class="account-page-head"><div><span class="account-overline">' + icon('notifications') + ' Thông báo</span><h1>Cập nhật mới nhất của bạn</h1><p>Những thay đổi liên quan đến tin đăng, gợi ý và hoạt động tài khoản 80Land.</p></div><button type="button" class="account-head-action" id="markAllNotifications">' + icon('done_all') + ' Đánh dấu đã đọc</button></section>',
       '<div class="notification-toolbar"><span><strong id="notificationUnreadCount">' + unread.length + '</strong> thông báo chưa đọc</span><div><button type="button" class="notification-filter active" data-notification-filter="all">Tất cả</button><button type="button" class="notification-filter" data-notification-filter="unread">Chưa đọc</button></div></div>',
-      '<section class="notification-list" id="notificationList">' + notifications.map(function (item) {
+      '<section class="notification-list" id="notificationList">' + rows.map(function (item) {
         return '<article class="notification-card card-80' + (item.unread ? ' is-unread' : '') + '" data-notification-card="' + item.id + '" data-unread="' + String(item.unread) + '"><span class="notification-icon ' + (item.unread ? 'is-unread' : '') + '">' + icon(item.unread ? 'notifications_active' : 'notifications_none') + '</span><div class="notification-copy"><div class="notification-top"><strong>' + item.title + '</strong><time>' + (item.unread ? 'Mới' : 'Đã xem') + '</time></div><p>' + item.body + '</p><button type="button" class="notification-read-toggle" data-notification-read="' + item.id + '">' + (item.unread ? 'Đánh dấu đã đọc' : 'Đã đọc') + '</button></div></article>';
       }).join('') + '</section>',
     '</div></main>'
@@ -532,7 +552,7 @@ function profilePage() {
   return [
     '<main class="page-content page-content-mobile account-page"><div class="container-xl">',
       '<section class="account-profile-hero card-80">',
-        '<div class="account-profile-main"><div class="account-profile-avatar" aria-hidden="true">QT</div><div><span class="account-overline">Tài khoản cá nhân</span><h1>Quang Tuấn</h1><p>Thành viên từ 2026 · TP.HCM</p></div></div>',
+        '<div class="account-profile-main"><div class="account-profile-avatar" aria-hidden="true">QT</div><div><span class="account-overline">Tài khoản cá nhân</span><h1>' + getProfileState().name + '</h1><p>Thành viên từ 2026 · ' + getProfileState().city + '</p></div></div>',
         '<button type="button" class="btn btn-80-outline" id="editProfileBtn">' + icon('edit') + ' Chỉnh sửa hồ sơ</button>',
       '</section>',
       '<section class="account-profile-grid">',
@@ -543,8 +563,8 @@ function profilePage() {
             '<div><span>' + icon('auto_awesome') + '</span><strong>' + (localStorage.getItem('80land:assistant') ? '1' : '0') + '</strong><small>Bộ nhu cầu</small></div>',
           '</div></section>',
           '<section class="card-80 account-panel"><div class="account-panel-head"><div><span class="account-overline">Hồ sơ</span><h2>Thông tin cá nhân</h2></div></div><div class="account-detail-grid">',
-            '<div><small>Họ và tên</small><strong id="profileName">Quang Tuấn</strong></div>',
-            '<div><small>Khu vực</small><strong>TP. Hồ Chí Minh</strong></div>',
+            '<div><small>Họ và tên</small><strong id="profileName">' + getProfileState().name + '</strong></div>',
+            '<div><small>Khu vực</small><strong id="profileCity">' + getProfileState().city + '</strong></div>',
             '<div><small>Email</small><strong>quangtuan@example.com</strong></div>',
             '<div><small>Số điện thoại</small><strong>Chưa cập nhật</strong></div>',
           '</div><div class="account-profile-note">' + icon('info') + '<span>Thông tin liên hệ thật sẽ được đồng bộ khi tài khoản kết nối backend 80Land.</span></div></section>',
@@ -557,8 +577,8 @@ function profilePage() {
       '</section>',
       '<div class="account-edit-backdrop" id="profileEditBackdrop"></div><aside class="account-edit-sheet" id="profileEditSheet" aria-hidden="true">',
         '<div class="account-edit-head"><div><span class="account-overline">Chỉnh sửa hồ sơ</span><strong>Cập nhật thông tin hiển thị</strong></div><button type="button" class="icon-button" id="profileEditClose">' + icon('close') + '</button></div>',
-        '<label class="account-edit-field"><span>Họ và tên</span><input id="profileNameInput" value="Quang Tuấn"></label>',
-        '<label class="account-edit-field"><span>Khu vực</span><select id="profileCityInput"><option>TP. Hồ Chí Minh</option><option>Đồng Nai</option><option>Bình Dương</option><option>Đà Nẵng</option><option>Hà Nội</option></select></label>',
+        '<label class="account-edit-field"><span>Họ và tên</span><input id="profileNameInput" value="' + getProfileState().name.replace(/"/g, '&quot;') + '"></label>',
+        '<label class="account-edit-field"><span>Khu vực</span><select id="profileCityInput"><option' + (getProfileState().city === 'TP. Hồ Chí Minh' ? ' selected' : '') + '>TP. Hồ Chí Minh</option><option' + (getProfileState().city === 'Đồng Nai' ? ' selected' : '') + '>Đồng Nai</option><option' + (getProfileState().city === 'Bình Dương' ? ' selected' : '') + '>Bình Dương</option><option' + (getProfileState().city === 'Đà Nẵng' ? ' selected' : '') + '>Đà Nẵng</option><option' + (getProfileState().city === 'Hà Nội' ? ' selected' : '') + '>Hà Nội</option></select></label>',
         '<div class="account-edit-actions"><button type="button" class="btn btn-80-outline" id="profileEditCancel">Hủy</button><button type="button" class="btn btn-80-primary" id="profileEditSave">Lưu thay đổi</button></div>',
       '</aside>',
     '</div></main>'
@@ -1119,6 +1139,10 @@ function bind() {
     button.addEventListener('click', function () {
       const card = button.closest('[data-notification-card]');
       if (!card) return;
+      const readIds = JSON.parse(localStorage.getItem('80land:notifications:read') || '[]');
+      const notificationId = Number(card.dataset.notificationCard);
+      if (readIds.indexOf(notificationId) === -1) readIds.push(notificationId);
+      localStorage.setItem('80land:notifications:read', JSON.stringify(readIds));
       card.classList.remove('is-unread');
       card.dataset.unread = 'false';
       const iconWrap = card.querySelector('.notification-icon');
@@ -1153,6 +1177,8 @@ function bind() {
   const markAllNotifications = document.querySelector('#markAllNotifications');
   if (markAllNotifications) {
     markAllNotifications.addEventListener('click', function () {
+      const allRead = Array.from(document.querySelectorAll('[data-notification-card]')).map(function (card) { return Number(card.dataset.notificationCard); });
+      localStorage.setItem('80land:notifications:read', JSON.stringify(allRead));
       document.querySelectorAll('[data-notification-card]').forEach(function (card) {
         card.classList.remove('is-unread');
         card.dataset.unread = 'false';
@@ -1207,8 +1233,12 @@ function bind() {
       localStorage.setItem('80land:profile', JSON.stringify(profile));
       const nameEl = document.querySelector('#profileName');
       if (nameEl) nameEl.textContent = displayName;
+      const cityEl = document.querySelector('#profileCity');
+      if (cityEl) cityEl.textContent = profile.city;
       const heroName = document.querySelector('.account-profile-hero h1');
       if (heroName) heroName.textContent = displayName;
+      const heroCity = document.querySelector('.account-profile-hero p');
+      if (heroCity) heroCity.textContent = 'Thành viên từ 2026 · ' + profile.city;
       closeProfileEdit();
     });
   }
