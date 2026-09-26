@@ -903,6 +903,119 @@ function landlordPreviewPage(id) {
   ].join('');
 }
 
+
+function walletReadState() {
+  const defaults = { balance: 2480000, withdrawable: 1820000, pending: 660000, commission: 1820000 };
+  let stored = null;
+  try { stored = JSON.parse(localStorage.getItem('80land:wallet') || 'null'); } catch (error) {}
+  return Object.assign({}, defaults, stored || {});
+}
+
+function walletTransactions() {
+  const defaults = [
+    { id:'tx-1', date:'25/09/2026', title:'Hoa hồng giới thiệu', note:'1 lượt giới thiệu đủ điều kiện', amount:300000, type:'credit', status:'completed' },
+    { id:'tx-2', date:'22/09/2026', title:'Thưởng hoàn thành giao dịch', note:'Tin đăng được xác nhận hoàn tất', amount:450000, type:'credit', status:'completed' },
+    { id:'tx-3', date:'18/09/2026', title:'Yêu cầu rút tiền', note:'Vietcombank · **** 2388', amount:-500000, type:'debit', status:'pending' }
+  ];
+  let stored = null;
+  try { stored = JSON.parse(localStorage.getItem('80land:wallet:transactions') || 'null'); } catch (error) {}
+  return Array.isArray(stored) ? stored : defaults;
+}
+
+function saveWalletState(state) {
+  localStorage.setItem('80land:wallet', JSON.stringify(state));
+}
+
+function walletFormat(value) {
+  return Number(value || 0).toLocaleString('vi-VN') + 'đ';
+}
+
+function referralReadState() {
+  const defaults = {
+    code:'80LAND-QT2026',
+    link:'https://80landtimphong.vn/r/80LAND-QT2026',
+    invited:18,
+    qualified:7,
+    earned:2400000,
+    last7:3
+  };
+  let stored = null;
+  try { stored = JSON.parse(localStorage.getItem('80land:referrals') || 'null'); } catch (error) {}
+  return Object.assign({}, defaults, stored || {});
+}
+
+function earningsReadState() {
+  const defaults = {
+    month:3420000,
+    total:8760000,
+    commission:1820000,
+    referral:1600000,
+    listing:0,
+    pending:660000
+  };
+  let stored = null;
+  try { stored = JSON.parse(localStorage.getItem('80land:earnings') || 'null'); } catch (error) {}
+  return Object.assign({}, defaults, stored || {});
+}
+
+function walletPage() {
+  const wallet = walletReadState();
+  const transactions = walletTransactions();
+  const recent = transactions.slice(0,5).map(function (tx) {
+    const positive = tx.type === 'credit' || tx.amount > 0;
+    const status = tx.status === 'pending' ? '<span class="wallet-tx-status pending">Đang xử lý</span>' : '<span class="wallet-tx-status done">Hoàn tất</span>';
+    return '<article class="wallet-transaction"><span class="wallet-tx-icon ' + (positive ? 'credit' : 'debit') + '">' + icon(positive ? 'south_west' : 'north_east') + '</span><div><strong>' + tx.title + '</strong><small>' + tx.date + ' · ' + tx.note + '</small></div><div class="wallet-tx-amount ' + (positive ? 'credit' : 'debit') + '">' + (positive ? '+' : '') + walletFormat(Math.abs(tx.amount)) + status + '</div></article>';
+  }).join('');
+  return [
+    '<main class="page-content page-content-mobile wallet-page"><div class="container-xl">',
+      '<section class="phase8-head"><div><span class="assistant-kicker">' + icon('account_balance_wallet') + ' 80LAND WALLET</span><h1>Ví & thu nhập</h1><p>Theo dõi số dư, hoa hồng và các yêu cầu rút tiền trong một màn hình.</p></div><span class="phase8-demo-badge">' + icon('science') + ' Prototype UI</span></section>',
+      '<section class="wallet-hero-grid">',
+        '<article class="wallet-balance-card"><div class="wallet-balance-top"><span>Số dư ví</span><span class="wallet-mini-badge">' + icon('verified_user') + ' Đang đồng bộ</span></div><strong>' + walletFormat(wallet.balance) + '</strong><div class="wallet-balance-meta"><span>Có thể rút <b>' + walletFormat(wallet.withdrawable) + '</b></span><span>Đang chờ <b>' + walletFormat(wallet.pending) + '</b></span></div><div class="wallet-actions"><a href="#walletWithdraw" class="btn btn-light" data-wallet-jump>' + icon('south_east') + ' Rút tiền</a><a href="/earnings" data-link class="btn btn-80-outline light-border">' + icon('monitoring') + ' Xem thu nhập</a></div></article>',
+        '<div class="wallet-summary-grid"><div class="card-80 wallet-summary-card"><span>' + icon('payments') + '</span><strong>' + walletFormat(wallet.commission) + '</strong><small>Hoa hồng khả dụng</small></div><div class="card-80 wallet-summary-card"><span>' + icon('group_add') + '</span><strong>' + walletFormat(referralReadState().earned) + '</strong><small>Thu nhập giới thiệu</small></div></div>',
+      '</section>',
+      '<section class="wallet-content-grid">',
+        '<div class="card-80 wallet-panel"><div class="wallet-panel-head"><div><span class="detail-overline">Lịch sử</span><h2>Giao dịch gần đây</h2></div><span class="phase8-soft-badge">' + transactions.length + ' giao dịch</span></div><div class="wallet-transaction-list">' + recent + '</div><a href="#walletAllTransactions" class="wallet-text-link" data-wallet-show-all>' + icon('receipt_long') + ' Xem toàn bộ giao dịch</a><div id="walletAllTransactions" class="wallet-all-transactions" hidden>' + transactions.map(function (tx) { const positive=tx.amount>0; return '<div class="wallet-mini-row"><span>' + tx.date + '</span><strong>' + tx.title + '</strong><b class="' + (positive?'credit':'debit') + '">' + (positive?'+':'') + walletFormat(Math.abs(tx.amount)) + '</b></div>'; }).join('') + '</div></div>',
+        '<aside class="wallet-side-stack"><section class="card-80 wallet-panel" id="walletWithdraw"><div class="wallet-panel-head"><div><span class="detail-overline">Rút tiền</span><h2>Tạo yêu cầu</h2></div></div><p class="wallet-panel-note">Trong prototype, yêu cầu sẽ chuyển thành trạng thái “Đang xử lý” để mô phỏng luồng backend.</p><form id="walletWithdrawForm" class="wallet-withdraw-form"><label><span>Số tiền</span><input id="walletWithdrawAmount" type="number" min="100000" step="10000" placeholder="Nhập số tiền"></label><label><span>Ngân hàng</span><select id="walletWithdrawBank"><option>Vietcombank</option><option>Techcombank</option><option>MB Bank</option><option>ACB</option></select></label><label><span>Số tài khoản</span><input id="walletWithdrawAccount" inputmode="numeric" placeholder="Ví dụ: 0123456789"></label><label><span>Chủ tài khoản</span><input id="walletWithdrawName" value="QUANG TUẤN"></label><button type="submit" class="btn btn-80-primary w-100">' + icon('send_money') + ' Gửi yêu cầu rút</button></form><small class="wallet-form-hint">Khả dụng tối đa: <b>' + walletFormat(wallet.withdrawable) + '</b></small></section>',
+        '<section class="card-80 wallet-panel"><span class="detail-overline">Lối tắt</span><div class="wallet-quick-links"><a href="/referrals" data-link><span>' + icon('share') + '</span><div><strong>Giới thiệu bạn bè</strong><small>Mã giới thiệu và thống kê</small></div>' + icon('arrow_forward') + '</a><a href="/landlord" data-link><span>' + icon('storefront') + '</span><div><strong>Quản lý tin</strong><small>Đăng và theo dõi hiệu quả</small></div>' + icon('arrow_forward') + '</a></div></section></aside>',
+      '</section>',
+    '</div></main>'
+  ].join('');
+}
+
+function earningsPage() {
+  const earnings = earningsReadState();
+  const referral = referralReadState();
+  const months = [['Tháng 9',72],['Tháng 8',58],['Tháng 7',44],['Tháng 6',31]];
+  return [
+    '<main class="page-content page-content-mobile wallet-page"><div class="container-xl">',
+      '<section class="phase8-head"><div><span class="assistant-kicker">' + icon('monitoring') + ' EARNINGS</span><h1>Thu nhập</h1><p>Tách nguồn thu để dễ theo dõi hiệu quả theo từng hoạt động.</p></div><a href="/wallet" data-link class="btn btn-80-outline">' + icon('account_balance_wallet') + ' Về ví</a></section>',
+      '<section class="earnings-stat-grid"><div class="card-80 earnings-stat"><span class="detail-overline">Tháng này</span><strong>' + walletFormat(earnings.month) + '</strong><small>+18% so với tháng trước · dữ liệu demo</small></div><div class="card-80 earnings-stat"><span class="detail-overline">Lũy kế</span><strong>' + walletFormat(earnings.total) + '</strong><small>Tổng thu nhập mô phỏng</small></div><div class="card-80 earnings-stat"><span class="detail-overline">Hoa hồng</span><strong>' + walletFormat(earnings.commission) + '</strong><small>Đến từ hoạt động giới thiệu</small></div><div class="card-80 earnings-stat"><span class="detail-overline">Đang chờ</span><strong>' + walletFormat(earnings.pending) + '</strong><small>Chưa thể rút ở thời điểm này</small></div></section>',
+      '<section class="earnings-work-grid"><div class="card-80 earnings-chart-card"><div class="wallet-panel-head"><div><span class="detail-overline">Xu hướng</span><h2>Hiệu quả theo tháng</h2></div><span class="phase8-demo-badge small">Demo</span></div><div class="earnings-bars">' + months.map(function(item){return '<div class="earnings-bar-item"><div class="earnings-bar-track"><i style="height:' + item[1] + '%"></i></div><strong>' + item[0] + '</strong></div>';}).join('') + '</div></div>',
+        '<aside class="card-80 earnings-source-card"><div class="wallet-panel-head"><div><span class="detail-overline">Nguồn thu</span><h2>Đóng góp vào tháng này</h2></div></div><div class="earnings-source"><span><i class="wallet-source-dot red"></i> Hoa hồng giới thiệu</span><b>' + walletFormat(earnings.referral) + '</b></div><div class="earnings-source"><span><i class="wallet-source-dot dark"></i> Hoa hồng tin đăng</span><b>' + walletFormat(earnings.listing) + '</b></div><div class="earnings-source"><span><i class="wallet-source-dot soft"></i> Khác</span><b>' + walletFormat(Math.max(0, earnings.month - earnings.referral - earnings.listing)) + '</b></div><div class="earnings-rule-note">' + icon('info') + '<span>Các con số trên là dữ liệu trình diễn cho UI. Luật hoa hồng thật cần được backend và admin cấu hình.</span></div></aside></section>',
+      '<section class="card-80 earnings-opportunity"><div><span class="assistant-kicker">' + icon('group_add') + ' REFERRAL</span><h2>Tăng thu nhập từ giới thiệu</h2><p>' + referral.invited + ' lượt mời · ' + referral.qualified + ' lượt đủ điều kiện trong dữ liệu demo hiện tại.</p></div><a href="/referrals" data-link class="btn btn-80-primary">' + icon('share') + ' Mở chương trình giới thiệu</a></section>',
+    '</div></main>'
+  ].join('');
+}
+
+function referralsPage() {
+  const referral = referralReadState();
+  const referredUsers = [
+    ['Nguyễn A.','Đã tham gia','2 ngày trước'],
+    ['Trần B.','Đang xác minh','5 ngày trước'],
+    ['Lê C.','Đã tham gia','7 ngày trước'],
+    ['Phạm D.','Đã tham gia','12 ngày trước']
+  ];
+  return [
+    '<main class="page-content page-content-mobile wallet-page"><div class="container-xl">',
+      '<section class="phase8-head"><div><span class="assistant-kicker">' + icon('group_add') + ' REFERRAL HUB</span><h1>Giới thiệu bạn bè</h1><p>Chia sẻ 80Land và theo dõi trạng thái giới thiệu trong một nơi.</p></div><a href="/wallet" data-link class="btn btn-80-outline">' + icon('account_balance_wallet') + ' Về ví</a></section>',
+      '<section class="referral-hero-grid"><article class="referral-code-card"><span class="detail-overline">Mã giới thiệu của bạn</span><strong id="referralCode">' + referral.code + '</strong><div class="referral-link-box"><input id="referralLink" readonly value="' + referral.link + '"><button type="button" id="copyReferralLink" class="icon-button-80" aria-label="Sao chép liên kết">' + icon('content_copy') + '</button></div><div class="referral-action-row"><button type="button" class="btn btn-80-primary" id="copyReferralCode">' + icon('content_copy') + ' Sao chép mã</button><button type="button" class="btn btn-80-outline" id="shareReferral">' + icon('share') + ' Chia sẻ</button></div></article><div class="referral-metrics"><div class="card-80"><span>' + icon('person_add') + '</span><strong>' + referral.invited + '</strong><small>Đã mời</small></div><div class="card-80"><span>' + icon('verified') + '</span><strong>' + referral.qualified + '</strong><small>Đủ điều kiện</small></div><div class="card-80"><span>' + icon('payments') + '</span><strong>' + walletFormat(referral.earned) + '</strong><small>Thu nhập demo</small></div></div></section>',
+      '<section class="referral-content-grid"><div class="card-80 wallet-panel"><div class="wallet-panel-head"><div><span class="detail-overline">Người được giới thiệu</span><h2>Trạng thái gần đây</h2></div><span class="phase8-soft-badge">' + referredUsers.length + ' người</span></div><div class="referral-user-list">' + referredUsers.map(function(user,index){return '<div class="referral-user"><span class="referral-user-avatar">' + (index+1) + '</span><div><strong>' + user[0] + '</strong><small>' + user[2] + '</small></div><span class="referral-user-status ' + (user[1]==='Đã tham gia'?'done':'pending') + '">' + user[1] + '</span></div>';}).join('') + '</div></div>',
+      '<aside class="card-80 wallet-panel"><div class="wallet-panel-head"><div><span class="detail-overline">Quy tắc chương trình</span><h2>Hiểu trước khi chia sẻ</h2></div></div><div class="referral-rule-list"><div><span>01</span><p>Người mới đăng ký bằng liên kết của bạn.</p></div><div><span>02</span><p>Hệ thống xác minh điều kiện theo backend.</p></div><div><span>03</span><p>Hoa hồng chỉ ghi nhận khi đạt điều kiện.</p></div></div><div class="earnings-rule-note">' + icon('science') + '<span>Đây là luồng UI prototype. Mức thưởng thật chưa được kết nối với backend.</span></div></aside></section>',
+      '<section class="card-80 referral-share-banner"><div><span class="assistant-kicker">' + icon('campaign') + ' CHIA SẺ NHANH</span><h2>Gửi liên kết 80Land cho bạn bè</h2><p>Một liên kết, một hành trình tìm phòng. Bạn có thể sao chép hoặc dùng nút chia sẻ của thiết bị.</p></div><button type="button" class="btn btn-80-primary" id="copyReferralLinkBottom">' + icon('content_copy') + ' Sao chép liên kết</button></section>',
+    '</div></main>'
+  ].join('');
+}
+
 function adminPage() {
   const stats = [['18.2K','Người dùng'],['25.4K','Tin đăng'],['142','Chờ duyệt'],['23','Báo cáo']];
   return '<main class="page-content page-content-mobile"><div class="container-xl"><section class="page-hero"><h1>Admin</h1><p>Kiểm duyệt, người dùng, báo cáo và audit.</p></section><div class="row g-2">' +
@@ -924,6 +1037,11 @@ function render() {
   else if (path === '/provinces') content = provincesPage();
   else if (path.indexOf('/province/') === 0) content = provincePage(path.split('/')[2]);
   else if (path === '/landlord/new') content = landlordCreatePage();
+  else if (path.indexOf('/landlord/edit/') === 0) content = landlordCreatePage('edit', path.split('/')[3]);
+  else if (path.indexOf('/landlord/preview/') === 0) content = landlordPreviewPage(path.split('/')[3]);
+  else if (path === '/wallet') content = walletPage();
+  else if (path === '/earnings') content = earningsPage();
+  else if (path === '/referrals') content = referralsPage();
   else if (path === '/landlord') content = landlordPage();
   else if (path === '/admin') content = adminPage();
   app.innerHTML = layout(content);
