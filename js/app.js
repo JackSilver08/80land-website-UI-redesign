@@ -706,10 +706,18 @@ function landlordRecords() {
   ];
   let extra = [];
   try { extra = JSON.parse(localStorage.getItem('80land:landlord:records') || '[]'); } catch (error) {}
-  return base.concat(Array.isArray(extra) ? extra : []).map(function (item) {
+  const customIds = Array.isArray(extra) ? extra.map(function (item) { return String(item.id); }) : [];
+  return base.filter(function (item) { return customIds.indexOf(String(item.id)) === -1; }).concat(Array.isArray(extra) ? extra : []).map(function (item) {
     const override = localStorage.getItem('80landlord:status:' + item.id);
     return override ? Object.assign({}, item, { status: override }) : item;
   });
+}
+
+function landlordMoneyNumber(value) {
+  const raw = String(value || '').toLowerCase().trim();
+  const million = raw.match(/(\d+(?:[\.,]\d+)?)\s*triệu/);
+  if (million) return String(Math.round(Number(million[1].replace(',', '.')) * 1000000));
+  return raw.replace(/\D/g,'');
 }
 
 function landlordDraft(id) {
@@ -737,7 +745,7 @@ function landlordDraft(id) {
     id:record.id,
     type:linked ? listingType(linked) : defaults.type,
     title:record.title,
-    price:record.price.replace(/\D/g,''),
+    price:landlordMoneyNumber(record.price),
     area:record.area.replace(/\D/g,''),
     term:'Cho thuê dài hạn',
     description:linked ? 'Phòng sạch, thoáng, đầy đủ nội thất cơ bản. Có chỗ để xe và giờ giấc tự do.' : defaults.description,
