@@ -1017,12 +1017,183 @@ function referralsPage() {
   ].join('');
 }
 
-function adminPage() {
-  const stats = [['18.2K','Người dùng'],['25.4K','Tin đăng'],['142','Chờ duyệt'],['23','Báo cáo']];
-  return '<main class="page-content page-content-mobile"><div class="container-xl"><section class="page-hero"><h1>Admin</h1><p>Kiểm duyệt, người dùng, báo cáo và audit.</p></section><div class="row g-2">' +
-    stats.map(function (s) { return '<div class="col-6 col-lg-3"><div class="card-80 p-3"><div class="detail-price" style="font-size:22px">' + s[0] + '</div><div class="text-80-muted small">' + s[1] + '</div></div></div>'; }).join('') +
-    '</div><div class="card-80 p-3 mt-3"><h2 class="h5">Hàng chờ xử lý</h2><div class="list-group list-group-flush"><div class="list-group-item"><strong>Tin #80L-1420</strong><div class="small text-warning">Chờ duyệt · Kiểm tra</div></div><div class="list-group-item"><strong>Tài khoản #9921</strong><div class="small text-success">Bình thường</div></div><div class="list-group-item"><strong>Báo cáo #183</strong><div class="small text-danger">Cần xử lý</div></div></div></div></div></main>';
+
+function adminReadState() {
+  const defaults = {
+    listings: [
+      { id:'80L-1420', title:'Studio full nội thất Bình Thạnh', owner:'Nguyễn Minh', price:'4,8 triệu', submitted:'12 phút trước', status:'pending', reports:0 },
+      { id:'80L-1419', title:'Phòng gác Thủ Đức gần Metro', owner:'Trần Khoa', price:'3,9 triệu', submitted:'31 phút trước', status:'pending', reports:1 },
+      { id:'80L-1416', title:'Căn hộ Quận 7, ban công rộng', owner:'Lê An', price:'6,2 triệu', submitted:'2 giờ trước', status:'approved', reports:0 },
+      { id:'80L-1408', title:'Phòng giá rẻ Tân Phú', owner:'Phạm Huy', price:'2,7 triệu', submitted:'Hôm qua', status:'hidden', reports:3 }
+    ],
+    users: [
+      { id:'U-9921', name:'Nguyễn Minh', role:'Chủ nhà', listings:6, joined:'20/09/2026', status:'active' },
+      { id:'U-9916', name:'Trần Khoa', role:'Chủ nhà', listings:3, joined:'18/09/2026', status:'active' },
+      { id:'U-9883', name:'Lê An', role:'Người thuê', listings:0, joined:'12/09/2026', status:'active' },
+      { id:'U-9814', name:'Phạm Huy', role:'Chủ nhà', listings:9, joined:'01/09/2026', status:'flagged' }
+    ],
+    reports: [
+      { id:'R-183', target:'80L-1408', reporter:'Người dùng #7812', reason:'Nghi ngờ thông tin không chính xác', created:'18 phút trước', priority:'high', status:'open' },
+      { id:'R-181', target:'U-9814', reporter:'Người dùng #6651', reason:'Đăng tin lặp lại', created:'1 giờ trước', priority:'medium', status:'open' },
+      { id:'R-177', target:'80L-1389', reporter:'Người dùng #5520', reason:'Ảnh không đúng thực tế', created:'Hôm qua', priority:'low', status:'resolved' }
+    ]
+  };
+  let stored = null;
+  try { stored = JSON.parse(localStorage.getItem('80land:admin:state') || 'null'); } catch (error) {}
+  if (!stored) return defaults;
+  return {
+    listings:Array.isArray(stored.listings) ? stored.listings : defaults.listings,
+    users:Array.isArray(stored.users) ? stored.users : defaults.users,
+    reports:Array.isArray(stored.reports) ? stored.reports : defaults.reports
+  };
 }
+
+function adminSaveState(state) {
+  localStorage.setItem('80land:admin:state', JSON.stringify(state));
+}
+
+function adminAuditLog() {
+  const defaults = [
+    { id:'a-1', time:'09:42', actor:'Admin', action:'Duyệt tin 80L-1416', detail:'Căn hộ Quận 7, ban công rộng' },
+    { id:'a-2', time:'09:21', actor:'Admin', action:'Tiếp nhận báo cáo R-183', detail:'Nghi ngờ thông tin không chính xác' },
+    { id:'a-3', time:'08:55', actor:'Admin', action:'Cảnh báo tài khoản U-9814', detail:'Đăng tin lặp lại' },
+    { id:'a-4', time:'08:32', actor:'System', action:'Đồng bộ dữ liệu', detail:'Hoàn tất 25.430 tin đăng' }
+  ];
+  let stored = null;
+  try { stored = JSON.parse(localStorage.getItem('80land:admin:audit') || 'null'); } catch (error) {}
+  return Array.isArray(stored) ? stored : defaults;
+}
+
+function adminWriteAudit(action, detail) {
+  const logs = adminAuditLog();
+  logs.unshift({
+    id:'a-' + Date.now(),
+    time:new Date().toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'}),
+    actor:'Admin',
+    action:action,
+    detail:detail
+  });
+  localStorage.setItem('80land:admin:audit', JSON.stringify(logs.slice(0,40)));
+}
+
+function adminViewState() {
+  const params = new URLSearchParams(location.search);
+  return params.get('view') || 'overview';
+}
+
+function adminNavHref(view) {
+  return view === 'overview' ? '/admin' : '/admin?view=' + view;
+}
+
+function adminStatusLabel(status) {
+  return status === 'pending' ? 'Chờ duyệt' :
+    status === 'approved' ? 'Đã duyệt' :
+    status === 'hidden' ? 'Đã ẩn' :
+    status === 'flagged' ? 'Cần chú ý' :
+    status === 'open' ? 'Mở' :
+    status === 'resolved' ? 'Đã xử lý' :
+    status === 'suspended' ? 'Đã khóa' : 'Hoạt động';
+}
+
+function adminPriorityLabel(priority) {
+  return priority === 'high' ? 'Cao' : priority === 'medium' ? 'Trung bình' : 'Thấp';
+}
+
+function adminTabs(active) {
+  const items = [
+    ['overview','Tổng quan','dashboard'],
+    ['listings','Tin đăng','fact_check'],
+    ['users','Người dùng','group'],
+    ['reports','Báo cáo','report'],
+    ['audit','Audit log','history']
+  ];
+  return '<nav class="admin-tabs" aria-label="Admin navigation">' + items.map(function(item){
+    return '<a href="' + adminNavHref(item[0]) + '" data-link class="' + (active===item[0]?'active':'') + '">' + icon(item[2]) + '<span>' + item[1] + '</span></a>';
+  }).join('') + '</nav>';
+}
+
+function adminOverview(state) {
+  const pendingListings = state.listings.filter(function(item){ return item.status === 'pending'; }).length;
+  const openReports = state.reports.filter(function(item){ return item.status === 'open'; }).length;
+  const flaggedUsers = state.users.filter(function(item){ return item.status === 'flagged'; }).length;
+  const approvedToday = state.listings.filter(function(item){ return item.status === 'approved'; }).length;
+  return [
+    '<section class="admin-stat-grid">',
+      '<div class="card-80 admin-stat-card"><span>' + icon('group') + '</span><strong>18.240</strong><small>Người dùng đang hoạt động</small><b>+4,8% tuần này</b></div>',
+      '<div class="card-80 admin-stat-card"><span>' + icon('real_estate_agent') + '</span><strong>25.430</strong><small>Tin đăng</small><b>' + approvedToday + ' tin mới được duyệt</b></div>',
+      '<div class="card-80 admin-stat-card emphasis"><span>' + icon('pending_actions') + '</span><strong>' + pendingListings + '</strong><small>Tin chờ duyệt</small><b>Cần kiểm tra</b></div>',
+      '<div class="card-80 admin-stat-card emphasis-danger"><span>' + icon('flag') + '</span><strong>' + openReports + '</strong><small>Báo cáo mở</small><b>' + flaggedUsers + ' tài khoản cần chú ý</b></div>',
+    '</section>',
+    '<section class="admin-dashboard-grid">',
+      '<div class="card-80 admin-queue-card"><div class="admin-panel-head"><div><span class="detail-overline">Moderation queue</span><h2>Việc cần xử lý</h2></div><a href="' + adminNavHref('listings') + '" data-link class="admin-panel-link">Xem tin ' + icon('arrow_forward') + '</a></div>',
+        '<div class="admin-queue-list">' + state.listings.filter(function(item){return item.status==='pending';}).slice(0,3).map(function(item){return '<div class="admin-queue-row"><span class="admin-queue-icon">' + icon('fact_check') + '</span><div><strong>' + item.id + ' · ' + item.title + '</strong><small>' + item.owner + ' · ' + item.submitted + '</small></div><a href="' + adminNavHref('listings') + '" data-link>' + icon('arrow_forward') + '</a></div>';}).join('') +
+        '</div><a href="' + adminNavHref('reports') + '" data-link class="admin-review-banner"><span>' + icon('report') + '</span><div><strong>' + openReports + ' báo cáo đang mở</strong><small>Ưu tiên các báo cáo mức cao trước.</small></div>' + icon('arrow_forward') + '</a>',
+      '</div>',
+      '<aside class="admin-side-column">',
+        '<section class="card-80 admin-system-card"><span class="assistant-kicker">' + icon('dns') + ' SYSTEM HEALTH</span><div class="admin-health-row"><span><i class="is-good"></i> API</span><b>99,98%</b></div><div class="admin-health-row"><span><i class="is-good"></i> Database</span><b>Ổn định</b></div><div class="admin-health-row"><span><i class="is-good"></i> Search index</span><b>Đã đồng bộ</b></div><small>Kiểm tra lần cuối 09:40</small></section>',
+        '<section class="card-80 admin-side-note"><span class="assistant-kicker">' + icon('security') + ' QUYỀN ADMIN</span><h3>Moderator cấp hệ thống</h3><p>Prototype hiển thị vai trò và audit trail. Quyền thật cần được cấp từ backend.</p><span class="phase8-demo-badge">' + icon('science') + ' Prototype</span></section>',
+      '</aside>',
+    '</section>'
+  ].join('');
+}
+
+function adminListingsView(state) {
+  return '<section class="card-80 admin-table-card"><div class="admin-panel-head"><div><span class="detail-overline">Moderation</span><h2>Kiểm duyệt tin đăng</h2></div><label class="admin-search"><span>' + icon('search') + '</span><input id="adminListingSearch" placeholder="Tìm mã tin, tiêu đề, chủ nhà"></label></div>' +
+    '<div class="admin-filter-row"><button type="button" class="active" data-admin-listing-filter="all">Tất cả</button><button type="button" data-admin-listing-filter="pending">Chờ duyệt</button><button type="button" data-admin-listing-filter="approved">Đã duyệt</button><button type="button" data-admin-listing-filter="hidden">Đã ẩn</button></div>' +
+    '<div class="admin-data-list" id="adminListingList">' + state.listings.map(function(item){
+      return '<article class="admin-data-row" data-admin-listing-row data-status="' + item.status + '" data-search="' + (item.id+' '+item.title+' '+item.owner).toLowerCase().replace(/"/g,'&quot;') + '">' +
+        '<div class="admin-data-main"><span class="admin-record-icon">' + icon('home_work') + '</span><div><strong>' + item.id + ' · ' + item.title + '</strong><small>' + item.owner + ' · ' + item.price + '/tháng · gửi ' + item.submitted + '</small><span>' + (item.reports ? item.reports + ' báo cáo liên quan' : 'Không có báo cáo') + '</span></div></div>' +
+        '<span class="admin-status-pill ' + item.status + '">' + adminStatusLabel(item.status) + '</span>' +
+        '<div class="admin-row-actions">' +
+          (item.status === 'pending' ? '<button type="button" class="btn btn-sm btn-80-primary" data-admin-listing-action="approve" data-admin-id="' + item.id + '">' + icon('check') + ' Duyệt</button><button type="button" class="icon-button" data-admin-listing-action="hide" data-admin-id="' + item.id + '" data-tooltip="Ẩn">' + icon('visibility_off') + '</button>' :
+            item.status === 'approved' ? '<button type="button" class="icon-button" data-admin-listing-action="hide" data-admin-id="' + item.id + '" data-tooltip="Ẩn tin">' + icon('visibility_off') + '</button>' :
+            '<button type="button" class="btn btn-sm btn-80-outline" data-admin-listing-action="approve" data-admin-id="' + item.id + '">' + icon('visibility') + ' Hiện lại</button>') +
+        '</div>',
+      '</article>';
+    }).join('') + '</div></section>';
+}
+
+function adminUsersView(state) {
+  return '<section class="card-80 admin-table-card"><div class="admin-panel-head"><div><span class="detail-overline">Accounts</span><h2>Người dùng</h2></div><label class="admin-search"><span>' + icon('search') + '</span><input id="adminUserSearch" placeholder="Tìm tên hoặc mã tài khoản"></label></div>' +
+    '<div class="admin-data-list" id="adminUserList">' + state.users.map(function(item){
+      return '<article class="admin-data-row" data-admin-user-row data-status="' + item.status + '" data-search="' + (item.id+' '+item.name+' '+item.role).toLowerCase().replace(/"/g,'&quot;') + '">' +
+        '<div class="admin-data-main"><span class="admin-user-avatar">' + item.name.split(' ').map(function(part){return part[0];}).slice(-2).join('').toUpperCase() + '</span><div><strong>' + item.id + ' · ' + item.name + '</strong><small>' + item.role + ' · ' + item.listings + ' tin · tham gia ' + item.joined + '</small><span>Tài khoản ' + adminStatusLabel(item.status).toLowerCase() + '</span></div></div>' +
+        '<span class="admin-status-pill ' + item.status + '">' + adminStatusLabel(item.status) + '</span>' +
+        '<div class="admin-row-actions">' + (item.status === 'suspended' ? '<button type="button" class="btn btn-sm btn-80-primary" data-admin-user-action="activate" data-admin-id="' + item.id + '">' + icon('lock_open') + ' Mở khóa</button>' : '<button type="button" class="icon-button" data-admin-user-action="suspend" data-admin-id="' + item.id + '" data-tooltip="Khóa tài khoản">' + icon('lock') + '</button>') + '</div>',
+      '</article>';
+    }).join('') + '</div></section>';
+}
+
+function adminReportsView(state) {
+  return '<section class="card-80 admin-table-card"><div class="admin-panel-head"><div><span class="detail-overline">Trust & Safety</span><h2>Báo cáo</h2></div><div class="admin-report-summary"><span>' + state.reports.filter(function(item){return item.status==='open';}).length + ' mở</span><span>' + state.reports.filter(function(item){return item.priority==='high' && item.status==='open';}).length + ' mức cao</span></div></div>' +
+    '<div class="admin-data-list" id="adminReportList">' + state.reports.map(function(item){
+      return '<article class="admin-data-row report-row" data-admin-report-row data-status="' + item.status + '">' +
+        '<div class="admin-data-main"><span class="admin-record-icon ' + item.priority + '">' + icon('report') + '</span><div><strong>' + item.id + ' · ' + item.reason + '</strong><small>' + item.target + ' · ' + item.reporter + ' · ' + item.created + '</small><span>Ưu tiên: ' + adminPriorityLabel(item.priority) + '</span></div></div>' +
+        '<span class="admin-status-pill ' + item.status + '">' + adminStatusLabel(item.status) + '</span>' +
+        '<div class="admin-row-actions">' + (item.status === 'open' ? '<button type="button" class="btn btn-sm btn-80-primary" data-admin-report-action="resolve" data-admin-id="' + item.id + '">' + icon('check_circle') + ' Đã xử lý</button>' : '<span class="admin-resolved-note">' + icon('done_all') + ' Hoàn tất</span>') + '</div>',
+      '</article>';
+    }).join('') + '</div></section>';
+}
+
+function adminAuditView() {
+  const logs = adminAuditLog();
+  return '<section class="card-80 admin-table-card"><div class="admin-panel-head"><div><span class="detail-overline">Audit trail</span><h2>Lịch sử quản trị</h2></div><span class="phase8-soft-badge">' + logs.length + ' sự kiện</span></div><div class="admin-audit-list">' +
+    logs.map(function(item){return '<div class="admin-audit-row"><span class="admin-audit-time">' + item.time + '</span><div><strong>' + item.action + '</strong><small>' + item.actor + ' · ' + item.detail + '</small></div><span class="admin-audit-dot"></span></div>';}).join('') +
+  '</div></section>';
+}
+
+function adminPage() {
+  const state = adminReadState();
+  const view = adminViewState();
+  const viewTitle = view === 'listings' ? 'Kiểm duyệt tin đăng' : view === 'users' ? 'Quản lý người dùng' : view === 'reports' ? 'Xử lý báo cáo' : view === 'audit' ? 'Audit log' : 'Admin Center';
+  const viewDesc = view === 'listings' ? 'Kiểm tra, duyệt và ẩn tin trước khi chúng xuất hiện rộng rãi trên marketplace.' : view === 'users' ? 'Theo dõi tài khoản, vai trò và trạng thái hoạt động.' : view === 'reports' ? 'Tập trung các báo cáo an toàn, spam và nội dung cần kiểm tra.' : view === 'audit' ? 'Lịch sử hành động quản trị được ghi nhận ở mức prototype.' : 'Một không gian quản trị dành cho kiểm duyệt, tài khoản, báo cáo và audit.';
+  const body = view === 'listings' ? adminListingsView(state) : view === 'users' ? adminUsersView(state) : view === 'reports' ? adminReportsView(state) : view === 'audit' ? adminAuditView() : adminOverview(state);
+  return '<main class="page-content page-content-mobile admin-page"><div class="container-xl">' +
+    '<section class="admin-head"><div><span class="assistant-kicker">' + icon('admin_panel_settings') + ' 80LAND ADMIN</span><h1>' + viewTitle + '</h1><p>' + viewDesc + '</p></div><span class="phase8-demo-badge">' + icon('science') + ' Prototype quyền admin</span></section>' +
+    adminTabs(view) + body +
+  '</div></main>';
+}
+
 
 function render() {
   const path = (location.pathname || '/').replace(/\/+/g, '/') || '/';
@@ -1558,6 +1729,89 @@ function bind() {
     });
   });
 
+
+
+  document.querySelectorAll('[data-admin-listing-filter]').forEach(function(button){
+    button.addEventListener('click', function(){
+      document.querySelectorAll('[data-admin-listing-filter]').forEach(function(item){item.classList.remove('active');});
+      button.classList.add('active');
+      const filter=button.dataset.adminListingFilter;
+      document.querySelectorAll('[data-admin-listing-row]').forEach(function(row){
+        row.hidden = filter !== 'all' && row.dataset.status !== filter;
+      });
+    });
+  });
+
+  const adminListingSearch=document.querySelector('#adminListingSearch');
+  if(adminListingSearch){
+    adminListingSearch.addEventListener('input', function(){
+      const query=adminListingSearch.value.trim().toLowerCase();
+      document.querySelectorAll('[data-admin-listing-row]').forEach(function(row){
+        row.hidden = query && row.dataset.search.indexOf(query) === -1;
+      });
+    });
+  }
+
+  const adminUserSearch=document.querySelector('#adminUserSearch');
+  if(adminUserSearch){
+    adminUserSearch.addEventListener('input', function(){
+      const query=adminUserSearch.value.trim().toLowerCase();
+      document.querySelectorAll('[data-admin-user-row]').forEach(function(row){
+        row.hidden = query && row.dataset.search.indexOf(query) === -1;
+      });
+    });
+  }
+
+  document.querySelectorAll('[data-admin-listing-action]').forEach(function(button){
+    button.addEventListener('click', function(){
+      const id=button.dataset.adminId;
+      const action=button.dataset.adminListingAction;
+      const state=adminReadState();
+      const item=state.listings.find(function(entry){return entry.id===id;});
+      if(!item) return;
+      if(action==='approve'){
+        item.status='approved';
+        adminWriteAudit('Duyệt tin '+item.id, item.title);
+      } else {
+        item.status='hidden';
+        adminWriteAudit('Ẩn tin '+item.id, item.title);
+      }
+      adminSaveState(state);
+      navigate('/admin?view=listings');
+    });
+  });
+
+  document.querySelectorAll('[data-admin-user-action]').forEach(function(button){
+    button.addEventListener('click', function(){
+      const id=button.dataset.adminId;
+      const action=button.dataset.adminUserAction;
+      const state=adminReadState();
+      const item=state.users.find(function(entry){return entry.id===id;});
+      if(!item) return;
+      if(action==='suspend'){
+        item.status='suspended';
+        adminWriteAudit('Khóa tài khoản '+item.id, item.name);
+      } else {
+        item.status='active';
+        adminWriteAudit('Mở khóa tài khoản '+item.id, item.name);
+      }
+      adminSaveState(state);
+      navigate('/admin?view=users');
+    });
+  });
+
+  document.querySelectorAll('[data-admin-report-action]').forEach(function(button){
+    button.addEventListener('click', function(){
+      const id=button.dataset.adminId;
+      const state=adminReadState();
+      const item=state.reports.find(function(entry){return entry.id===id;});
+      if(!item) return;
+      item.status='resolved';
+      adminWriteAudit('Đóng báo cáo '+item.id, item.reason);
+      adminSaveState(state);
+      navigate('/admin?view=reports');
+    });
+  });
 
   const walletAllTransactions = document.querySelector('#walletAllTransactions');
   const walletShowAll = document.querySelector('[data-wallet-show-all]');
