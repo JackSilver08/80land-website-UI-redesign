@@ -101,6 +101,11 @@ Pay particular attention to:
 ## Browser limitation
 This final QA includes an isolated JavaScript render harness and static source verification. A real browser session against the locally served application was not available in the coding environment, so browser-paint validation, actual CSS pixel overflow inspection, image loading, and pointer/touch behavior still require local execution.
 
+## Mobile hardening added after local review
+- Final mobile pass tightened the 80Land Assistant chat height so it does not dominate a phone viewport.
+- Final mobile pass changed the landlord four-step editor into a compact four-column progress navigator and reduced preview imagery height.
+- Final mobile pass changed referral metrics from three compressed columns to two columns with the income metric spanning the full row.
+
 ## Status
 Final code hardening: PASS
 JavaScript syntax/render smoke test: PASS
