@@ -1557,6 +1557,118 @@ function bind() {
     });
   });
 
+
+  const walletAllTransactions = document.querySelector('#walletAllTransactions');
+  const walletShowAll = document.querySelector('[data-wallet-show-all]');
+  if (walletShowAll && walletAllTransactions) {
+    walletShowAll.addEventListener('click', function (event) {
+      event.preventDefault();
+      const open = walletAllTransactions.hidden;
+      walletAllTransactions.hidden = !open;
+      walletShowAll.innerHTML = icon(open ? 'expand_less' : 'receipt_long') + (open ? ' Thu gọn giao dịch' : ' Xem toàn bộ giao dịch');
+    });
+  }
+
+  const walletJump = document.querySelector('[data-wallet-jump]');
+  if (walletJump) {
+    walletJump.addEventListener('click', function (event) {
+      event.preventDefault();
+      const target = document.querySelector('#walletWithdraw');
+      if (target) target.scrollIntoView({ behavior:'smooth', block:'start' });
+      const amount = document.querySelector('#walletWithdrawAmount');
+      if (amount) window.setTimeout(function(){ amount.focus(); }, 250);
+    });
+  }
+
+  const walletWithdrawForm = document.querySelector('#walletWithdrawForm');
+  if (walletWithdrawForm) {
+    walletWithdrawForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      const wallet = walletReadState();
+      const amount = Number(document.querySelector('#walletWithdrawAmount')?.value || 0);
+      const bank = document.querySelector('#walletWithdrawBank')?.value || '';
+      const account = (document.querySelector('#walletWithdrawAccount')?.value || '').trim();
+      const name = (document.querySelector('#walletWithdrawName')?.value || '').trim();
+      if (!amount || amount < 100000) {
+        alert('Số tiền rút tối thiểu trong prototype là 100.000đ.');
+        return;
+      }
+      if (amount > wallet.withdrawable) {
+        alert('Số tiền yêu cầu vượt quá số dư có thể rút.');
+        return;
+      }
+      if (!account || !name) {
+        alert('Vui lòng điền đầy đủ số tài khoản và tên chủ tài khoản.');
+        return;
+      }
+      const nextWallet = Object.assign({}, wallet, {
+        withdrawable: wallet.withdrawable - amount,
+        pending: wallet.pending + amount,
+        balance: wallet.balance
+      });
+      saveWalletState(nextWallet);
+      const transactions = walletTransactions();
+      const nextTransactions = [{
+        id:'tx-' + Date.now(),
+        date:new Date().toLocaleDateString('vi-VN'),
+        title:'Yêu cầu rút tiền',
+        note:bank + ' · **** ' + account.slice(-4),
+        amount:-amount,
+        type:'debit',
+        status:'pending'
+      }].concat(transactions);
+      localStorage.setItem('80land:wallet:transactions', JSON.stringify(nextTransactions));
+      const withdrawals = JSON.parse(localStorage.getItem('80land:withdrawals') || '[]');
+      withdrawals.unshift({ id:'wd-' + Date.now(), amount:amount, bank:bank, account:'**** ' + account.slice(-4), name:name, status:'pending', createdAt:new Date().toISOString() });
+      localStorage.setItem('80land:withdrawals', JSON.stringify(withdrawals));
+      alert('Đã tạo yêu cầu rút tiền. Prototype sẽ giữ yêu cầu ở trạng thái đang xử lý.');
+      navigate('/wallet');
+    });
+  }
+
+  function copyPhase8Text(value, successText) {
+    if (!value) return;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(value).then(function () {
+        alert(successText);
+      }).catch(function () {
+        window.prompt('Sao chép nội dung này:', value);
+      });
+    } else {
+      window.prompt('Sao chép nội dung này:', value);
+    }
+  }
+
+  const referral = referralReadState();
+  const referralCode = document.querySelector('#referralCode');
+  const referralLink = document.querySelector('#referralLink');
+  const copyReferralLink = document.querySelector('#copyReferralLink');
+  const copyReferralLinkBottom = document.querySelector('#copyReferralLinkBottom');
+  const copyReferralCode = document.querySelector('#copyReferralCode');
+  const shareReferral = document.querySelector('#shareReferral');
+
+  [copyReferralLink, copyReferralLinkBottom].forEach(function (button) {
+    if (!button) return;
+    button.addEventListener('click', function () {
+      copyPhase8Text(referral.link, 'Đã sao chép liên kết giới thiệu.');
+    });
+  });
+  if (copyReferralCode && referralCode) {
+    copyReferralCode.addEventListener('click', function () {
+      copyPhase8Text(referralCode.textContent.trim(), 'Đã sao chép mã giới thiệu.');
+    });
+  }
+  if (shareReferral) {
+    shareReferral.addEventListener('click', function () {
+      if (navigator.share) {
+        navigator.share({ title:'80Land', text:'Tìm phòng cùng mình trên 80Land', url:referral.link }).catch(function(){});
+      } else {
+        copyPhase8Text(referral.link, 'Thiết bị chưa hỗ trợ chia sẻ trực tiếp. Đã sao chép liên kết.');
+      }
+    });
+  }
+  if (referralLink) referralLink.addEventListener('click', function () { referralLink.select(); });
+
   let landlordStep = 1;
 
   function listingFormValues() {
