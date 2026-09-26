@@ -220,6 +220,13 @@ function filteredListings(state) {
   return result;
 }
 
+function mapFilteredListings(state) {
+  const radius = Number(state.radius || 2);
+  return filteredListings(state).filter(function (item) {
+    return typeof item.distance !== 'number' || item.distance <= radius;
+  });
+}
+
 function statePath(base, state, overrides) {
   const next = Object.assign({}, state, overrides || {});
   const params = new URLSearchParams();
@@ -345,7 +352,7 @@ function searchPage() {
 function mapPage() {
   const state = searchState();
   const radius = state.radius || '2';
-  const results = filteredListings(state);
+  const results = mapFilteredListings(state);
   const markerPositions = [[18,26],[46,47],[70,30],[34,68],[78,65],[59,20]];
   const mapItems = results.slice(0, markerPositions.length);
   const markerHtml = mapItems.map(function (item, index) {
