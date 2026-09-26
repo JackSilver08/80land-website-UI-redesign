@@ -13,6 +13,8 @@ function layout(content) {
 }
 
 function header() {
+  const savedHeaderCount = typeof getSavedListingIds === 'function' ? getSavedListingIds().length : 3;
+  const unreadHeaderCount = typeof getNotificationRows === 'function' ? getNotificationRows().filter(function (item) { return item.unread; }).length : 3;
   return [
     '<header class="site-header"><div class="container-xl"><div class="inner d-flex align-items-center justify-content-between gap-3 py-2">',
       '<a class="brand flex-shrink-0" href="/" data-link><span class="brand-mark">',
@@ -29,7 +31,7 @@ function header() {
           '</button>',
           '<div class="user-dropdown" id="userDropdown" role="menu" aria-hidden="true">',
             '<a href="/saved" data-link class="user-dropdown-item" role="menuitem">' + icon('favorite') + '<span>Tin đã lưu</span><span class="menu-count">3</span></a>',
-            '<a href="/notifications" data-link class="user-dropdown-item" role="menuitem">' + icon('notifications') + '<span>Thông báo</span><span class="menu-count">3</span></a>',
+            '<a href="/notifications" data-link class="user-dropdown-item" role="menuitem">' + icon('notifications') + '<span>Thông báo</span><span class="menu-count">' + unreadHeaderCount + '</span></a>',
             '<a href="/wallet" data-link class="user-dropdown-item" role="menuitem">' + icon('account_balance_wallet') + '<span>Ví & thu nhập</span></a>',
             '<a href="/referrals" data-link class="user-dropdown-item" role="menuitem">' + icon('group_add') + '<span>Giới thiệu bạn bè</span></a>',
             '<a href="/profile" data-link class="user-dropdown-item" role="menuitem">' + icon('person') + '<span>Trang cá nhân</span></a>',
@@ -373,13 +375,15 @@ function mapPage() {
 }
 
 function detailHref(id) {
-  const source = (location.pathname === '/search' || location.pathname === '/map') ? location.pathname + location.search : '';
+  const path = location.pathname || '/';
+  const eligible = path === '/search' || path === '/map' || path === '/saved' || path === '/assistant' || path.indexOf('/province/') === 0;
+  const source = eligible ? path + location.search : '';
   return '/property/' + id + (source ? '?from=' + encodeURIComponent(source) : '');
 }
 
 function detailBackHref() {
   const from = new URLSearchParams(location.search).get('from') || '';
-  return /^\/(search|map)(\?|$)/.test(from) ? from : '/search';
+  return /^\/(search|map|saved|assistant|province\/[^?]+)(\?.*)?$/.test(from) ? from : '/search';
 }
 
 function detailPage(id) {
