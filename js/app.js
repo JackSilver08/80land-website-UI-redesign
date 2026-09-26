@@ -139,10 +139,11 @@ function homePage() {
       '</section>',
 
       '<section class="home-section home-recommendation-section">',
-        '<div class="home-section-head"><div><span class="home-eyebrow">' + icon('auto_awesome') + ' Cá nhân hóa</span><h2>Đề xuất cho bạn</h2><p>Ưu tiên theo khu vực, mức giá và tiện ích bạn quan tâm.</p></div><a href="/assistant" data-link class="home-section-link">Thiết lập nhu cầu ' + icon('arrow_forward') + '</a></div>',
-        '<div class="row g-3">' + listings.map(function (item) {
+        '<div class="home-section-head"><div><span class="home-eyebrow">' + icon('auto_awesome') + ' Cá nhân hóa</span><h2>Đề xuất cho bạn</h2><p>Ưu tiên theo khu vực, mức giá và tiện ích bạn quan tâm.</p></div><div class="home-recommendation-head-actions"><span class="home-recommendation-count">15 tin nổi bật</span><a href="/assistant" data-link class="home-section-link">Thiết lập nhu cầu ' + icon('arrow_forward') + '</a></div></div>',
+        '<div class="row g-3 home-recommendation-grid">' + listings.slice(0,15).map(function (item) {
           return '<div class="col-6 col-lg"><a href="' + detailHref(item.id) + '" data-link class="text-decoration-none text-dark">' + propertyCard(item) + '</a></div>';
         }).join('') + '</div>',
+        '<div class="home-pagination-row"><span class="home-pagination-caption">Hiển thị 1–15 trong 1.500 sản phẩm</span><nav class="home-pagination" aria-label="Phân trang sản phẩm" aria-describedby="homePaginationNote"><span id="homePaginationNote" class="visually-hidden">Phân trang mẫu cho giao diện demo</span><span class="home-pagination-arrow is-disabled" aria-disabled="true">' + icon('chevron_left') + '</span><span class="home-pagination-page active" aria-current="page">1</span><span class="home-pagination-page">2</span><span class="home-pagination-page">3</span><span class="home-pagination-ellipsis">…</span><span class="home-pagination-page">98</span><span class="home-pagination-page">99</span><span class="home-pagination-page">100</span><span class="home-pagination-arrow">' + icon('chevron_right') + '</span></nav></div>',
       '</section>',
 
       '<section class="home-section home-tools-section">',
@@ -189,6 +190,7 @@ function searchState() {
 }
 
 function listingType(item) {
+  if (item.type) return item.type;
   return item.id === 3 || item.id === 5 ? 'Chung cư' : 'Phòng trọ';
 }
 
