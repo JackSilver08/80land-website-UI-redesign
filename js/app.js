@@ -72,14 +72,28 @@ function propertyCard(item) {
 
 function hero() {
   return [
-    '<section class="section-space pt-3"><div class="container-xl">',
-      '<div class="hero-shell">',
-        '<article class="hero-slide active"><div class="hero-copy"><span class="hero-kicker">' + icon('home_work') + ' 80LAND RENTAL</span><h1>Tìm nơi ở phù hợp với bạn</h1><p>Phòng trọ, căn hộ, nhà nguyên căn và ở ghép được sắp xếp để bạn tìm nhanh hơn.</p><button class="btn btn-80-primary mt-3" data-go="/search">Khám phá phòng →</button></div><div class="hero-art rental"></div></article>',
-        '<article class="hero-slide"><div class="hero-copy"><span class="hero-kicker">' + icon('tune') + ' TÌM THEO NHU CẦU</span><h1>Lọc đúng phòng, bớt mất thời gian</h1><p>Chọn khu vực, mức giá, loại hình và tiện ích để thu hẹp kết quả ngay từ đầu.</p><button class="btn btn-80-primary mt-3" data-go="/search">Tìm phòng ngay</button></div><div class="hero-art search"></div></article>',
-        '<article class="hero-slide"><div class="hero-copy"><span class="hero-kicker">' + icon('campaign') + ' CHỦ TRỌ 80LAND</span><h1>Đăng tin gọn, tiếp cận đúng người</h1><p>Quản lý tin đăng và khách quan tâm trong một nơi.</p><button class="btn btn-80-primary mt-3" data-go="/landlord">Đăng tin miễn phí</button></div><div class="hero-art landlord"></div></article>',
+    '<section class="hero-stage">',
+      '<div class="hero-banner">',
+        '<div class="container-xl position-relative h-100">',
+          '<div class="hero-message">',
+            '<span class="hero-kicker">' + icon('home_work') + ' 80LAND RENTAL</span>',
+            '<h1>Tìm nơi ở phù hợp<br>với cuộc sống của bạn</h1>',
+            '<p>Phòng trọ, căn hộ, nhà nguyên căn và ở ghép được sắp xếp để bạn tìm nhanh hơn.</p>',
+            '<div class="hero-message-actions">',
+              '<a href="/search" data-link class="btn btn-80-primary">Khám phá phòng</a>',
+              '<a href="/map" data-link class="btn btn-light border">🗺 Tìm quanh tôi</a>',
+            '</div>',
+          '</div>',
+        '</div>',
       '</div>',
-      '<div class="search-box mx-3 mx-md-4">',
-        '<div class="search-tabs"><button class="search-tab active" type="button">🛏 Phòng trọ & Căn hộ</button><button class="search-tab" type="button">♙ Ở ghép</button><button class="search-tab" type="button">⌂ Nhà nguyên căn</button><button class="search-tab" type="button">▥ Mặt bằng</button></div>',
+      '<div class="hero-orbit" aria-hidden="true"></div>',
+      '<div class="search-box hero-search">',
+        '<div class="search-tabs">',
+          '<button class="search-tab active" type="button">🛏 Phòng trọ & Căn hộ</button>',
+          '<button class="search-tab" type="button">♙ Tìm người ở ghép</button>',
+          '<button class="search-tab" type="button">⌂ Nhà nguyên căn</button>',
+          '<button class="search-tab" type="button">▥ Mặt bằng & Kiot</button>',
+        '</div>',
         '<div class="row g-2 mt-2">',
           '<div class="col-12 col-md-6 col-lg-3"><div class="filter-field"><small>Khu vực</small><strong>Toàn TP. Hồ Chí Minh</strong></div></div>',
           '<div class="col-12 col-md-6 col-lg-3"><div class="filter-field"><small>Loại hình</small><strong>Tất cả loại hình</strong></div></div>',
@@ -89,7 +103,7 @@ function hero() {
         '</div>',
         '<div class="d-flex flex-wrap align-items-center gap-2 mt-3"><strong class="small text-secondary">Tìm nhanh</strong><span class="quick-pill">Gần ĐH Bách Khoa</span><span class="quick-pill">Studio Bình Thạnh</span><span class="quick-pill">Có ban công</span><span class="quick-pill">Pet-friendly</span></div>',
       '</div>',
-    '</div></section>'
+    '</section>'
   ].join('');
 }
 
