@@ -91,52 +91,83 @@ function hero() {
             '<h1>Tìm nơi ở phù hợp<br>với cuộc sống của bạn</h1>',
             '<p>Phòng trọ, căn hộ, nhà nguyên căn và ở ghép được sắp xếp để bạn tìm nhanh hơn.</p>',
             '<div class="hero-message-actions">',
-              '<a href="/map" data-link class="btn btn-light border">🗺 Tìm quanh tôi</a>',
+              '<a href="/map" data-link class="btn btn-light border">' + icon('my_location') + ' Tìm quanh tôi</a>',
             '</div>',
           '</div>',
         '</div>',
       '</div>',
       '<div class="hero-orbit" aria-hidden="true"></div>',
-      '<div class="hero-search">',
+      '<div class="hero-search home-hero-search">',
         '<div class="hero-search-row">',
-          '<label class="hero-search-input"><span>' + icon('search') + '</span><input id="heroSearchInput" name="q" type="search" inputmode="search" autocomplete="off" placeholder="Tìm phòng, khu vực, quận huyện..." aria-label="Tìm phòng"></label>',
+          '<label class="hero-search-input"><span>' + icon('search') + '</span><input id="heroSearchInput" name="q" type="search" inputmode="search" autocomplete="off" placeholder="Bạn muốn tìm phòng ở đâu?" aria-label="Tìm phòng"></label>',
           '<a href="/search" data-link class="hero-filter-btn" data-tooltip="Bộ lọc">' + icon('tune') + '<span class="filter-label">Bộ lọc</span></a>',
         '</div>',
+        '<div class="hero-quick-searches"><span>Tìm nhanh:</span><a href="/search" data-link>TP.HCM</a><a href="/search" data-link>Hà Nội</a><a href="/search" data-link>Đồng Nai</a><a href="/search" data-link>Đà Nẵng</a></div>',
       '</div>',
     '</section>'
   ].join('');
 }
 
 function homePage() {
+  const categories = [
+    ['Phòng trọ','14.230','bi-house-door-fill'],
+    ['Chung cư','6.840','bi-buildings-fill'],
+    ['Nhà nguyên căn','3.120','bi-house-fill'],
+    ['Căn hộ dịch vụ','2.980','bi-building-fill'],
+    ['Mặt bằng kinh doanh','1.110','bi-shop'],
+    ['Pass phòng','860','bi-arrow-left-right'],
+    ['Ở ghép','2.450','bi-people-fill'],
+    ['Tất cả','32.540','bi-grid-fill']
+  ];
   return [
     '<main class="page-content"><div class="container-xl">',
       hero(),
-      '<section class="section-space pt-1 home-categories-section"><div class="home-category-grid">',
-        [
-          ['Phòng trọ','14.230','bi-house-door-fill'],
-          ['Chung cư','6.840','bi-buildings-fill'],
-          ['Nhà nguyên căn','3.120','bi-house-fill'],
-          ['Căn hộ dịch vụ','2.980','bi-building-fill'],
-          ['Mặt bằng kinh doanh','1.110','bi-shop'],
-          ['Pass phòng','860','bi-arrow-left-right'],
-          ['Ở ghép','2.450','bi-people-fill'],
-          ['Tất cả','32.540','bi-grid-fill']
-        ].map(function (item) {
-          return '<a href="/search" data-link class="home-category-card">' +
-            '<span class="home-category-icon"><i class="bi ' + item[2] + '" aria-hidden="true"></i></span>' +
-            '<span class="home-category-copy"><strong>' + item[0] + '</strong><small>' + item[1] + ' tin</small></span>' +
-          '</a>';
-        }).join(''),
-      '</div></section>',
-      '<section class="section-space pt-0"><div class="d-flex justify-content-between align-items-end mb-3"><div><h2 class="h4 mb-0">Đề xuất cho bạn</h2><div class="text-80-muted small mt-1">Ưu tiên theo khu vực, giá và tiêu chí của bạn</div></div><a href="/search" data-link class="text-danger small fw-semibold">Xem tất cả →</a></div>',
-      '<div class="row g-3">' + listings.map(function (item) {
-        return '<div class="col-6 col-lg"><a href="/property/' + item.id + '" data-link class="text-decoration-none text-dark">' + propertyCard(item) + '</a></div>';
-      }).join('') + '</div></section>',
-      '<section class="section-space pt-0"><div class="row g-3"><div class="col-12 col-lg-7"><div class="card-80 p-4 h-100"><h3 class="h5">✨ 80Land Assistant</h3><p class="small text-80-muted">Tìm phòng theo nhu cầu thay vì lọc hàng chục mục.</p><div class="d-flex flex-wrap gap-2 mb-3"><span class="quick-pill">Dưới 4 triệu</span><span class="quick-pill">WC riêng</span><span class="quick-pill">Có ban công</span><span class="quick-pill">Không chung chủ</span></div><a href="/assistant" data-link class="btn btn-80-primary">Tìm giúp tôi</a></div></div><div class="col-12 col-lg-5"><div class="card-80 p-4 h-100"><h3 class="h5">🗺 Tìm quanh tôi</h3><p class="small text-80-muted">Tìm phòng bằng bản đồ hoặc vị trí thực tế.</p><a href="/map" data-link class="btn btn-80-outline">Mở bản đồ</a></div></div></div></section>',
-      '<section class="section-space pt-0"><div class="d-flex justify-content-between align-items-end mb-3"><div><h2 class="h4 mb-0">Khám phá khu vực</h2><div class="text-80-muted small mt-1">Tìm theo tỉnh/thành phố</div></div><a href="/provinces" data-link class="text-danger small fw-semibold">Tất cả →</a></div>',
-      '<div class="row g-3">' + provinces.map(function (province) {
-        return '<div class="col-6 col-md-4 col-lg-3"><a href="/province/' + province.id + '" data-link class="card-80 p-3 h-100 d-block"><div class="category-icon mb-2">' + icon('location_city') + '</div><div class="fw-semibold small">' + province.name + '</div><div class="text-80-muted small mt-1">' + province.districts.slice(0, 3).join(' · ') + '</div><div class="text-danger small fw-semibold mt-2">' + province.count + ' tin mẫu</div></a></div>';
-      }).join('') + '</div></section>',
+      '<section class="home-section home-categories-section">',
+        '<div class="home-section-head"><div><span class="home-eyebrow">Khám phá</span><h2>Tìm theo loại hình</h2><p>Chọn đúng loại chỗ ở để rút ngắn thời gian tìm kiếm.</p></div><a href="/search" data-link class="home-section-link">Tất cả ' + icon('arrow_forward') + '</a></div>',
+        '<div class="home-category-grid">',
+          categories.map(function (item) {
+            return '<a href="/search" data-link class="home-category-card">' +
+              '<span class="home-category-icon"><i class="bi ' + item[2] + '" aria-hidden="true"></i></span>' +
+              '<span class="home-category-copy"><strong>' + item[0] + '</strong><small>' + item[1] + ' tin</small></span>' +
+            '</a>';
+          }).join(''),
+        '</div>',
+      '</section>',
+
+      '<section class="home-section home-recommendation-section">',
+        '<div class="home-section-head"><div><span class="home-eyebrow">' + icon('auto_awesome') + ' Cá nhân hóa</span><h2>Đề xuất cho bạn</h2><p>Ưu tiên theo khu vực, mức giá và tiện ích bạn quan tâm.</p></div><a href="/assistant" data-link class="home-section-link">Thiết lập nhu cầu ' + icon('arrow_forward') + '</a></div>',
+        '<div class="row g-3">' + listings.map(function (item) {
+          return '<div class="col-6 col-lg"><a href="/property/' + item.id + '" data-link class="text-decoration-none text-dark">' + propertyCard(item) + '</a></div>';
+        }).join('') + '</div>',
+      '</section>',
+
+      '<section class="home-section home-tools-section">',
+        '<div class="home-tools-grid">',
+          '<article class="home-assistant-card">',
+            '<div class="home-tool-content"><span class="assistant-kicker">' + icon('auto_awesome') + ' 80LAND ASSISTANT</span><h2>Tìm phòng bằng cách nói nhu cầu của bạn</h2><p>Ví dụ: “Phòng dưới 4 triệu, có máy lạnh, gần trường và không chung chủ”.</p>',
+            '<div class="home-assistant-prompts"><span>Dưới 4 triệu</span><span>WC riêng</span><span>Có ban công</span><span>Nuôi thú cưng</span></div>',
+            '<a href="/assistant" data-link class="btn btn-80-primary">' + icon('chat') + ' Mở 80Land Assistant</a></div>',
+            '<div class="home-assistant-art" aria-hidden="true"><span>' + icon('auto_awesome') + '</span><i></i><i></i><i></i></div>',
+          '</article>',
+          '<article class="home-map-card">',
+            '<div class="home-map-header"><div><span class="home-eyebrow">' + icon('map') + ' Vị trí thực tế</span><h2>Tìm quanh tôi</h2><p>Xem phòng gần vị trí hiện tại trên bản đồ.</p></div><a href="/map" data-link class="icon-button-80">' + icon('arrow_forward') + '</a></div>',
+            '<div class="home-mini-map" aria-hidden="true"><span class="mini-map-road road-1"></span><span class="mini-map-road road-2"></span><span class="mini-map-pin pin-1">4,2tr</span><span class="mini-map-pin pin-2">3,8tr</span><span class="mini-map-pin pin-3">5,0tr</span><span class="mini-map-you">' + icon('my_location') + '</span></div>',
+            '<a href="/map" data-link class="home-map-action">' + icon('my_location') + ' Mở bản đồ</a>',
+          '</article>',
+        '</div>',
+      '</section>',
+
+      '<section class="home-section home-area-section">',
+        '<div class="home-section-head"><div><span class="home-eyebrow">' + icon('location_city') + ' Khu vực</span><h2>Khám phá khu vực</h2><p>Tìm phòng theo tỉnh, thành phố bạn muốn ở.</p></div><a href="/provinces" data-link class="home-section-link">Xem tất cả ' + icon('arrow_forward') + '</a></div>',
+        '<div class="row g-3">' + provinces.map(function (province) {
+          return '<div class="col-6 col-md-4 col-lg-3"><a href="/province/' + province.id + '" data-link class="home-area-card card-80 d-block">' +
+            '<span class="home-area-icon">' + icon('location_city') + '</span>' +
+            '<span class="fw-semibold">' + province.name + '</span>' +
+            '<small>' + province.districts.slice(0, 3).join(' · ') + '</small>' +
+            '<strong>' + province.count + ' tin</strong>' +
+          '</a></div>';
+        }).join('') + '</div>',
+      '</section>',
     '</div></main>'
   ].join('');
 }
