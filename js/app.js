@@ -516,21 +516,100 @@ function profilePage() {
   return '<main class="page-content page-content-mobile"><div class="container-xl"><section class="page-hero"><h1>Tài khoản</h1><p>Quản lý hồ sơ, tin lưu, thông báo và cài đặt.</p></section><div class="card-80 p-4"><div class="d-flex align-items-center gap-3"><div class="category-icon" style="width:54px;height:54px">' + icon('person') + '</div><div><h2 class="h5 mb-1">Quang Tuấn</h2><div class="text-80-muted small">Thành viên từ 2026 · TP.HCM</div></div></div><div class="row g-2 mt-3"><div class="col-4"><div class="spec-card"><b>12</b><span>Tin lưu</span></div></div><div class="col-4"><div class="spec-card"><b>38</b><span>Lượt xem</span></div></div><div class="col-4"><div class="spec-card"><b>6</b><span>Chats</span></div></div></div><div class="list-group list-group-flush mt-3"><a class="list-group-item list-group-item-action" href="/saved" data-link>Tin đã lưu →</a><a class="list-group-item list-group-item-action" href="/messages" data-link>Tin nhắn →</a><a class="list-group-item list-group-item-action" href="/notifications" data-link>Thông báo →</a><a class="list-group-item list-group-item-action" href="/assistant" data-link>80Land Assistant →</a></div></div></div></main>';
 }
 
+function assistantStateFromText(text, base) {
+  const raw = String(text || '').trim();
+  const lower = raw.toLowerCase();
+  const next = Object.assign({
+    q: base && base.q ? base.q : '',
+    price: base && base.price ? base.price : 'all',
+    type: base && base.type ? base.type : 'all',
+    amenities: base && base.amenities ? base.amenities.slice() : [],
+    sort: 'relevance',
+    radius: '2'
+  });
+
+  if (/dưới\s*4|<\s*4|4\s*triệu/.test(lower) && !/4\s*[-–]\s*6/.test(lower)) next.price = 'under-4';
+  else if (/4\s*[-–]\s*6/.test(lower)) next.price = '4-6';
+  else if (/6\s*[-–]\s*10/.test(lower)) next.price = '6-10';
+
+  if (lower.includes('chung cư') || lower.includes('căn hộ')) next.type = 'Chung cư';
+  else if (lower.includes('phòng trọ') || lower.includes('phòng')) next.type = 'Phòng trọ';
+
+  const amenityMap = [
+    ['WC riêng', ['wc riêng','toilet riêng','nhà vệ sinh riêng']],
+    ['Máy lạnh', ['máy lạnh','điều hòa','điều hoà']],
+    ['Ban công', ['ban công']],
+    ['Gác', ['có gác','gác lửng','gác']]
+  ];
+  amenityMap.forEach(function (entry) {
+    if (entry[1].some(function (term) { return lower.includes(term); }) && next.amenities.indexOf(entry[0]) === -1) {
+      next.amenities.push(entry[0]);
+    }
+  });
+
+  const locations = ['Bình Thạnh','Thủ Đức','Quận 7','Tân Bình','Gò Vấp','Biên Hòa','Đồng Nai','Hà Nội','Đà Nẵng','Bình Dương'];
+  const detectedLocation = locations.find(function (location) { return lower.includes(location.toLowerCase()); });
+  if (detectedLocation) next.q = detectedLocation === 'Đồng Nai' ? 'Đồng Nai' : detectedLocation;
+
+  return next;
+}
+
+function assistantStateSummary(state) {
+  const parts = [];
+  parts.push(state.price === 'under-4' ? 'dưới 4 triệu' : state.price === '4-6' ? '4–6 triệu' : state.price === '6-10' ? '6–10 triệu' : 'mọi mức giá');
+  if (state.type !== 'all') parts.push(state.type);
+  if (state.q) parts.push('khu vực ' + state.q);
+  if (state.amenities.length) parts.push(state.amenities.join(', '));
+  return parts.join(' · ');
+}
+
+function assistantReplyForState(state, results) {
+  if (!results.length) {
+    return 'Mình chưa thấy tin mẫu nào khớp toàn bộ tiêu chí. Bạn có thể bỏ bớt một tiện ích hoặc mở rộng khoảng giá.';
+  }
+  return 'Mình đã gom lại theo: ' + assistantStateSummary(state) + '. Có ' + results.length + ' tin mẫu để bạn xem ngay.';
+}
+
 function assistantPage() {
+  const stored = localStorage.getItem('80land:assistant');
+  let savedState = { q:'', price:'all', type:'all', amenities:[], sort:'relevance', radius:'2' };
+  try {
+    if (stored) savedState = Object.assign(savedState, JSON.parse(stored));
+  } catch (error) {}
+  const results = filteredListings(savedState);
+  const resultCards = results.slice(0, 3).map(function (item) {
+    return '<a href="' + detailHref(item.id) + '" data-link class="assistant-result-card text-decoration-none text-dark"><div class="assistant-result-thumb"><img src="' + item.image + '" alt="' + item.title.replace(/"/g, '&quot;') + '"></div><div class="assistant-result-copy"><span class="badge-verified">' + icon(item.verified ? 'verified' : 'home_work') + ' ' + (item.verified ? 'Xác thực' : 'Tin mẫu') + '</span><strong>' + item.title + '</strong><div class="property-price">' + item.price + '/tháng</div><small>' + item.location + ' · ' + item.area + '</small></div></a>';
+  }).join('');
+  const summary = assistantStateSummary(savedState);
   return [
-    '<main class="page-content page-content-mobile"><div class="container-xl">',
-      '<section class="page-hero"><span class="assistant-kicker">' + icon('auto_awesome') + ' 80LAND SMART MATCH</span><h1>Tìm phòng theo nhu cầu của bạn</h1><p>Chọn vài tiêu chí quan trọng. 80Land sẽ ưu tiên các tin phù hợp ở những lần tìm tiếp theo.</p></section>',
-      '<div class="assistant-layout">',
-        '<section class="assistant-form card-80">',
-          '<div class="assistant-step"><span>01</span><div><strong>Khu vực bạn muốn ở?</strong><small>Chọn nơi bạn thường học tập, làm việc hoặc sinh hoạt.</small></div></div>',
-          '<div class="assistant-choice-grid"><button class="assistant-choice active">TP. Hồ Chí Minh</button><button class="assistant-choice">Đồng Nai</button><button class="assistant-choice">Bình Dương</button><button class="assistant-choice">Đà Nẵng</button></div>',
-          '<div class="assistant-step"><span>02</span><div><strong>Ngân sách mỗi tháng?</strong><small>Khoảng giá giúp gợi ý đúng nhu cầu hơn.</small></div></div>',
-          '<div class="assistant-choice-grid"><button class="assistant-choice active">Dưới 4 triệu</button><button class="assistant-choice">4–6 triệu</button><button class="assistant-choice">6–10 triệu</button><button class="assistant-choice">Trên 10 triệu</button></div>',
-          '<div class="assistant-step"><span>03</span><div><strong>Tiện ích ưu tiên</strong><small>Bạn có thể chọn nhiều.</small></div></div>',
-          '<div class="assistant-choice-grid assistant-multi"><button class="assistant-choice active">WC riêng</button><button class="assistant-choice active">Máy lạnh</button><button class="assistant-choice">Ban công</button><button class="assistant-choice">Không chung chủ</button><button class="assistant-choice">Nuôi thú cưng</button><button class="assistant-choice">Có chỗ để xe</button></div>',
-          '<div class="assistant-actions"><button type="button" class="btn btn-80-primary" id="savePreferences">' + icon('auto_awesome') + ' Xem phòng phù hợp</button><a href="/search" data-link class="btn btn-80-outline">Bỏ qua</a></div>',
+    '<main class="page-content page-content-mobile assistant-page"><div class="container-xl">',
+      '<section class="assistant-page-head"><div><span class="assistant-kicker">' + icon('auto_awesome') + ' 80LAND ASSISTANT</span><h1>Tìm phòng bằng cách nói nhu cầu</h1><p>Viết tự nhiên như bạn đang nói với một người tư vấn. 80Land sẽ chuyển nhu cầu thành bộ lọc tìm phòng.</p></div><button type="button" class="assistant-clear" id="assistantClear">' + icon('restart_alt') + ' Làm mới</button></section>',
+      '<div class="assistant-workspace">',
+        '<section class="assistant-chat-panel card-80">',
+          '<div class="assistant-chat-head"><div class="assistant-avatar">' + icon('auto_awesome') + '</div><div><strong>80Land Assistant</strong><span>Hỗ trợ tìm phòng · phản hồi theo nhu cầu</span></div><span class="assistant-online"><i></i> Đang hoạt động</span></div>',
+          '<div class="assistant-chat-body" id="assistantChatBody">',
+            '<div class="assistant-message assistant-message-ai"><div class="assistant-bubble-avatar">' + icon('auto_awesome') + '</div><div><p>Chào bạn 👋 Mình có thể giúp lọc phòng theo <strong>giá, khu vực, loại hình và tiện ích</strong>.</p><p>Bạn có thể nói: “Phòng dưới 4 triệu, có máy lạnh, gần Thủ Đức”.</p></div></div>',
+            '<div class="assistant-quick-prompts" id="assistantQuickPrompts">',
+              '<button type="button" data-assistant-prompt="Phòng dưới 4 triệu">' + icon('payments') + ' Dưới 4 triệu</button>',
+              '<button type="button" data-assistant-prompt="Phòng có máy lạnh">' + icon('ac_unit') + ' Có máy lạnh</button>',
+              '<button type="button" data-assistant-prompt="Phòng có ban công">' + icon('balcony') + ' Có ban công</button>',
+              '<button type="button" data-assistant-prompt="Không chung chủ">' + icon('lock') + ' Không chung chủ</button>',
+              '<button type="button" data-assistant-prompt="Phòng ở Biên Hòa">' + icon('location_on') + ' Ở Biên Hòa</button>',
+              '<button type="button" data-assistant-prompt="Phòng gần Thủ Đức">' + icon('school') + ' Gần Thủ Đức</button>',
+            '</div>',
+          '</div>',
+          '<form class="assistant-composer" id="assistantForm"><div class="assistant-composer-input"><span>' + icon('edit_note') + '</span><input id="assistantInput" autocomplete="off" placeholder="Ví dụ: Phòng 3–4 triệu, WC riêng, có ban công..." aria-label="Nhu cầu tìm phòng"></div><button type="submit" class="btn btn-80-primary" aria-label="Gửi nhu cầu">' + icon('arrow_upward') + '</button></form>',
         '</section>',
-        '<aside class="assistant-preview card-80"><span class="assistant-preview-label">Xem trước</span><strong>Gợi ý của bạn sẽ trông như thế này</strong><div class="match-card"><div class="match-score">95% phù hợp</div><div class="match-title">Studio full nội thất, cửa sổ lớn</div><div class="property-price">4,2 triệu/tháng</div><div class="match-reasons"><span>✓ Đúng ngân sách</span><span>✓ WC riêng</span><span>✓ Máy lạnh</span><span>✓ Bình Thạnh</span></div></div><div class="small text-80-muted mt-3">Bạn có thể thay đổi tiêu chí bất cứ lúc nào trong trang cá nhân.</div></aside>',
+        '<aside class="assistant-context-panel">',
+          '<section class="assistant-context-card card-80"><span class="assistant-preview-label">Nhu cầu hiện tại</span><strong id="assistantCriteriaSummary">' + summary + '</strong><div class="assistant-context-tags" id="assistantContextTags">' +
+            (savedState.q ? '<span>' + icon('location_on') + ' ' + savedState.q + '</span>' : '') +
+            (savedState.price !== 'all' ? '<span>' + icon('payments') + ' ' + (savedState.price === 'under-4' ? 'Dưới 4 triệu' : savedState.price === '4-6' ? '4–6 triệu' : '6–10 triệu') + '</span>' : '') +
+            (savedState.type !== 'all' ? '<span>' + icon('category') + ' ' + savedState.type + '</span>' : '') +
+            savedState.amenities.map(function (amenity) { return '<span>' + icon('check_circle') + ' ' + amenity + '</span>'; }).join('') +
+          '</div><a id="assistantSearchLink" href="' + statePath('/search', savedState) + '" data-link class="btn btn-80-primary w-100 mt-3">' + icon('search') + ' Xem phòng phù hợp (' + results.length + ')</a></section>',
+          '<section class="assistant-context-card card-80"><span class="assistant-preview-label">Gợi ý nhanh</span><strong>Nói thêm điều bạn ưu tiên</strong><div class="assistant-tip-list"><span>' + icon('verified') + ' Ưu tiên tin đã xác thực</span><span>' + icon('map') + ' Có thể mở bản đồ sau khi lọc</span><span>' + icon('tune') + ' Bộ lọc vẫn chỉnh được ở trang kết quả</span></div></section>',
+          results.length ? '<section class="assistant-context-card card-80"><div class="assistant-result-head"><div><span class="assistant-preview-label">Kết quả xem trước</span><strong>Phòng khớp nhu cầu</strong></div><span class="assistant-match-count">' + results.length + ' tin</span></div><div class="assistant-result-list">' + resultCards + '</div></section>' : '',
+        '</aside>',
       '</div>',
     '</div></main>'
   ].join('');
@@ -890,6 +969,77 @@ function bind() {
       button.disabled = true;
     });
   });
+
+  const assistantForm = document.querySelector('#assistantForm');
+  const assistantInput = document.querySelector('#assistantInput');
+  const assistantBody = document.querySelector('#assistantChatBody');
+
+  function updateAssistantState(text, submitLabel) {
+    const base = searchState();
+    const nextState = assistantStateFromText(text, base);
+    localStorage.setItem('80land:assistant', JSON.stringify(nextState));
+    const results = filteredListings(nextState);
+    if (assistantBody) {
+      const userMessage = document.createElement('div');
+      userMessage.className = 'assistant-message assistant-message-user';
+      userMessage.innerHTML = '<div class="assistant-user-bubble"></div>';
+      userMessage.querySelector('.assistant-user-bubble').textContent = text;
+      assistantBody.appendChild(userMessage);
+
+      const assistantMessage = document.createElement('div');
+      assistantMessage.className = 'assistant-message assistant-message-ai';
+      assistantMessage.innerHTML = '<div class="assistant-bubble-avatar">' + icon('auto_awesome') + '</div><div><p>' + assistantReplyForState(nextState, results) + '</p></div>';
+      assistantBody.appendChild(assistantMessage);
+      assistantBody.scrollTop = assistantBody.scrollHeight;
+    }
+
+    const summary = document.querySelector('#assistantCriteriaSummary');
+    const tags = document.querySelector('#assistantContextTags');
+    const link = document.querySelector('#assistantSearchLink');
+    if (summary) summary.textContent = assistantStateSummary(nextState);
+    if (tags) {
+      tags.innerHTML =
+        (nextState.q ? '<span>' + icon('location_on') + ' ' + nextState.q + '</span>' : '') +
+        (nextState.price !== 'all' ? '<span>' + icon('payments') + ' ' + (nextState.price === 'under-4' ? 'Dưới 4 triệu' : nextState.price === '4-6' ? '4–6 triệu' : '6–10 triệu') + '</span>' : '') +
+        (nextState.type !== 'all' ? '<span>' + icon('category') + ' ' + nextState.type + '</span>' : '') +
+        nextState.amenities.map(function (amenity) { return '<span>' + icon('check_circle') + ' ' + amenity + '</span>'; }).join('');
+    }
+    if (link) {
+      link.href = statePath('/search', nextState);
+      link.textContent = 'Xem phòng phù hợp (' + results.length + ')';
+      link.insertAdjacentHTML('afterbegin', icon('search') + ' ');
+      link.setAttribute('data-link', '');
+      link.onclick = function (event) {
+        event.preventDefault();
+        navigate(statePath('/search', nextState));
+      };
+    }
+    if (assistantInput) assistantInput.value = '';
+    return submitLabel || results.length;
+  }
+
+  if (assistantForm && assistantInput) {
+    assistantForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      const value = assistantInput.value.trim();
+      if (!value) return;
+      updateAssistantState(value);
+    });
+  }
+
+  document.querySelectorAll('[data-assistant-prompt]').forEach(function (prompt) {
+    prompt.addEventListener('click', function () {
+      updateAssistantState(prompt.dataset.assistantPrompt);
+    });
+  });
+
+  const assistantClear = document.querySelector('#assistantClear');
+  if (assistantClear) {
+    assistantClear.addEventListener('click', function () {
+      localStorage.removeItem('80land:assistant');
+      navigate('/assistant');
+    });
+  }
 
   initHero();
 }
