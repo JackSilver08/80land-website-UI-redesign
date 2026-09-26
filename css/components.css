@@ -402,3 +402,173 @@
 @media(max-width:1199.98px){.search-layout{grid-template-columns:minmax(0,1fr) 42%}.search-result-grid{grid-template-columns:1fr}.listing-create-layout{grid-template-columns:190px minmax(0,1fr)}.listing-preview-card{grid-column:2;position:static}.landlord-workspace{grid-template-columns:1fr 280px}}
 @media(max-width:991.98px){.search-map-panel{display:none}.search-result-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.search-toolbar-location span:last-child{display:none}.search-layout{display:block}.map-mobile-results{display:block;padding-bottom:28px}.horizontal-property-list{display:flex;gap:10px;overflow:auto;padding:2px 1px 5px;scrollbar-width:none}.horizontal-property-list::-webkit-scrollbar{display:none}.horizontal-property-list>a{width:240px;min-width:240px}.landlord-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.listing-create-layout{grid-template-columns:1fr}.listing-stepper,.listing-preview-card{position:static}.listing-preview-card{grid-column:auto}.assistant-layout{grid-template-columns:1fr}.assistant-preview{position:static}.assistant-preview{order:-1}}
 @media(max-width:767.98px){.search-toolbar{top:68px;padding-top:10px}.search-toolbar-main{gap:7px}.search-back{width:36px;height:36px}.search-toolbar-input{height:40px}.search-toolbar-location{height:40px;width:42px;padding:0;justify-content:center}.search-toolbar-actions{padding-top:7px}.filter-chip{height:32px}.filter-chip-sort{margin-left:0}.search-status-row{padding:11px 0}.search-result-grid{grid-template-columns:1fr}.result-card-modern{display:grid;grid-template-columns:116px minmax(0,1fr);min-height:145px}.result-card-modern .thumb{height:145px;aspect-ratio:auto}.result-card-body{padding:10px}.property-price{font-size:16px}.result-card-modern .property-title{font-size:12px}.result-feature-row{display:none}.search-page{padding-bottom:84px}.filter-sheet{bottom:0;width:100%;max-height:88vh;border-radius:20px 20px 0 0}.filter-sheet-grabber{display:block}.map-page-hero{display:block}.map-radius-picker{margin-top:12px}.full-map{height:calc(100vh - 238px);min-height:560px;border-radius:14px}.map-floating-summary{bottom:12px}.map-floating-summary a{font-size:9px}.assistant-form{padding:16px}.assistant-choice-grid{margin-left:0}.assistant-actions{margin-left:0;flex-direction:column}.assistant-actions .btn{width:100%}.landlord-hero{display:block}.landlord-hero>.btn{margin-top:12px;width:100%}.landlord-stat-grid{gap:8px}.landlord-stat-card{padding:12px}.landlord-stat-card strong{font-size:18px}.landlord-list-card,.landlord-side-card{padding:14px}.landlord-workspace{grid-template-columns:1fr}.landlord-list-row{grid-template-columns:48px minmax(0,1fr) 30px}.landlord-list-row>.status-pill{grid-column:2;margin-top:-2px;width:max-content}.landlord-thumb{width:48px;height:48px}.listing-form-grid{grid-template-columns:1fr}.form-field.full{grid-column:auto}.listing-photo-drop{align-items:flex-start;flex-wrap:wrap}.listing-photo-drop .btn{margin-left:0}.listing-form-actions{justify-content:stretch}.listing-form-actions .btn{flex:1}.listing-preview-card{order:-1}.search-status-row .recommend-link{font-size:10px}}
+
+/* Mobile UX hardening: prevent desktop overflow and preserve the search-first hierarchy */
+html,body,#app{max-width:100%;overflow-x:hidden}
+
+@media(max-width:767.98px){
+  body{overflow-x:hidden}
+  .utility-bar{display:none!important}
+  .site-header{z-index:1100}
+  .site-header .container-xl{width:100%;max-width:none;padding-left:14px;padding-right:14px}
+  .site-header .inner{min-height:64px!important;padding-top:7px!important;padding-bottom:7px!important}
+  .site-header .brand{gap:8px}
+  .site-header .brand-mark{width:36px;height:36px;border-radius:10px}
+  .site-header .brand-copy strong{font-size:17px}
+  .site-header .brand-copy span{display:none}
+  .site-header .header-actions{gap:4px!important}
+  .site-header .header-icon{width:38px;height:38px}
+  .site-header .header-actions>.btn-80-primary{display:none!important}
+  .site-header .user-menu-trigger{height:40px;padding:3px 5px 3px 4px;gap:0}
+  .site-header .user-avatar{width:32px;height:32px}
+  .site-header .user-chevron{margin-left:2px}
+  .site-header .user-name{display:none}
+
+  .page-content{min-width:0}
+  .container-xl{width:100%;max-width:none;padding-left:14px;padding-right:14px}
+  .hero-stage{padding-bottom:30px}
+  .hero-banner{
+    height:318px;
+    border-radius:0 0 28px 28px;
+    background-position:center center;
+  }
+  .hero-banner::before{
+    background:
+      linear-gradient(90deg,rgba(255,248,247,.94) 0%,rgba(255,248,247,.80) 46%,rgba(255,248,247,.18) 100%),
+      linear-gradient(180deg,rgba(255,255,255,.10),rgba(229,57,53,.08));
+  }
+  .hero-message{
+    width:min(100%,330px);
+    padding:26px 14px 0;
+  }
+  .hero-kicker{font-size:9px;padding:6px 9px}
+  .hero-message h1{
+    font-size:25px;
+    line-height:1.12;
+    letter-spacing:-.025em;
+    margin:12px 0 8px;
+    max-width:300px;
+  }
+  .hero-message p{
+    max-width:285px;
+    font-size:11px;
+    line-height:1.55;
+  }
+  .hero-message-actions{margin-top:13px}
+  .hero-message-actions .btn{
+    font-size:10px;
+    padding:.48rem .7rem;
+  }
+  .hero-orbit{
+    bottom:-62px;
+    width:135vw;
+    height:145px;
+  }
+  .hero-search{
+    position:relative;
+    left:auto;
+    bottom:auto;
+    transform:none;
+    width:calc(100% - 20px);
+    margin:-52px 10px 0;
+    padding:6px 7px;
+    border-radius:14px;
+    box-shadow:0 12px 26px rgba(21,21,21,.14);
+  }
+  .hero-search-row{gap:6px}
+  .hero-search-input{
+    height:40px;
+    padding:0 8px;
+    gap:7px;
+  }
+  .hero-search-input span{font-size:17px}
+  .hero-search-input input{font-size:11px;min-width:0}
+  .hero-filter-btn{
+    width:38px;
+    height:38px;
+    flex-basis:38px;
+    border-radius:10px;
+  }
+  .hero-filter-btn .material-symbols-outlined{font-size:18px}
+
+  .home-categories-section{
+    padding-top:14px;
+    padding-bottom:18px;
+  }
+  .home-category-grid{
+    gap:8px;
+    padding-left:1px;
+    padding-right:1px;
+  }
+  .home-category-card{
+    width:108px;
+    min-width:108px;
+    min-height:92px;
+    padding:9px 7px;
+    border-radius:13px;
+  }
+  .home-category-icon{width:36px;height:36px;flex-basis:36px;font-size:16px}
+  .home-category-copy strong{font-size:10px}
+  .home-category-copy small{font-size:8px}
+
+  .section-space{padding-block:20px}
+  .page-hero{padding:15px 0}
+  .page-hero h1{font-size:22px}
+  .page-hero p{font-size:11px}
+
+  .property-card{border-radius:11px}
+  .property-price{font-size:15px}
+  .property-title{font-size:12px}
+  .property-meta{font-size:9px}
+  .property-body{padding:9px}
+  .property-media .favorite{width:30px;height:30px;right:7px;top:7px}
+  .property-card .badge,.property-card .badge-verified{font-size:8px}
+
+  .assistant-layout{gap:10px}
+  .assistant-form{padding:14px}
+  .assistant-preview{padding:14px}
+  .assistant-preview>strong{font-size:13px}
+  .assistant-choice-grid{grid-template-columns:1fr 1fr;gap:7px}
+  .assistant-choice{min-height:42px;padding:8px;font-size:10px}
+  .assistant-step strong{font-size:12px}
+  .assistant-step small{font-size:9px}
+  .assistant-actions .btn{font-size:10px;min-height:40px}
+
+  .landlord-stat-grid{grid-template-columns:1fr 1fr}
+  .landlord-workspace{gap:10px}
+  .landlord-list-row{gap:8px}
+  .listing-create-layout{gap:10px}
+  .listing-form-card{padding:15px}
+  .listing-form-head h2{font-size:15px}
+
+  .search-toolbar{top:64px}
+  .search-layout{min-width:0}
+  .search-result-grid{gap:10px}
+  .search-map-panel{display:none}
+}
+
+@media(max-width:420px){
+  .site-header .container-xl{padding-left:10px;padding-right:10px}
+  .site-header .inner{gap:6px!important}
+  .site-header .brand-mark{width:34px;height:34px}
+  .site-header .brand-copy strong{font-size:16px}
+  .site-header .header-icon{width:34px;height:34px}
+  .site-header .user-avatar{width:30px;height:30px}
+  .site-header .user-menu-trigger{height:36px}
+  .hero-banner{height:300px}
+  .hero-message{padding:23px 10px 0;max-width:285px}
+  .hero-message h1{font-size:22px;max-width:245px;line-height:1.14}
+  .hero-message p{font-size:10px;max-width:235px}
+  .hero-message-actions .btn{font-size:9px}
+  .hero-orbit{bottom:-54px;height:125px}
+  .hero-search{width:calc(100% - 16px);margin:-43px 8px 0}
+  .hero-search-input input{font-size:10px}
+  .hero-filter-btn{width:36px;height:36px;flex-basis:36px}
+  .home-category-card{width:104px;min-width:104px}
+  .home-category-copy strong{font-size:9px}
+  .home-category-copy small{font-size:8px}
+  .section-space{padding-block:16px}
+  .page-hero h1{font-size:20px}
+  .result-card-modern{grid-template-columns:104px minmax(0,1fr);min-height:136px}
+  .result-card-modern .thumb{height:136px}
+}
