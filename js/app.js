@@ -559,7 +559,7 @@ function profilePage() {
         '<div class="account-profile-main-column">',
           '<section class="card-80 account-panel"><div class="account-panel-head"><div><span class="account-overline">Tổng quan</span><h2>Hoạt động của bạn</h2></div></div><div class="account-stat-grid">',
             '<div><span>' + icon('favorite') + '</span><strong>' + getSavedListingIds().length + '</strong><small>Tin đã lưu</small></div>',
-            '<div><span>' + icon('notifications') + '</span><strong>' + notifications.filter(function (item) { return item.unread; }).length + '</strong><small>Thông báo mới</small></div>',
+            '<div><span>' + icon('notifications') + '</span><strong>' + getNotificationRows().filter(function (item) { return item.unread; }).length + '</strong><small>Thông báo mới</small></div>',
             '<div><span>' + icon('auto_awesome') + '</span><strong>' + (localStorage.getItem('80land:assistant') ? '1' : '0') + '</strong><small>Bộ nhu cầu</small></div>',
           '</div></section>',
           '<section class="card-80 account-panel"><div class="account-panel-head"><div><span class="account-overline">Hồ sơ</span><h2>Thông tin cá nhân</h2></div></div><div class="account-detail-grid">',
@@ -1131,7 +1131,9 @@ function bind() {
     if (target) target.textContent = String(count);
     if (!count) {
       const grid = document.querySelector('#savedGrid');
-      if (grid) grid.innerHTML = '<section class="account-empty card-80"><span>' + icon('favorite_border') + '</span><strong>Bạn chưa lưu tin nào</strong><p>Khám phá các phòng phù hợp và lưu lại những tin bạn muốn xem sau.</p><a href="/search" data-link class="btn btn-80-primary">Tìm phòng ngay</a></section>';
+      if (grid) grid.innerHTML = '<section class="account-empty card-80"><span>' + icon('favorite_border') + '</span><strong>Bạn chưa lưu tin nào</strong><p>Khám phá các phòng phù hợp và lưu lại những tin bạn muốn xem sau.</p><a href="/search" id="savedEmptySearch" class="btn btn-80-primary">Tìm phòng ngay</a></section>';
+      const emptySearch = document.querySelector('#savedEmptySearch');
+      if (emptySearch) emptySearch.addEventListener('click', function (event) { event.preventDefault(); navigate('/search'); });
     }
   }
 
