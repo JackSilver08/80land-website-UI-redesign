@@ -4425,11 +4425,10 @@ html,body,#app{max-width:100%;overflow-x:hidden}
   color:#4b4541;
   background:transparent;
 }
-.mobile-nav-icon-wrap .material-symbols-outlined{
-  font-size:22px;
+.mobile-nav-icon-wrap .bi{
+  display:block;
+  font-size:21px;
   line-height:1;
-  font-weight:700;
-  font-variation-settings:"FILL" 0,"wght" 650,"GRAD" 0,"opsz" 24;
 }
 .mobile-nav-label{
   max-width:100%;
@@ -4449,9 +4448,6 @@ html,body,#app{max-width:100%;overflow-x:hidden}
   background:var(--80-red);
   color:#fff;
   box-shadow:0 5px 12px rgba(229,57,53,.20);
-}
-.mobile-nav-item.is-active .mobile-nav-icon-wrap .material-symbols-outlined{
-  font-variation-settings:"FILL" 1,"wght" 700,"GRAD" 0,"opsz" 24;
 }
 .mobile-nav-item.is-active .mobile-nav-label{
   color:var(--80-red-dark);
@@ -4483,8 +4479,8 @@ html,body,#app{max-width:100%;overflow-x:hidden}
     width:28px;
     height:28px;
   }
-  .mobile-nav-icon-wrap .material-symbols-outlined{
-    font-size:20px;
+  .mobile-nav-icon-wrap .bi{
+    font-size:19px;
   }
   .mobile-nav-label{
     font-size:7px;
