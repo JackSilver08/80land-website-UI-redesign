@@ -1,0 +1,2 @@
+export const routeTable={home:"/",search:"/search",map:"/map",detail:id=>"/property/"+id,saved:"/saved",messages:"/messages",notifications:"/notifications",profile:"/profile",assistant:"/assistant",landlord:"/landlord",admin:"/admin",provinces:"/provinces",province:id=>"/province/"+id};
+export function navigate(path){history.pushState({}, "", path);window.dispatchEvent(new PopStateEvent("popstate"));}
