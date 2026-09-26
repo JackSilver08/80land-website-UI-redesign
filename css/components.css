@@ -4549,3 +4549,143 @@ html,body,#app{max-width:100%;overflow-x:hidden}
     right:-1px;
   }
 }
+
+
+/* Mobile UX hardening: compact page-specific layouts */
+@media(max-width:767.98px){
+  /* 80Land Assistant: keep chat useful without turning the page into a giant scroll block. */
+  .assistant-page-head{
+    display:block;
+    padding:18px 0 12px;
+  }
+  .assistant-page-head h1{
+    font-size:23px;
+  }
+  .assistant-page-head p{
+    font-size:9px;
+  }
+  .assistant-page-head .assistant-clear{
+    margin-top:9px;
+    width:100%;
+    justify-content:center;
+  }
+  .assistant-chat-panel{
+    min-height:auto;
+    grid-template-rows:auto minmax(220px,52vh) auto;
+  }
+  .assistant-chat-head{
+    min-height:60px;
+    padding:10px 12px;
+  }
+  .assistant-avatar{
+    width:34px;
+    height:34px;
+    flex-basis:34px;
+  }
+  .assistant-online{
+    display:none!important;
+  }
+  .assistant-chat-body{
+    min-height:220px;
+    max-height:52vh;
+    padding:12px;
+  }
+  .assistant-message-ai>div:last-child{
+    max-width:84%;
+  }
+  .assistant-quick-prompts{
+    margin-left:0;
+  }
+  .assistant-context-card{
+    padding:14px;
+  }
+  .assistant-result-card{
+    grid-template-columns:64px minmax(0,1fr);
+  }
+  .assistant-result-thumb{
+    height:64px;
+  }
+
+  /* Landlord editor: turn the four-step rail into a compact progress navigator. */
+  .listing-stepper{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:4px;
+    padding:7px;
+  }
+  .listing-stepper .listing-step{
+    min-width:0;
+    min-height:50px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:3px;
+    padding:6px 2px;
+    text-align:center;
+    border-radius:9px;
+  }
+  .listing-stepper .listing-step>span{
+    width:24px;
+    height:24px;
+    flex-basis:24px;
+  }
+  .listing-stepper .listing-step div{
+    min-width:0;
+    width:100%;
+  }
+  .listing-stepper .listing-step strong{
+    display:block;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    font-size:7px;
+  }
+  .listing-stepper .listing-step small{
+    display:none;
+  }
+  .listing-stepper .listing-progress{
+    grid-column:1/-1;
+    margin-top:2px;
+    padding-top:7px;
+  }
+  .phase7-live-preview{
+    order:0;
+  }
+
+  /* Landlord preview: show the useful listing content sooner on phones. */
+  .landlord-preview-image,
+  .landlord-preview-image img{
+    min-height:230px;
+    height:230px;
+  }
+  .landlord-preview-content h2{
+    font-size:20px;
+  }
+
+  /* Referral metrics: avoid squeezing a 2.4M value into a tiny third column. */
+  .referral-metrics{
+    grid-template-columns:1fr 1fr;
+  }
+  .referral-metrics .card-80:last-child{
+    grid-column:1/-1;
+  }
+  .referral-metrics strong{
+    font-size:15px;
+  }
+
+  /* Small phones: preserve breathing room while keeping all actions thumb-friendly. */
+  .wallet-balance-card>strong{
+    font-size:28px;
+  }
+  .wallet-actions{
+    gap:6px;
+  }
+  .wallet-actions .btn{
+    min-width:0;
+    padding-inline:8px;
+  }
+  .earnings-bars{
+    min-width:0;
+  }
+}
