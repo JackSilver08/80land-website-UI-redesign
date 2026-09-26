@@ -488,32 +488,81 @@ function simpleListPage(title, subtitle, rows, actions) {
     '</div>' + (actions || '') + '</div></main>';
 }
 
-function savedPage() {
-  const rows = listings.slice(0, 3).map(function (item) {
-    return { title: item.title, body: item.price + '/tháng · ' + item.location + ' · ' + item.area, link: '/property/' + item.id };
-  });
-  return simpleListPage('Tin đã lưu', 'Những phòng bạn muốn so sánh hoặc liên hệ sau.', rows, '<a href="/search" data-link class="btn btn-80-primary mt-3">Tìm thêm phòng</a>');
+function getSavedListingIds() {
+  const ids = listings.filter(function (item) {
+    return localStorage.getItem('80land:saved:' + item.id) === '1';
+  }).map(function (item) { return item.id; });
+  if (ids.length) return ids;
+  return [1, 2, 3];
 }
 
-function messagesPage() {
+function savedPage() {
+  const ids = getSavedListingIds();
+  const saved = listings.filter(function (item) { return ids.indexOf(item.id) > -1; });
   return [
-    '<main class="page-content page-content-mobile"><div class="container-xl"><section class="page-hero"><h1>Tin nhắn</h1><p>6 cuộc trò chuyện</p></section>',
-    '<div class="row g-3"><div class="col-12 col-lg-5"><div class="card-80 p-2">',
-    chats.map(function (chat, index) {
-      return '<button type="button" class="w-100 text-start border-0 bg-white p-3 rounded-3 ' + (index === 0 ? 'bg-light' : '') + '" data-chat="' + chat.id + '"><div class="d-flex justify-content-between"><strong class="small">' + chat.name + ' · ' + chat.property + '</strong><span class="text-80-muted" style="font-size:10px">' + chat.time + '</span></div><div class="text-80-muted" style="font-size:10px">' + chat.last + '</div></button>';
-    }).join(''),
-    '</div></div><div class="col-12 col-lg-7"><div class="card-80 p-3"><h2 class="h5">Chủ trọ Minh</h2><div class="p-3 bg-80-bg rounded-3 mt-2" id="chatBox" style="min-height:300px"><div class="bg-white border rounded-3 p-2 small mb-2">Phòng còn trống nhé bạn. Bạn muốn xem lúc nào?</div><div class="bg-primary text-white rounded-3 p-2 small mb-2 ms-auto" style="max-width:80%">Mình xem 18:30 hôm nay được không?</div></div><form class="d-flex gap-2 mt-2" id="chatForm"><input class="form-control" placeholder="Nhập tin nhắn..."><button class="btn btn-80-dark">Gửi</button></form></div></div></div></div></main>'
+    '<main class="page-content page-content-mobile account-page"><div class="container-xl">',
+      '<section class="account-page-head"><div><span class="account-overline">' + icon('favorite') + ' Đã lưu</span><h1>Những phòng bạn đang quan tâm</h1><p>Lưu lại các tin phù hợp để so sánh, mở lại hoặc chuyển sang bước liên hệ.</p></div><a href="/search" data-link class="btn btn-80-primary">' + icon('search') + ' Tìm thêm phòng</a></section>',
+      '<div class="account-summary-strip">',
+        '<div><span>' + icon('favorite') + '</span><strong id="savedCount">' + saved.length + '</strong><small>Tin đã lưu</small></div>',
+        '<div><span>' + icon('compare_arrows') + '</span><strong>' + Math.min(saved.length, 3) + '</strong><small>Có thể so sánh</small></div>',
+        '<div><span>' + icon('schedule') + '</span><strong>24h</strong><small>Gợi ý mới nhất</small></div>',
+      '</div>',
+      saved.length ? '<section class="saved-grid" id="savedGrid">' + saved.map(function (item) {
+        return '<article class="saved-listing-card card-80" data-saved-card="' + item.id + '"><div class="saved-listing-media"><img src="' + item.image + '" alt="' + item.title.replace(/"/g, '&quot;') + '"><button type="button" class="saved-remove" data-saved-remove="' + item.id + '" aria-label="Bỏ lưu">' + icon('favorite') + '</button>' + (item.verified ? '<span class="badge-verified">' + icon('verified') + ' Xác thực</span>' : '') + '</div><div class="saved-listing-body"><div class="property-price">' + item.price + '/tháng</div><strong>' + item.title + '</strong><span>' + item.location + ' · ' + item.area + '</span><div class="saved-listing-actions"><a href="' + detailHref(item.id) + '" data-link class="btn btn-80-outline">' + icon('visibility') + ' Xem tin</a><a href="/assistant" data-link class="btn btn-80-primary">' + icon('auto_awesome') + ' Hỏi Assistant</a></div></div></article>';
+      }).join('') + '</section>' : '<section class="account-empty card-80"><span>' + icon('favorite_border') + '</span><strong>Bạn chưa lưu tin nào</strong><p>Khám phá các phòng phù hợp và lưu lại những tin bạn muốn xem sau.</p><a href="/search" data-link class="btn btn-80-primary">Tìm phòng ngay</a></section>',
+      '<section class="account-info-banner"><span>' + icon('tips_and_updates') + '</span><div><strong>Mẹo nhỏ</strong><p>Bạn có thể dùng 80Land Assistant để tìm thêm tin tương tự từ những tiêu chí của các phòng đang lưu.</p></div><a href="/assistant" data-link>' + icon('arrow_forward') + '</a></section>',
+    '</div></main>'
   ].join('');
 }
 
 function notificationsPage() {
-  return simpleListPage('Thông báo', '3 thông báo chưa đọc', notifications.map(function (item) {
-    return {title:item.title, body:item.body};
-  }));
+  const unread = notifications.filter(function (item) { return item.unread; });
+  return [
+    '<main class="page-content page-content-mobile account-page"><div class="container-xl">',
+      '<section class="account-page-head"><div><span class="account-overline">' + icon('notifications') + ' Thông báo</span><h1>Cập nhật mới nhất của bạn</h1><p>Những thay đổi liên quan đến tin đăng, gợi ý và hoạt động tài khoản 80Land.</p></div><button type="button" class="account-head-action" id="markAllNotifications">' + icon('done_all') + ' Đánh dấu đã đọc</button></section>',
+      '<div class="notification-toolbar"><span><strong id="notificationUnreadCount">' + unread.length + '</strong> thông báo chưa đọc</span><div><button type="button" class="notification-filter active" data-notification-filter="all">Tất cả</button><button type="button" class="notification-filter" data-notification-filter="unread">Chưa đọc</button></div></div>',
+      '<section class="notification-list" id="notificationList">' + notifications.map(function (item) {
+        return '<article class="notification-card card-80' + (item.unread ? ' is-unread' : '') + '" data-notification-card="' + item.id + '" data-unread="' + String(item.unread) + '"><span class="notification-icon ' + (item.unread ? 'is-unread' : '') + '">' + icon(item.unread ? 'notifications_active' : 'notifications_none') + '</span><div class="notification-copy"><div class="notification-top"><strong>' + item.title + '</strong><time>' + (item.unread ? 'Mới' : 'Đã xem') + '</time></div><p>' + item.body + '</p><button type="button" class="notification-read-toggle" data-notification-read="' + item.id + '">' + (item.unread ? 'Đánh dấu đã đọc' : 'Đã đọc') + '</button></div></article>';
+      }).join('') + '</section>',
+    '</div></main>'
+  ].join('');
 }
 
 function profilePage() {
-  return '<main class="page-content page-content-mobile"><div class="container-xl"><section class="page-hero"><h1>Tài khoản</h1><p>Quản lý hồ sơ, tin lưu, thông báo và cài đặt.</p></section><div class="card-80 p-4"><div class="d-flex align-items-center gap-3"><div class="category-icon" style="width:54px;height:54px">' + icon('person') + '</div><div><h2 class="h5 mb-1">Quang Tuấn</h2><div class="text-80-muted small">Thành viên từ 2026 · TP.HCM</div></div></div><div class="row g-2 mt-3"><div class="col-4"><div class="spec-card"><b>12</b><span>Tin lưu</span></div></div><div class="col-4"><div class="spec-card"><b>38</b><span>Lượt xem</span></div></div><div class="col-4"><div class="spec-card"><b>6</b><span>Chats</span></div></div></div><div class="list-group list-group-flush mt-3"><a class="list-group-item list-group-item-action" href="/saved" data-link>Tin đã lưu →</a><a class="list-group-item list-group-item-action" href="/messages" data-link>Tin nhắn →</a><a class="list-group-item list-group-item-action" href="/notifications" data-link>Thông báo →</a><a class="list-group-item list-group-item-action" href="/assistant" data-link>80Land Assistant →</a></div></div></div></main>';
+  return [
+    '<main class="page-content page-content-mobile account-page"><div class="container-xl">',
+      '<section class="account-profile-hero card-80">',
+        '<div class="account-profile-main"><div class="account-profile-avatar" aria-hidden="true">QT</div><div><span class="account-overline">Tài khoản cá nhân</span><h1>Quang Tuấn</h1><p>Thành viên từ 2026 · TP.HCM</p></div></div>',
+        '<button type="button" class="btn btn-80-outline" id="editProfileBtn">' + icon('edit') + ' Chỉnh sửa hồ sơ</button>',
+      '</section>',
+      '<section class="account-profile-grid">',
+        '<div class="account-profile-main-column">',
+          '<section class="card-80 account-panel"><div class="account-panel-head"><div><span class="account-overline">Tổng quan</span><h2>Hoạt động của bạn</h2></div></div><div class="account-stat-grid">',
+            '<div><span>' + icon('favorite') + '</span><strong>' + getSavedListingIds().length + '</strong><small>Tin đã lưu</small></div>',
+            '<div><span>' + icon('notifications') + '</span><strong>' + notifications.filter(function (item) { return item.unread; }).length + '</strong><small>Thông báo mới</small></div>',
+            '<div><span>' + icon('auto_awesome') + '</span><strong>' + (localStorage.getItem('80land:assistant') ? '1' : '0') + '</strong><small>Bộ nhu cầu</small></div>',
+          '</div></section>',
+          '<section class="card-80 account-panel"><div class="account-panel-head"><div><span class="account-overline">Hồ sơ</span><h2>Thông tin cá nhân</h2></div></div><div class="account-detail-grid">',
+            '<div><small>Họ và tên</small><strong id="profileName">Quang Tuấn</strong></div>',
+            '<div><small>Khu vực</small><strong>TP. Hồ Chí Minh</strong></div>',
+            '<div><small>Email</small><strong>quangtuan@example.com</strong></div>',
+            '<div><small>Số điện thoại</small><strong>Chưa cập nhật</strong></div>',
+          '</div><div class="account-profile-note">' + icon('info') + '<span>Thông tin liên hệ thật sẽ được đồng bộ khi tài khoản kết nối backend 80Land.</span></div></section>',
+          '<section class="card-80 account-panel"><div class="account-panel-head"><div><span class="account-overline">Cá nhân hóa</span><h2>Nhu cầu tìm phòng</h2></div><a href="/assistant" data-link>' + icon('edit') + ' Chỉnh sửa</a></div><div id="profilePreferenceSummary"></div></section>',
+        '</div>',
+        '<aside class="account-profile-side">',
+          '<section class="card-80 account-menu-panel"><span class="account-overline">Quản lý nhanh</span><div class="account-menu-links"><a href="/saved" data-link>' + icon('favorite') + '<span><strong>Tin đã lưu</strong><small>Mở lại các phòng bạn quan tâm</small></span><b>' + icon('arrow_forward') + '</b></a><a href="/notifications" data-link>' + icon('notifications') + '<span><strong>Thông báo</strong><small>Cập nhật từ 80Land</small></span><b>' + icon('arrow_forward') + '</b></a><a href="/assistant" data-link>' + icon('auto_awesome') + '<span><strong>80Land Assistant</strong><small>Tạo lại bộ tiêu chí tìm phòng</small></span><b>' + icon('arrow_forward') + '</b></a><a href="/landlord" data-link>' + icon('storefront') + '<span><strong>Đăng tin cho thuê</strong><small>Chuyển sang khu vực chủ nhà</small></span><b>' + icon('arrow_forward') + '</b></a></div></section>',
+          '<section class="card-80 account-security-panel"><span class="account-overline">Bảo mật</span><div><span>' + icon('shield') + '</span><div><strong>Tài khoản đang ở chế độ demo</strong><p>Khi kết nối backend, khu vực này sẽ chứa đăng nhập, đổi mật khẩu và phiên đăng nhập.</p></div></div></section>',
+        '</aside>',
+      '</section>',
+      '<div class="account-edit-backdrop" id="profileEditBackdrop"></div><aside class="account-edit-sheet" id="profileEditSheet" aria-hidden="true">',
+        '<div class="account-edit-head"><div><span class="account-overline">Chỉnh sửa hồ sơ</span><strong>Cập nhật thông tin hiển thị</strong></div><button type="button" class="icon-button" id="profileEditClose">' + icon('close') + '</button></div>',
+        '<label class="account-edit-field"><span>Họ và tên</span><input id="profileNameInput" value="Quang Tuấn"></label>',
+        '<label class="account-edit-field"><span>Khu vực</span><select id="profileCityInput"><option>TP. Hồ Chí Minh</option><option>Đồng Nai</option><option>Bình Dương</option><option>Đà Nẵng</option><option>Hà Nội</option></select></label>',
+        '<div class="account-edit-actions"><button type="button" class="btn btn-80-outline" id="profileEditCancel">Hủy</button><button type="button" class="btn btn-80-primary" id="profileEditSave">Lưu thay đổi</button></div>',
+      '</aside>',
+    '</div></main>'
+  ].join('');
 }
 
 function assistantStateFromText(text, base) {
@@ -1040,6 +1089,139 @@ function bind() {
       localStorage.removeItem('80land:assistant');
       navigate('/assistant');
     });
+  }
+
+  document.querySelectorAll('[data-saved-remove]').forEach(function (button) {
+    button.addEventListener('click', function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      const id = button.dataset.savedRemove;
+      localStorage.setItem('80land:saved:' + id, '0');
+      const card = document.querySelector('[data-saved-card="' + id + '"]');
+      if (card) {
+        card.classList.add('is-removing');
+        window.setTimeout(function () { card.remove(); updateSavedPageCount(); }, 150);
+      }
+    });
+  });
+
+  function updateSavedPageCount() {
+    const count = document.querySelectorAll('[data-saved-card]').length;
+    const target = document.querySelector('#savedCount');
+    if (target) target.textContent = String(count);
+    if (!count) {
+      const grid = document.querySelector('#savedGrid');
+      if (grid) grid.innerHTML = '<section class="account-empty card-80"><span>' + icon('favorite_border') + '</span><strong>Bạn chưa lưu tin nào</strong><p>Khám phá các phòng phù hợp và lưu lại những tin bạn muốn xem sau.</p><a href="/search" data-link class="btn btn-80-primary">Tìm phòng ngay</a></section>';
+    }
+  }
+
+  document.querySelectorAll('[data-notification-read]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      const card = button.closest('[data-notification-card]');
+      if (!card) return;
+      card.classList.remove('is-unread');
+      card.dataset.unread = 'false';
+      const iconWrap = card.querySelector('.notification-icon');
+      if (iconWrap) {
+        iconWrap.classList.remove('is-unread');
+        iconWrap.innerHTML = icon('notifications_none');
+      }
+      const topTime = card.querySelector('time');
+      if (topTime) topTime.textContent = 'Đã xem';
+      button.textContent = 'Đã đọc';
+      updateNotificationCount();
+    });
+  });
+
+  function updateNotificationCount() {
+    const count = document.querySelectorAll('[data-notification-card][data-unread="true"]').length;
+    const target = document.querySelector('#notificationUnreadCount');
+    if (target) target.textContent = String(count);
+  }
+
+  document.querySelectorAll('[data-notification-filter]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      document.querySelectorAll('[data-notification-filter]').forEach(function (item) { item.classList.remove('active'); });
+      button.classList.add('active');
+      const filter = button.dataset.notificationFilter;
+      document.querySelectorAll('[data-notification-card]').forEach(function (card) {
+        card.hidden = filter === 'unread' && card.dataset.unread !== 'true';
+      });
+    });
+  });
+
+  const markAllNotifications = document.querySelector('#markAllNotifications');
+  if (markAllNotifications) {
+    markAllNotifications.addEventListener('click', function () {
+      document.querySelectorAll('[data-notification-card]').forEach(function (card) {
+        card.classList.remove('is-unread');
+        card.dataset.unread = 'false';
+        const iconWrap = card.querySelector('.notification-icon');
+        if (iconWrap) {
+          iconWrap.classList.remove('is-unread');
+          iconWrap.innerHTML = icon('notifications_none');
+        }
+        const topTime = card.querySelector('time');
+        if (topTime) topTime.textContent = 'Đã xem';
+        const toggle = card.querySelector('.notification-read-toggle');
+        if (toggle) toggle.textContent = 'Đã đọc';
+      });
+      updateNotificationCount();
+    });
+  }
+
+  const profileEditBackdrop = document.querySelector('#profileEditBackdrop');
+  const profileEditSheet = document.querySelector('#profileEditSheet');
+  const editProfileBtn = document.querySelector('#editProfileBtn');
+  const profileEditClose = document.querySelector('#profileEditClose');
+  const profileEditCancel = document.querySelector('#profileEditCancel');
+  const profileEditSave = document.querySelector('#profileEditSave');
+  const profileNameInput = document.querySelector('#profileNameInput');
+
+  function closeProfileEdit() {
+    if (!profileEditSheet) return;
+    profileEditSheet.classList.remove('is-open');
+    profileEditSheet.setAttribute('aria-hidden', 'true');
+    if (profileEditBackdrop) profileEditBackdrop.classList.remove('is-open');
+  }
+
+  if (editProfileBtn && profileEditSheet) {
+    editProfileBtn.addEventListener('click', function () {
+      profileEditSheet.classList.add('is-open');
+      profileEditSheet.setAttribute('aria-hidden', 'false');
+      if (profileEditBackdrop) profileEditBackdrop.classList.add('is-open');
+      if (profileNameInput) profileNameInput.focus();
+    });
+  }
+  [profileEditClose, profileEditCancel].forEach(function (button) {
+    if (button) button.addEventListener('click', closeProfileEdit);
+  });
+  if (profileEditBackdrop) profileEditBackdrop.addEventListener('click', closeProfileEdit);
+
+  if (profileEditSave) {
+    profileEditSave.addEventListener('click', function () {
+      const name = profileNameInput ? profileNameInput.value.trim() : '';
+      const city = document.querySelector('#profileCityInput');
+      const displayName = name || 'Quang Tuấn';
+      const profile = { name: displayName, city: city ? city.value : 'TP. Hồ Chí Minh' };
+      localStorage.setItem('80land:profile', JSON.stringify(profile));
+      const nameEl = document.querySelector('#profileName');
+      if (nameEl) nameEl.textContent = displayName;
+      const heroName = document.querySelector('.account-profile-hero h1');
+      if (heroName) heroName.textContent = displayName;
+      closeProfileEdit();
+    });
+  }
+
+  const profilePreferenceSummary = document.querySelector('#profilePreferenceSummary');
+  if (profilePreferenceSummary) {
+    let pref = null;
+    try { pref = JSON.parse(localStorage.getItem('80land:assistant') || 'null'); } catch (error) {}
+    if (!pref || (!pref.q && pref.price === 'all' && pref.type === 'all' && !pref.amenities.length)) {
+      profilePreferenceSummary.innerHTML = '<div class="account-preference-empty"><span>' + icon('auto_awesome') + '</span><div><strong>Chưa có bộ nhu cầu lưu</strong><p>Mở 80Land Assistant để tạo tiêu chí cá nhân hóa.</p></div><a href="/assistant" data-link>' + icon('arrow_forward') + '</a></div>';
+    } else {
+      profilePreferenceSummary.innerHTML = '<div class="account-preference-saved"><span>' + icon('auto_awesome') + '</span><div><strong>' + assistantStateSummary(pref) + '</strong><p>Được dùng để tạo gợi ý ở lần tìm tiếp theo.</p></div><a href="' + statePath('/search', pref) + '" data-link>' + icon('search') + '</a></div>';
+    }
   }
 
   initHero();
