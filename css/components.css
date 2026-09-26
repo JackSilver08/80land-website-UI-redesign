@@ -81,7 +81,8 @@
 .hero-orbit::before{top:-18px;width:78%;height:82px}
 
 .hero-search{
-  bottom:-28px;
+  /* Nâng search lên để xuyên vào phần banner, gần bố cục Chợ Tốt */
+  bottom:39px;
   width:min(760px,calc(100% - 48px));
   padding:10px;
   border-radius:18px;
