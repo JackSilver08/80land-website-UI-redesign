@@ -245,7 +245,7 @@ function renderFilterSheet(id, title, subtitle, state, base) {
     ['Phòng trọ', 'Phòng trọ'],
     ['Chung cư', 'Chung cư']
   ];
-  const amenities = ['WC riêng', 'Máy lạnh', 'Ban công', 'Gác'];
+  const amenities = ['WC riêng', 'Máy lạnh', 'Ban công', 'Gác', 'Không chung chủ'];
   return [
     '<div class="filter-sheet-backdrop" id="' + id + 'Backdrop"></div>',
     '<aside class="filter-sheet" id="' + id + '" data-filter-base="' + base + '" aria-hidden="true">',
@@ -539,7 +539,8 @@ function assistantStateFromText(text, base) {
     ['WC riêng', ['wc riêng','toilet riêng','nhà vệ sinh riêng']],
     ['Máy lạnh', ['máy lạnh','điều hòa','điều hoà']],
     ['Ban công', ['ban công']],
-    ['Gác', ['có gác','gác lửng','gác']]
+    ['Gác', ['có gác','gác lửng','gác']],
+    ['Không chung chủ', ['không chung chủ','không ở chung chủ','không ở cùng chủ']]
   ];
   amenityMap.forEach(function (entry) {
     if (entry[1].some(function (term) { return lower.includes(term); }) && next.amenities.indexOf(entry[0]) === -1) {
