@@ -51,11 +51,11 @@ function header() {
 function mobileNav() {
   const path = location.pathname || '/';
   const items = [
-    ['/','home','Trang chủ'],
-    ['/search','search','Tìm phòng'],
-    ['/landlord','add_circle','Đăng tin'],
-    ['/saved','favorite','Đã lưu'],
-    ['/profile','person','Tài khoản']
+    ['/','bi-house','bi-house-fill','Trang chủ'],
+    ['/search','bi-search','bi-search','Tìm phòng'],
+    ['/landlord','bi-plus-circle','bi-plus-circle-fill','Đăng tin'],
+    ['/saved','bi-heart','bi-heart-fill','Đã lưu'],
+    ['/profile','bi-person','bi-person-fill','Tài khoản']
   ];
   return '<nav class="mobile-bottom" aria-label="Điều hướng chính"><div class="mobile-bottom-inner">' +
     items.map(function (item) {
@@ -63,18 +63,16 @@ function mobileNav() {
         ? path === '/'
         : item[0] === '/search'
           ? path === '/search' || path === '/map'
-          : path === '/saved'
-            ? path === '/saved'
-            : path === item[0];
-      const visual = '<span class="mobile-nav-icon-wrap">' + icon(item[1]) + '</span>';
+          : path === item[0];
+      const iconClass = active ? item[2] : item[1];
+      const visual = '<span class="mobile-nav-icon-wrap"><i class="bi ' + iconClass + '" aria-hidden="true"></i></span>';
       return '<a href="' + item[0] + '" data-link class="mobile-nav-item' + (active ? ' is-active' : '') + '" aria-current="' + (active ? 'page' : 'false') + '">' +
         visual +
-        '<span class="mobile-nav-label">' + item[2] + '</span>' +
+        '<span class="mobile-nav-label">' + item[3] + '</span>' +
       '</a>';
     }).join('') +
   '</div></nav>';
 }
-
 
 function propertyCard(item) {
   return [
