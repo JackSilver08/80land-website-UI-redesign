@@ -4258,14 +4258,28 @@ html,body,#app{max-width:100%;overflow-x:hidden}
   font-weight:800;
 }
 .home-recommendation-grid{
-  row-gap:14px!important;
+  display:grid!important;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:14px!important;
+  margin-left:0!important;
+  margin-right:0!important;
 }
 .home-recommendation-grid>.col-6,
 .home-recommendation-grid>.col-lg{
   min-width:0;
+  width:auto!important;
+  max-width:none!important;
+  padding-left:0!important;
+  padding-right:0!important;
 }
 .home-recommendation-grid .property-card{
   height:100%;
+}
+@media(max-width:1199.98px){
+  .home-recommendation-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media(max-width:991.98px){
+  .home-recommendation-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 .home-pagination-row{
   display:flex;
@@ -4339,7 +4353,8 @@ html,body,#app{max-width:100%;overflow-x:hidden}
     margin-top:8px;
   }
   .home-recommendation-grid{
-    row-gap:9px!important;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:9px!important;
   }
   .home-pagination-row{
     justify-content:space-between;
