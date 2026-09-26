@@ -108,9 +108,21 @@ function homePage() {
   return [
     '<main class="page-content"><div class="container-xl">',
       hero(),
-      '<section class="section-space pt-1"><div class="row g-3">',
-        ['Phòng trọ & Gác lửng','Căn hộ & Chung cư mini','Nhà nguyên căn','Ở ghép & Sleepbox','Mặt bằng & Kiot'].map(function (name, i) {
-          return '<div class="col-12 col-sm-6 col-lg"><a href="/search" data-link class="category-tile"><img class="category-thumb" src="' + categoryImages[i] + '" alt="' + name + '" loading="lazy"><div class="category-copy"><div class="fw-semibold small">' + name + '</div><div class="text-80-muted small">' + ['14.230','6.840','3.120','2.450','1.110'][i] + ' tin</div></div></a></div>';
+      '<section class="section-space pt-1 home-categories-section"><div class="home-category-grid">',
+        [
+          ['Phòng trọ','14.230','bi-house-door-fill'],
+          ['Chung cư','6.840','bi-buildings-fill'],
+          ['Nhà nguyên căn','3.120','bi-house-fill'],
+          ['Căn hộ dịch vụ','2.980','bi-building-fill'],
+          ['Mặt bằng kinh doanh','1.110','bi-shop'],
+          ['Pass phòng','860','bi-arrow-left-right'],
+          ['Ở ghép','2.450','bi-people-fill'],
+          ['Tất cả','32.540','bi-grid-fill']
+        ].map(function (item) {
+          return '<a href="/search" data-link class="home-category-card">' +
+            '<span class="home-category-icon"><i class="bi ' + item[2] + '" aria-hidden="true"></i></span>' +
+            '<span class="home-category-copy"><strong>' + item[0] + '</strong><small>' + item[1] + ' tin</small></span>' +
+          '</a>';
         }).join(''),
       '</div></section>',
       '<section class="section-space pt-0"><div class="d-flex justify-content-between align-items-end mb-3"><div><h2 class="h4 mb-0">Đề xuất cho bạn</h2><div class="text-80-muted small mt-1">Ưu tiên theo khu vực, giá và tiêu chí của bạn</div></div><a href="/search" data-link class="text-danger small fw-semibold">Xem tất cả →</a></div>',
