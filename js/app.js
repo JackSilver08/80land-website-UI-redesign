@@ -296,7 +296,7 @@ function bind() {
     });
     document.addEventListener('click', function () {
       if (userMenu.classList.contains('is-open')) setUserMenuOpen(false);
-    }, { once: true });
+    });
     document.addEventListener('keydown', function (event) {
       if (event.key === 'Escape') setUserMenuOpen(false);
     });
