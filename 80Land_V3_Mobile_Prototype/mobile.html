@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>80Land Mobile Prototype</title>
+<style>
+:root{
+  --red:#e53935;--red-dark:#b9151c;--ink:#151515;--muted:#74706d;
+  --line:#e7e1de;--soft:#f6f3f1;--surface:#fff;--green:#16834a;
+  --shadow:0 8px 24px rgba(30,20,15,.07);--radius:14px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#eee9e7;color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+button,input,textarea{font:inherit}
+button{border:0;cursor:pointer}
+#app{width:100%;max-width:430px;min-height:100vh;margin:0 auto;background:#fff;box-shadow:0 0 40px rgba(0,0,0,.08)}
+.top{position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid var(--line);padding:10px 12px 9px}
+.top-row{display:flex;align-items:center;gap:9px}
+.logo{display:flex;align-items:center;gap:8px;min-width:0}
+.logo-mark{width:34px;height:34px;border-radius:10px;background:var(--red);color:#fff;display:grid;place-items:center;font-size:20px;font-weight:800}
+.logo-text{font-weight:800;font-size:17px;color:var(--red);line-height:1}
+.logo-sub{display:block;color:#68615e;font-size:9px;font-weight:500;margin-top:3px}
+.top-icon{width:38px;height:38px;border-radius:10px;background:#fff;color:#292624;font-size:20px;position:relative}
+.top-icon:hover{background:var(--soft)}
+.top-icon .badge{position:absolute;right:4px;top:3px;background:var(--red);color:#fff;font-size:8px;min-width:14px;height:14px;border-radius:99px;display:grid;place-items:center}
+.top-actions{display:flex;gap:4px;margin-left:auto}
+.search-bar{margin-top:9px;height:44px;background:var(--soft);border:1px solid #e3ddda;border-radius:12px;display:flex;align-items:center;padding:0 12px;gap:8px;color:#6a6461}
+.search-bar input{border:0;background:transparent;outline:0;width:100%;font-size:13px;color:var(--ink)}
+.status{background:#f1efee;border-bottom:1px solid var(--line);padding:7px 12px;font-size:10px;color:#625d5a;display:flex;gap:5px;white-space:nowrap;overflow:hidden}
+.status strong{color:var(--green)}
+.view{display:none;padding-bottom:92px}
+.view.active{display:block}
+.section{padding:15px 12px}
+.hero{margin:0 12px;border-radius:16px;overflow:hidden;min-height:188px;position:relative;background:linear-gradient(135deg,#6f0e15,#e53935 53%,#e9a14a);color:#fff}
+.slide{display:none;padding:23px 21px 40px}.slide.active{display:block}
+.slide h1{font-size:25px;line-height:1.12;margin:0 0 8px;max-width:285px}
+.slide p{font-size:12px;line-height:1.55;color:#fff8;max-width:305px;margin:0 0 15px}
+.cta{background:#fff;color:#aa131a;border-radius:9px;padding:9px 13px;font-size:11px;font-weight:800}
+.slide-nav{position:absolute;left:14px;right:14px;bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.arrow{width:28px;height:28px;border-radius:50%;background:#fff3;color:#fff;font-size:18px}
+.dots{display:flex;gap:5px}.dot{width:6px;height:6px;border-radius:50%;background:#fff7}.dot.active{width:18px;border-radius:4px;background:#fff}
+.search-panel{margin:-22px 18px 0;position:relative;z-index:5;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:11px}
+.tabs{display:flex;gap:6px;overflow:auto;padding-bottom:8px}
+.tab{white-space:nowrap;background:#f4f1f0;color:#5d5754;border-radius:9px;padding:8px 10px;font-size:11px;font-weight:800}
+.tab.active{background:var(--ink);color:#fff}
+.filters{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.field{border:1px solid #e2dcda;border-radius:10px;padding:9px 10px;min-height:49px}
+.field small{display:block;color:#7b7470;font-size:9px;margin-bottom:2px}.field b{font-size:11px}
+.search-btn{grid-column:1/-1;height:43px;border-radius:10px;background:var(--red);color:#fff;font-weight:800;font-size:12px}
+.quick{display:flex;gap:6px;overflow:auto;padding-top:9px}
+.chip{white-space:nowrap;background:#f4f1f0;border:1px solid #ece5e2;border-radius:99px;padding:6px 9px;font-size:10px;font-weight:700}
+.head{display:flex;align-items:end;justify-content:space-between;margin-bottom:10px}
+.head h2{margin:0;font-size:18px}.head button{background:transparent;color:var(--red);font-size:11px;font-weight:800}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.card{border:1px solid var(--line);border-radius:13px;overflow:hidden;background:#fff}
+.card-img{height:128px;background:linear-gradient(135deg,#d8cec8,#9b887b);position:relative}
+.fav{position:absolute;right:8px;top:8px;width:31px;height:31px;border-radius:50%;background:#fff;color:#222;font-size:17px}
+.card-body{padding:9px}.price{color:var(--red-dark);font-weight:800;font-size:14px}.title{font-size:12px;font-weight:800;line-height:1.35;margin-top:3px}.meta{font-size:9.5px;color:var(--muted);line-height:1.45;margin-top:5px}
+.feature{border:1px solid var(--line);background:#fff;border-radius:14px;padding:13px}
+.feature h3{margin:0;font-size:16px}.feature p{font-size:10px;color:var(--muted);line-height:1.5;margin:5px 0 8px}
+.pill-row{display:flex;gap:6px;flex-wrap:wrap}.pill{background:#f4f0ef;border:1px solid #eae1de;border-radius:99px;padding:6px 8px;font-size:10px;font-weight:700}
+.red-btn{background:var(--red);color:#fff;border-radius:9px;padding:10px 12px;font-size:11px;font-weight:800}
+.muted-btn{background:#f1eeed;color:#373230;border-radius:9px;padding:10px 12px;font-size:11px;font-weight:800}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.map-mini{height:175px;border-radius:12px;position:relative;overflow:hidden;background:linear-gradient(25deg,#dce7d7,#cddacb)}
+.road{position:absolute;background:#fff9;height:8px;border-radius:9px;transform:rotate(20deg);width:120%}.r1{top:52%;left:-10%}.r2{top:35%;left:5%;transform:rotate(-20deg)}
+.pin{position:absolute;width:24px;height:24px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--red);border:2px solid #fff}.pin:after{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#fff;left:7px;top:7px}.p1{left:22%;top:28%}.p2{left:56%;top:50%}.p3{left:69%;top:24%}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(430px,100vw);z-index:50;background:#fff;border-top:1px solid var(--line);padding:7px 5px calc(7px + env(safe-area-inset-bottom))}
+.bottom-grid{display:grid;grid-template-columns:repeat(5,1fr)}
+.nav-item{background:#fff;color:#7a7370;font-size:9px;padding:2px 0}.nav-item span{display:block;font-size:18px;line-height:20px;margin-bottom:2px}.nav-item.active{color:var(--red-dark);font-weight:800}
+.page-title{padding:15px 12px 8px}.page-title h1{margin:0;font-size:20px}.page-title p{margin:4px 0 0;font-size:10px;color:var(--muted)}
+.back{padding:11px 12px 0;background:none;color:#5e5754;font-size:11px;font-weight:700}
+.result-controls{display:flex;gap:7px;overflow:auto;padding:0 12px 10px}
+.control{white-space:nowrap;border:1px solid #ded8d5;background:#fff;border-radius:9px;padding:8px 10px;font-size:10px;font-weight:700}
+.result-list{padding:0 12px;display:grid;gap:10px}
+.result-card{display:grid;grid-template-columns:120px 1fr;gap:10px;border:1px solid var(--line);border-radius:13px;background:#fff;padding:8px}
+.result-img{height:116px;border-radius:10px;background:linear-gradient(135deg,#d8cec8,#9b887b)}
+.result-card .price{font-size:14px}.result-card .title{font-size:12px}.result-card .meta{font-size:9px}
+.map-page{padding:0 12px 12px}.map-big{height:480px;border-radius:15px;background:linear-gradient(25deg,#e2ebde,#ccd9ca);position:relative;overflow:hidden}.map-big .pin{transform:scale(1.05) rotate(-45deg)}
+.map-toolbar{position:absolute;left:10px;right:10px;top:10px;display:flex;justify-content:space-between}.map-toolbar button{background:#fff;border:1px solid var(--line);border-radius:9px;padding:8px 9px;font-size:10px;font-weight:800}
+.property{padding:0 12px}.gallery{height:285px;border-radius:15px;background:linear-gradient(135deg,#d6cbc5,#8d796e);position:relative;overflow:hidden}.gallery .tag{position:absolute;left:10px;top:10px;background:#fff;color:#5d5652;border-radius:99px;padding:6px 8px;font-size:9px;font-weight:800}.gallery .gallery-btn{position:absolute;right:10px;top:10px;background:#fff;color:#222;border-radius:9px;padding:7px 8px;font-size:10px;font-weight:800}
+.gallery-dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:5px}.gallery-dot{width:6px;height:6px;border-radius:50%;background:#fff7}.gallery-dot.active{width:16px;border-radius:4px;background:#fff}
+.property-card{border:1px solid var(--line);border-radius:15px;background:#fff;padding:14px;margin-top:10px}.property-card h1{font-size:20px;line-height:1.2;margin:0}.property-price{color:var(--red-dark);font-weight:900;font-size:22px;margin:7px 0}.property-meta{font-size:10px;color:var(--muted);line-height:1.55}
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.spec{border:1px solid var(--line);background:#faf8f7;border-radius:10px;padding:9px}.spec b{display:block;font-size:11px}.spec span{font-size:9px;color:var(--muted)}
+.action-row{display:grid;grid-template-columns:1.3fr 1fr;gap:8px;margin-top:11px}
+.owner{display:flex;align-items:center;gap:9px}.avatar{width:42px;height:42px;border-radius:50%;background:#e7dfdc;display:grid;place-items:center;font-size:18px}.owner b{font-size:12px}.owner span{display:block;color:var(--muted);font-size:9px;margin-top:2px}
+.text-block h3{font-size:15px;margin:0 0 6px}.text-block p{margin:0;color:#5f5956;font-size:10px;line-height:1.65}
+.notification{border:1px solid var(--line);border-radius:12px;padding:11px;background:#fff}.notification + .notification{margin-top:8px}.notification.unread{border-left:3px solid var(--red);background:#fffafa}.notification b{font-size:12px}.notification p{font-size:9.5px;color:var(--muted);line-height:1.5;margin:4px 0 0}
+.saved-card{display:grid;grid-template-columns:112px 1fr;gap:9px;border:1px solid var(--line);border-radius:13px;padding:8px}.saved-img{height:100px;border-radius:10px;background:linear-gradient(135deg,#d8cec8,#9b887b)}.saved-actions{display:flex;gap:6px;margin-top:7px}
+.chat-list{display:grid;gap:7px}.chat-item{border:1px solid var(--line);border-radius:12px;padding:10px;background:#fff}.chat-item.active{background:#fff8f7;border-color:#f0cfcc}.chat-top{display:flex;justify-content:space-between}.chat-top b{font-size:11px}.chat-top span{font-size:8px;color:var(--muted)}.chat-item p{font-size:9.5px;color:var(--muted);margin:4px 0 0}
+.chat-window{margin-top:9px;border:1px solid var(--line);border-radius:13px;background:#faf8f7;padding:10px;min-height:255px}.bubble{max-width:80%;padding:8px 10px;border-radius:12px;font-size:9px;line-height:1.45;margin-bottom:7px}.bubble.other{background:#fff;border:1px solid var(--line)}.bubble.me{background:#e9eef7;margin-left:auto}.composer{display:flex;gap:6px;margin-top:8px}.composer input{flex:1;border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px;font-size:10px;outline:0}
+.profile-card{border:1px solid var(--line);border-radius:14px;padding:13px;background:#fff}.profile-head{display:flex;align-items:center;gap:10px}.profile-avatar{width:56px;height:56px;border-radius:50%;background:#ded4cf;display:grid;place-items:center;font-size:24px}.profile-head h2{margin:0;font-size:16px}.profile-head p{margin:3px 0 0;font-size:9px;color:var(--muted)}.profile-menu{margin-top:11px}.profile-menu button{display:flex;justify-content:space-between;width:100%;padding:11px 0;border-bottom:1px solid #f0ecea;background:#fff;font-size:11px;text-align:left}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:10px}.stat{border:1px solid var(--line);border-radius:10px;background:#faf8f7;padding:9px}.stat b{display:block;font-size:17px}.stat span{font-size:8.5px;color:var(--muted)}
+.assistant{padding:0 12px}.assistant-card{border:1px solid var(--line);border-radius:15px;padding:13px;background:#fff}.assistant-label{font-size:10px;color:var(--muted)}.assistant-input{margin-top:6px;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:11px}.assistant-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.assistant-tag{border:1px solid var(--line);border-radius:99px;background:#fff;padding:6px 8px;font-size:9px;font-weight:700}.assistant-tag.selected{background:var(--ink);color:#fff;border-color:var(--ink)}
+.role-switch{display:flex;gap:6px;overflow:auto;padding:0 12px 9px}.role-btn{white-space:nowrap;border-radius:99px;background:#f3efee;color:#5f5754;padding:7px 10px;font-size:10px;font-weight:800}.role-btn.active{background:var(--ink);color:#fff}
+.dashboard{padding:0 12px}.stats-2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.big-stat{border:1px solid var(--line);background:#fff;border-radius:12px;padding:11px}.big-stat b{display:block;font-size:20px;color:var(--red-dark)}.big-stat span{font-size:9px;color:var(--muted)}
+.table-card{margin-top:9px;border:1px solid var(--line);border-radius:13px;background:#fff;overflow:hidden}.table-row{padding:10px;border-bottom:1px solid #f0ecea}.table-row:last-child{border-bottom:0}.table-row b{display:block;font-size:10px}.table-row span{display:block;margin-top:3px;font-size:9px;color:var(--muted)}
+.province-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:0 12px}.province{border:1px solid var(--line);border-radius:13px;background:#fff;padding:11px}.province .icon{width:34px;height:34px;border-radius:9px;background:#fbefed;display:grid;place-items:center;color:var(--red);font-size:17px}.province h3{font-size:13px;margin:8px 0 3px}.province p{font-size:9px;color:var(--muted);line-height:1.45;margin:0}.province .count{margin-top:8px;color:var(--red-dark);font-size:10px;font-weight:800}
+.empty{border:1px dashed #d8cfcc;border-radius:13px;background:#fbf9f8;padding:22px;text-align:center;color:var(--muted)}.empty b{display:block;color:var(--ink);font-size:13px;margin-bottom:4px}.empty span{font-size:9px}
+.toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%) translateY(10px);background:#171515;color:#fff;padding:8px 11px;border-radius:9px;font-size:9px;opacity:0;pointer-events:none;transition:.18s;z-index:80}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(min-width:431px){#app{border-left:1px solid #ddd;border-right:1px solid #ddd}}
+</style>
+</head>
+<body>
+<div id="app">
+<header class="top">
+  <div class="top-row">
+    <div class="logo"><div class="logo-mark">⌂</div><div><div class="logo-text">80Land</div><span class="logo-sub">Tìm phòng nhanh</span></div></div>
+    <div class="top-actions">
+      <button class="top-icon" data-route="saved">♡</button>
+      <button class="top-icon" data-route="messages">□<span class="badge" id="msgBadge">2</span></button>
+      <button class="top-icon" data-route="notifications">♧<span class="badge" id="notiBadge">3</span></button>
+      <button class="top-icon" data-route="profile">♙</button>
+    </div>
+  </div>
+  <label class="search-bar">⌕<input id="globalSearch" placeholder="Tìm phòng, khu vực, quận huyện..." /></label>
+</header>
+<div class="status"><span><strong>●</strong> Đã kiểm duyệt 1.420 phòng mới</span> · Bảo vệ cọc 100%</div>
+
+<main>
+<section class="view active" id="home">
+  <div class="section" style="padding-bottom:8px">
+    <div class="hero">
+      <div class="slide active"><h1>Tìm nơi ở phù hợp với bạn</h1><p>Phòng trọ, căn hộ và nhà cho thuê được cập nhật mỗi ngày.</p><button class="cta" data-route="search">Khám phá phòng</button></div>
+      <div class="slide"><h1>Tìm đúng nhu cầu, bớt mất thời gian</h1><p>Lọc theo giá, khu vực, loại phòng và tiện ích.</p><button class="cta" data-route="assistant">Tìm với trợ lý</button></div>
+      <div class="slide"><h1>Phòng quanh bạn</h1><p>Dùng bản đồ và vị trí để xem các phòng gần khu vực đang đứng.</p><button class="cta" data-route="map">Xem bản đồ</button></div>
+      <div class="slide-nav"><button class="arrow" id="prev">‹</button><div class="dots"><span class="dot active"></span><span class="dot"></span><span class="dot"></span></div><button class="arrow" id="next">›</button></div>
+    </div>
+  </div>
+
+  <div class="search-panel">
+    <div class="tabs"><button class="tab active">🛏 Phòng trọ & Căn hộ</button><button class="tab">♙ Ở ghép</button><button class="tab">⌂ Nhà nguyên căn</button><button class="tab">▥ Mặt bằng</button></div>
+    <div class="filters">
+      <div class="field"><small>📍 KHU VỰC</small><b>TP. Hồ Chí Minh</b></div>
+      <div class="field"><small>₫ MỨC GIÁ</small><b>3–6 triệu</b></div>
+      <div class="field"><small>⌂ LOẠI</small><b>Phòng trọ</b></div>
+      <div class="field"><small>☷ TIỆN ÍCH</small><b>WC riêng</b></div>
+      <button class="search-btn" data-route="search">⌕ Tìm kiếm ngay</button>
+    </div>
+    <div class="quick"><span class="chip">Phòng gần Bách Khoa</span><span class="chip">Studio Bình Thạnh</span><span class="chip">Có ban công</span><span class="chip">Pet-friendly</span></div>
+  </div>
+
+  <div class="section">
+    <div class="head"><h2>Đề xuất cho bạn</h2><button data-route="search">Xem tất cả →</button></div>
+    <div class="cards">
+      <article class="card" data-route="detail"><div class="card-img"><button class="fav">♡</button></div><div class="card-body"><div class="price">4,2 triệu</div><div class="title">Studio full nội thất, cửa sổ lớn</div><div class="meta">📍 Bình Thạnh · 28 m²<br>✓ WC riêng · ✓ Máy lạnh</div></div></article>
+      <article class="card" data-route="detail"><div class="card-img"><button class="fav">♡</button></div><div class="card-body"><div class="price">3,8 triệu</div><div class="title">Phòng có gác, gần trung tâm</div><div class="meta">📍 Thủ Đức · 24 m²<br>✓ Gác · ✓ Bếp riêng</div></div></article>
+      <article class="card" data-route="detail"><div class="card-img"><button class="fav">♡</button></div><div class="card-body"><div class="price">5,0 triệu</div><div class="title">Căn hộ mini có ban công</div><div class="meta">📍 Quận 7 · 35 m²<br>✓ Ban công · ✓ Thang máy</div></div></article>
+      <article class="card" data-route="detail"><div class="card-img"><button class="fav">♡</button></div><div class="card-body"><div class="price">3,2 triệu</div><div class="title">Phòng có gác, gần Đại học</div><div class="meta">📍 Tân Bình · 22 m²<br>✓ Giờ tự do</div></div></article>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="two">
+      <div class="feature"><h3>✨ 80Land Assistant</h3><p>Tìm theo nhu cầu của bạn.</p><div class="pill-row"><span class="pill">Dưới 4tr</span><span class="pill">WC riêng</span><span class="pill">Ban công</span></div><button class="red-btn" data-route="assistant" style="margin-top:9px">Tìm giúp tôi</button></div>
+      <div class="feature"><h3>🗺 Tìm quanh tôi</h3><p>Phòng gần vị trí bạn chọn.</p><button class="muted-btn" data-route="map">Mở bản đồ</button></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="head"><h2>Khám phá khu vực</h2><button data-route="provinces">Tất cả →</button></div>
+    <div class="province-grid">
+      <article class="province" data-route="province"><div class="icon">⌂</div><h3>TP. Hồ Chí Minh</h3><p>Bình Thạnh · Thủ Đức · Quận 7</p><div class="count">12.480 tin mẫu</div></article>
+      <article class="province" data-route="province"><div class="icon">⌂</div><h3>Đồng Nai</h3><p>Biên Hòa · Long Thành · Trảng Bom</p><div class="count">2.460 tin mẫu</div></article>
+      <article class="province" data-route="province"><div class="icon">⌂</div><h3>Hà Nội</h3><p>Cầu Giấy · Đống Đa · Thanh Xuân</p><div class="count">8.260 tin mẫu</div></article>
+      <article class="province" data-route="province"><div class="icon">⌂</div><h3>Đà Nẵng</h3><p>Hải Châu · Sơn Trà · Ngũ Hành Sơn</p><div class="count">3.180 tin mẫu</div></article>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="search">
+  <button class="back" data-route="home">← Trang chủ</button>
+  <div class="page-title"><h1>Phòng trọ tại TP. Hồ Chí Minh</h1><p>1.420 kết quả mẫu · Sắp xếp theo phù hợp nhất</p></div>
+  <div class="result-controls"><button class="control">📍 TP.HCM</button><button class="control">₫ 3–6 triệu</button><button class="control">⌂ Phòng trọ</button><button class="control">☷ Tiện ích</button><button class="control" data-route="assistant">✨ Gợi ý</button></div>
+  <div class="result-list">
+    <article class="result-card" data-route="detail"><div class="result-img"></div><div><div class="price">4,2 triệu/tháng</div><div class="title">Studio Bình Thạnh, full nội thất</div><div class="meta">📍 Phường 25 · 28 m²<br>✓ WC riêng · ✓ Máy lạnh<br>♡ 18 người lưu</div></div></article>
+    <article class="result-card" data-route="detail"><div class="result-img"></div><div><div class="price">3,8 triệu/tháng</div><div class="title">Phòng có gác, gần Phạm Văn Đồng</div><div class="meta">📍 Thủ Đức · 24 m²<br>✓ Gác · ✓ Giờ tự do</div></div></article>
+    <article class="result-card" data-route="detail"><div class="result-img"></div><div><div class="price">5,5 triệu/tháng</div><div class="title">Căn hộ mini có ban công</div><div class="meta">📍 Quận 7 · 32 m²<br>✓ Ban công · ✓ Thang máy</div></div></article>
+    <article class="result-card" data-route="detail"><div class="result-img"></div><div><div class="price">3,5 triệu/tháng</div><div class="title">Phòng mới, giờ giấc tự do</div><div class="meta">📍 Tân Bình · 20 m²<br>✓ Gần trường · ✓ WC riêng</div></div></article>
+  </div>
+</section>
+
+<section class="view" id="map">
+  <button class="back" data-route="home">← Trang chủ</button>
+  <div class="page-title"><h1>Tìm phòng quanh bạn</h1><p>Định vị, bán kính và bộ lọc cùng lúc.</p></div>
+  <div class="map-page"><div class="map-big"><div class="map-toolbar"><button id="locateBtn">⌖ Vị trí của tôi</button><button>☷ Bộ lọc</button></div><div class="road r1"></div><div class="road r2"></div><span class="pin p1"></span><span class="pin p2"></span><span class="pin p3"></span><div style="position:absolute;left:10px;right:10px;bottom:10px;background:#fff;border-radius:12px;padding:10px;display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line)"><div><b style="font-size:11px">24 phòng trong 2 km</b><div style="font-size:9px;color:var(--muted)">TP. Hồ Chí Minh · dưới 6 triệu</div></div><button class="red-btn" data-route="search">Xem danh sách</button></div></div></div>
+</section>
+
+<section class="view" id="detail">
+  <button class="back" data-route="search">← Kết quả tìm kiếm</button>
+  <div class="property">
+    <div class="gallery"><span class="tag">Tin xác thực</span><button class="gallery-btn">▧ 8 ảnh</button><div class="gallery-dots"><span class="gallery-dot active"></span><span class="gallery-dot"></span><span class="gallery-dot"></span><span class="gallery-dot"></span></div></div>
+    <div class="property-card">
+      <h1>Studio full nội thất, cửa sổ lớn, gần trung tâm</h1>
+      <div class="property-price">4,2 triệu/tháng</div>
+      <div class="property-meta">📍 Phường 25, Bình Thạnh, TP.HCM<br>Đăng 2 giờ trước · 128 lượt xem</div>
+      <div class="specs">
+        <div class="spec"><b>28 m²</b><span>Diện tích</span></div><div class="spec"><b>1 phòng</b><span>Không gian</span></div>
+        <div class="spec"><b>WC riêng</b><span>Tiện ích</span></div><div class="spec"><b>Máy lạnh</b><span>Thiết bị</span></div>
+      </div>
+      <div class="action-row"><button class="red-btn" id="saveDetail">♡ Lưu tin</button><button class="muted-btn" data-route="messages">💬 Nhắn chủ</button></div>
+    </div>
+    <div class="property-card text-block"><h3>Mô tả phòng</h3><p>Phòng sạch, thoáng, đầy đủ nội thất cơ bản. Khu vực an ninh, thuận tiện đi các quận trung tâm. Có chỗ để xe và giờ giấc tự do.</p></div>
+    <div class="property-card"><h3 style="font-size:15px;margin:0 0 8px">Tiện ích</h3><div class="pill-row"><span class="pill">✓ Wifi</span><span class="pill">✓ Máy giặt</span><span class="pill">✓ Chỗ để xe</span><span class="pill">✓ Ban công</span><span class="pill">✓ Pet-friendly</span></div></div>
+    <div class="property-card"><h3 style="font-size:15px;margin:0 0 8px">Chủ trọ</h3><div class="owner"><div class="avatar">👤</div><div><b>Nguyễn Minh</b><span>Phản hồi nhanh · 96% đánh giá tốt</span></div></div><div class="action-row"><button class="muted-btn">☎ Gọi</button><button class="red-btn" data-route="messages">💬 Nhắn tin</button></div></div>
+    <div class="property-card"><h3 style="font-size:15px;margin:0 0 8px">Vị trí</h3><div class="map-mini"><div class="road r1"></div><div class="road r2"></div><span class="pin p1"></span><span class="pin p2"></span></div><button class="muted-btn" data-route="map" style="margin-top:8px;width:100%">📍 Mở bản đồ</button></div>
+    <div class="section" style="padding:15px 0 0"><div class="head"><h2>Phòng tương tự</h2><button data-route="search">Xem thêm →</button></div><div class="cards"><article class="card"><div class="card-img"></div><div class="card-body"><div class="price">3,8 triệu</div><div class="title">Phòng có gác Thủ Đức</div><div class="meta">📍 Thủ Đức</div></div></article><article class="card"><div class="card-img"></div><div class="card-body"><div class="price">5,0 triệu</div><div class="title">Căn hộ mini Quận 7</div><div class="meta">📍 Quận 7</div></div></article></div></div>
+  </div>
+</section>
+
+<section class="view" id="saved">
+  <button class="back" data-route="home">← Trang chủ</button>
+  <div class="page-title"><h1>Tin đã lưu</h1><p id="savedCount">Bạn đang lưu 3 phòng</p></div>
+  <div class="section"><div class="saved-card" data-route="detail"><div class="saved-img"></div><div><div class="price">4,2 triệu/tháng</div><div class="title">Studio Bình Thạnh</div><div class="meta">📍 Bình Thạnh · 28 m²<br>Đã lưu hôm nay</div><div class="saved-actions"><button class="muted-btn" data-route="messages">💬 Nhắn</button><button class="red-btn" data-remove-save>♥</button></div></div></div>
+  <div style="height:8px"></div>
+  <div class="saved-card" data-route="detail"><div class="saved-img"></div><div><div class="price">3,8 triệu/tháng</div><div class="title">Phòng có gác Thủ Đức</div><div class="meta">📍 Thủ Đức · 24 m²<br>Đã lưu hôm qua</div><div class="saved-actions"><button class="muted-btn" data-route="messages">💬 Nhắn</button><button class="red-btn" data-remove-save>♥</button></div></div></div></div>
+  <div class="section"><div class="empty"><b>Muốn tìm thêm?</b><span>Mở danh sách phòng để tiếp tục khám phá.</span><br><button class="red-btn" data-route="search" style="margin-top:8px">Tìm phòng</button></div></div>
+</section>
+
+<section class="view" id="messages">
+  <button class="back" data-route="home">← Trang chủ</button>
+  <div class="page-title"><h1>Tin nhắn</h1><p>6 cuộc trò chuyện</p></div>
+  <div class="section"><div class="chat-list">
+    <button class="chat-item active" data-chat="0"><div class="chat-top"><b>Chủ trọ Minh · Căn hộ Quận 7</b><span>08:30</span></div><p>Mình có thể xem phòng lúc 18:30.</p></button>
+    <button class="chat-item" data-chat="1"><div class="chat-top"><b>Chủ trọ Hoa · Phòng Thủ Đức</b><span>Hôm qua</span></div><p>Đã gửi thêm video phòng.</p></button>
+    <button class="chat-item" data-chat="2"><div class="chat-top"><b>Nguyễn Văn A · Studio Bình Thạnh</b><span>Hôm qua</span></div><p>Phòng còn trống không ạ?</p></button>
+  </div>
+  <div class="chat-window" id="chatWindow"><div class="bubble other">Phòng còn trống nhé bạn. Bạn muốn xem lúc nào?</div><div class="bubble me">Mình xem 18:30 hôm nay được không?</div><div class="bubble other">Được nhé, mình gửi địa chỉ cho bạn.</div></div>
+  <div class="composer"><input placeholder="Nhập tin nhắn..." id="messageInput"><button class="red-btn" id="sendMessage">Gửi</button></div></div>
+</section>
+
+<section class="view" id="notifications">
+  <button class="back" data-route="home">← Trang chủ</button>
+  <div class="page-title"><h1>Thông báo</h1><p>3 thông báo chưa đọc</p></div>
+  <div class="section">
+    <div class="notification unread"><b>Tin đăng được duyệt</b><p>“Studio Bình Thạnh” đã được hệ thống duyệt và đang hiển thị.</p></div>
+    <div class="notification unread"><b>Có người lưu tin của bạn</b><p>Một tin đăng của bạn vừa nhận thêm lượt quan tâm.</p></div>
+    <div class="notification unread"><b>Gợi ý mới</b><p>3 phòng mới phù hợp với bộ tiêu chí bạn đã lưu.</p></div>
+    <div class="notification"><b>Bảo vệ giao dịch</b><p>Có hướng dẫn an toàn khi đặt cọc và liên hệ chủ trọ.</p></div>
+  </div>
+</section>
+
+<section class="view" id="profile">
+  <button class="back" data-route="home">← Trang chủ</button>
+  <div class="section">
+    <div class="profile-card"><div class="profile-head"><div class="profile-avatar">👤</div><div><h2>Quang Tuấn</h2><p>Thành viên từ 2026 · TP.HCM</p></div></div>
+      <div class="stats"><div class="stat"><b>12</b><span>Tin đã lưu</span></div><div class="stat"><b>38</b><span>Lượt xem</span></div><div class="stat"><b>6</b><span>Cuộc trò chuyện</span></div></div>
+    </div>
+    <div class="profile-card" style="margin-top:9px"><div class="profile-menu">
+      <button>Thông tin cá nhân <span>›</span></button>
+      <button data-route="saved">Tin đã lưu <span>›</span></button>
+      <button data-route="messages">Tin nhắn <span>›</span></button>
+      <button data-route="notifications">Thông báo <span>›</span></button>
+      <button>Ví & kiếm tiền <span>›</span></button>
+      <button>Cài đặt <span>›</span></button>
+    </div></div>
+  </div>
+</section>
+
+<section class="view" id="assistant">
+  <button class="back" data-route="home">← Trang chủ</button>
+  <div class="page-title"><h1>80Land Assistant</h1><p>Tìm phòng theo nhu cầu thay vì lọc hàng chục mục.</p></div>
+  <div class="assistant">
+    <div class="assistant-card"><div class="assistant-label">Bạn muốn tìm phòng ở đâu?</div><div class="assistant-input">📍 TP. Hồ Chí Minh</div>
+      <div class="assistant-label" style="margin-top:10px">Ưu tiên của bạn</div>
+      <div class="assistant-tags"><button class="assistant-tag selected">Dưới 4 triệu</button><button class="assistant-tag selected">WC riêng</button><button class="assistant-tag">Có ban công</button><button class="assistant-tag">Pet-friendly</button><button class="assistant-tag">Không chung chủ</button><button class="assistant-tag">Gần trường</button></div>
+      <button class="red-btn" data-route="search" style="width:100%;margin-top:12px">✨ Gợi ý phòng phù hợp</button>
+    </div>
+    <div class="section" style="padding:12px 0 0"><div class="head"><h2>Gợi ý 92% phù hợp</h2><button data-route="search">Xem tất cả →</button></div><div class="cards"><article class="card" data-route="detail"><div class="card-img"></div><div class="card-body"><div class="price">3,9 triệu</div><div class="title">Studio Bình Thạnh</div><div class="meta">92% phù hợp · WC riêng</div></div></article><article class="card" data-route="detail"><div class="card-img"></div><div class="card-body"><div class="price">3,6 triệu</div><div class="title">Phòng gác Thủ Đức</div><div class="meta">88% phù hợp · Gần trường</div></div></article></div></div>
+  </div>
+</section>
+
+<section class="view" id="provinces">
+  <button class="back" data-route="home">← Trang chủ</button>
+  <div class="page-title"><h1>Khám phá khu vực</h1><p>Chọn tỉnh/thành để mở luồng tìm phòng.</p></div>
+  <div class="province-grid">
+    <article class="province" data-route="province"><div class="icon">⌂</div><h3>TP. Hồ Chí Minh</h3><p>Bình Thạnh · Thủ Đức · Quận 7</p><div class="count">12.480 tin</div></article>
+    <article class="province" data-route="province"><div class="icon">⌂</div><h3>Hà Nội</h3><p>Cầu Giấy · Đống Đa · Thanh Xuân</p><div class="count">8.260 tin</div></article>
+    <article class="province" data-route="province"><div class="icon">⌂</div><h3>Đà Nẵng</h3><p>Hải Châu · Sơn Trà · Ngũ Hành Sơn</p><div class="count">3.180 tin</div></article>
+    <article class="province" data-route="province"><div class="icon">⌂</div><h3>Đồng Nai</h3><p>Biên Hòa · Long Thành · Trảng Bom</p><div class="count">2.460 tin</div></article>
+    <article class="province" data-route="province"><div class="icon">⌂</div><h3>Bình Dương</h3><p>Dĩ An · Thuận An · Thủ Dầu Một</p><div class="count">2.150 tin</div></article>
+    <article class="province" data-route="province"><div class="icon">⌂</div><h3>Cần Thơ</h3><p>Ninh Kiều · Cái Răng · Bình Thủy</p><div class="count">1.280 tin</div></article>
+    <article class="province" data-route="province"><div class="icon">⌂</div><h3>Hải Phòng</h3><p>Lê Chân · Ngô Quyền · Hải An</p><div class="count">1.460 tin</div></article>
+    <article class="province" data-route="province"><div class="icon">⌂</div><h3>Long An</h3><p>Tân An · Bến Lức · Đức Hòa</p><div class="count">980 tin</div></article>
+  </div>
+</section>
+
+<section class="view" id="province">
+  <button class="back" data-route="provinces">← Khu vực</button>
+  <div class="page-title"><h1>Tìm phòng tại TP. Hồ Chí Minh</h1><p>12.480 tin mẫu · Bình Thạnh · Thủ Đức · Quận 7</p></div>
+  <div class="section"><div class="feature"><h3>Khu vực nổi bật</h3><p>Chạm để lọc nhanh.</p><div class="pill-row"><span class="pill">Bình Thạnh</span><span class="pill">Thủ Đức</span><span class="pill">Quận 7</span><span class="pill">Tân Bình</span></div><div style="margin-top:9px"><button class="red-btn" data-route="search">Xem phòng</button></div></div></div>
+  <div class="section"><div class="head"><h2>Phòng đề xuất</h2><button data-route="search">Xem tất cả →</button></div><div class="cards"><article class="card" data-route="detail"><div class="card-img"></div><div class="card-body"><div class="price">4,2 triệu</div><div class="title">Studio Bình Thạnh</div><div class="meta">📍 Bình Thạnh · 28 m²</div></div></article><article class="card" data-route="detail"><div class="card-img"></div><div class="card-body"><div class="price">3,8 triệu</div><div class="title">Phòng gác Thủ Đức</div><div class="meta">📍 Thủ Đức · 24 m²</div></div></article></div></div>
+  <div class="section"><div class="head"><h2>Tìm quanh khu vực</h2><button data-route="map">Bản đồ →</button></div><div class="map-mini"><div class="road r1"></div><div class="road r2"></div><span class="pin p1"></span><span class="pin p2"></span><span class="pin p3"></span></div></div>
+</section>
+
+<section class="view" id="landlord">
+  <button class="back" data-route="home">← Trang chủ</button>
+  <div class="page-title"><h1>Chủ trọ</h1><p>Quản lý tin đăng và khách quan tâm.</p></div>
+  <div class="role-switch"><button class="role-btn active">Tổng quan</button><button class="role-btn">Tin đăng</button><button class="role-btn">Khách quan tâm</button><button class="role-btn">Thống kê</button></div>
+  <div class="dashboard"><div class="stats-2"><div class="big-stat"><b>18</b><span>Tin đang hiển thị</span></div><div class="big-stat"><b>2.4K</b><span>Lượt xem</span></div><div class="big-stat"><b>86</b><span>Khách quan tâm</span></div><div class="big-stat"><b>12,6tr</b><span>Doanh thu</span></div></div>
+    <div class="table-card"><div class="table-row"><b>Studio Bình Thạnh</b><span class="status-ok">Đang hiển thị · 428 lượt xem</span></div><div class="table-row"><b>Phòng gác Thủ Đức</b><span>Đang hiển thị · 315 lượt xem</span></div><div class="table-row"><b>Căn hộ Quận 7</b><span>Chờ duyệt · 0 lượt xem</span></div></div>
+    <button class="red-btn" style="width:100%;margin-top:9px" id="createListing">＋ Đăng tin mới</button>
+  </div>
+</section>
+
+<section class="view" id="admin">
+  <button class="back" data-route="home">← Trang chủ</button>
+  <div class="page-title"><h1>Admin</h1><p>Kiểm duyệt, người dùng, báo cáo và audit.</p></div>
+  <div class="role-switch"><button class="role-btn active">Tổng quan</button><button class="role-btn">Người dùng</button><button class="role-btn">Tin đăng</button><button class="role-btn">Báo cáo</button></div>
+  <div class="dashboard"><div class="stats-2"><div class="big-stat"><b>18.2K</b><span>Người dùng</span></div><div class="big-stat"><b>25.4K</b><span>Tin đăng</span></div><div class="big-stat"><b>142</b><span>Chờ duyệt</span></div><div class="big-stat"><b>23</b><span>Báo cáo</span></div></div>
+    <div class="table-card"><div class="table-row"><b>Tin #80L-1420</b><span>Chờ duyệt · Kiểm tra</span></div><div class="table-row"><b>Tài khoản #9921</b><span>Bình thường · Xem</span></div><div class="table-row"><b>Báo cáo #183</b><span>Cần xử lý · Mở</span></div></div>
+  </div>
+</section>
+</main>
+
+<nav class="bottom-nav">
+  <div class="bottom-grid">
+    <button class="nav-item active" data-route="home"><span>⌂</span>Trang chủ</button>
+    <button class="nav-item" data-route="search"><span>⌕</span>Tìm phòng</button>
+    <button class="nav-item" id="addButton"><span>＋</span>Đăng tin</button>
+    <button class="nav-item" data-route="saved"><span>♡</span>Đã lưu</button>
+    <button class="nav-item" data-route="profile"><span>♙</span>Tài khoản</button>
+  </div>
+</nav>
+
+<div class="toast" id="toast"></div>
+</div>
+<script>
+const views=[...document.querySelectorAll('.view')];
+let current='home';
+let slideIndex=0;
+const slides=[...document.querySelectorAll('.slide')], dots=[...document.querySelectorAll('.dot')];
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(window.__toast);window.__toast=setTimeout(()=>t.classList.remove('show'),1800)}
+function route(name){
+  if(!document.getElementById(name)) name='home';
+  current=name;
+  views.forEach(v=>v.classList.toggle('active',v.id===name));
+  document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.route===name));
+  window.scrollTo({top:0,behavior:'smooth'});
+  location.hash=name;
+}
+document.addEventListener('click',e=>{
+  const r=e.target.closest('[data-route]');
+  if(r){e.preventDefault();route(r.dataset.route)}
+});
+document.getElementById('prev').onclick=()=>changeSlide(-1);
+document.getElementById('next').onclick=()=>changeSlide(1);
+function changeSlide(d){
+  slideIndex=(slideIndex+d+slides.length)%slides.length;
+  slides.forEach((s,i)=>s.classList.toggle('active',i===slideIndex));
+  dots.forEach((d,i)=>d.classList.toggle('active',i===slideIndex));
+}
+setInterval(()=>changeSlide(1),5200);
+
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));t.classList.add('active');
+});
+document.querySelectorAll('.fav').forEach(b=>b.onclick=e=>{e.stopPropagation();b.textContent=b.textContent==='♡'?'♥':'♡';b.style.color=b.textContent==='♥'?'var(--red)':'#222';showToast(b.textContent==='♥'?'Đã lưu tin':'Đã bỏ lưu')});
+document.getElementById('saveDetail').onclick=()=>showToast('Đã lưu tin');
+document.getElementById('locateBtn').onclick=()=>showToast('Đã dùng vị trí hiện tại');
+document.querySelectorAll('.assistant-tag').forEach(b=>b.onclick=()=>b.classList.toggle('selected'));
+document.getElementById('sendMessage').onclick=()=>{
+  const i=document.getElementById('messageInput'), w=document.getElementById('chatWindow');
+  const v=i.value.trim();if(!v)return;const b=document.createElement('div');b.className='bubble me';b.textContent=v;w.appendChild(b);i.value='';w.scrollTop=w.scrollHeight;showToast('Đã gửi tin nhắn');
+};
+document.querySelectorAll('.chat-item').forEach(c=>c.onclick=()=>{document.querySelectorAll('.chat-item').forEach(x=>x.classList.remove('active'));c.classList.add('active');showToast('Đã mở cuộc trò chuyện')});
+document.querySelectorAll('[data-remove-save]').forEach(b=>b.onclick=e=>{e.stopPropagation();b.closest('.saved-card').remove();document.getElementById('savedCount').textContent='Bạn đang lưu 2 phòng';showToast('Đã bỏ lưu tin')});
+document.getElementById('createListing').onclick=()=>showToast('Mở luồng đăng tin mới');
+document.getElementById('addButton').onclick=()=>route('landlord');
+
+if(location.hash.slice(1) && document.getElementById(location.hash.slice(1))) route(location.hash.slice(1));
+</script>
+</body>
+</html>

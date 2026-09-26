@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+
+<html lang="vi"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"outline":"#906f6c","primary":"#b7131a","on-tertiary":"#ffffff","surface-container-highest":"#e4e2e2","on-tertiary-fixed":"#002204","tertiary":"#186a22","on-primary-fixed":"#410002","on-secondary":"#ffffff","surface-container-low":"#f5f3f3","background":"#fbf9f9","primary-fixed-dim":"#ffb4ac","on-tertiary-fixed-variant":"#005312","tertiary-fixed-dim":"#88d982","on-secondary-fixed":"#1c1b1b","on-secondary-container":"#636262","on-surface":"#1b1c1c","inverse-primary":"#ffb4ac","on-surface-variant":"#5b403d","on-primary-container":"#fffbff","on-background":"#1b1c1c","surface-bright":"#fbf9f9","surface":"#fbf9f9","surface-variant":"#e4e2e2","primary-fixed":"#ffdad6","surface-tint":"#bb171c","on-error-container":"#93000a","on-secondary-fixed-variant":"#474646","secondary-fixed":"#e5e2e1","surface-container-high":"#e9e8e7","error":"#ba1a1a","outline-variant":"#e4beb9","tertiary-container":"#358438","inverse-surface":"#303031","on-tertiary-container":"#f7fff1","primary-container":"#db322f","secondary-fixed-dim":"#c8c6c5","secondary-container":"#e2dfde","surface-dim":"#dbdad9","tertiary-fixed":"#a3f69c","error-container":"#ffdad6","inverse-on-surface":"#f2f0f0","on-primary":"#ffffff","on-primary-fixed-variant":"#93000d","on-error":"#ffffff","surface-container":"#efeded","secondary":"#5f5e5e","surface-container-lowest":"#ffffff"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-md":"0.75rem","space-xs":"0.25rem","space-xl":"2rem","space-lg":"1.25rem","margin":"1rem","space-sm":"0.5rem","gutter":"1rem"},"fontFamily":{"headline-lg":["Be Vietnam Pro"],"headline-xl-mobile":["Be Vietnam Pro"],"label-sm":["Be Vietnam Pro"],"body-lg":["Be Vietnam Pro"],"price-display":["Be Vietnam Pro"],"headline-md":["Be Vietnam Pro"],"label-xs":["Be Vietnam Pro"],"body-sm":["Be Vietnam Pro"],"body-md":["Be Vietnam Pro"],"headline-lg-mobile":["Be Vietnam Pro"],"label-md":["Be Vietnam Pro"],"headline-xl":["Be Vietnam Pro"]},"fontSize":{"headline-lg":["24px",{"lineHeight":"32px","fontWeight":"700"}],"headline-xl-mobile":["24px",{"lineHeight":"32px","fontWeight":"700"}],"label-sm":["12px",{"lineHeight":"16px","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"price-display":["20px",{"lineHeight":"26px","letterSpacing":"-0.01em","fontWeight":"700"}],"headline-md":["18px",{"lineHeight":"24px","fontWeight":"600"}],"label-xs":["10px",{"lineHeight":"14px","letterSpacing":"0.02em","fontWeight":"700"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"headline-lg-mobile":["20px",{"lineHeight":"28px","fontWeight":"700"}],"label-md":["14px",{"lineHeight":"20px","fontWeight":"600"}],"headline-xl":["32px",{"lineHeight":"40px","fontWeight":"700"}]}}}};</script>
+<style id="80land-v3-extension-style">
+/* V3 extension: keep the V3 visual language, add customer-requested product flows */
+.feature-extension{max-width:1280px;margin:0 auto;padding:0 16px 42px}
+.extension-grid{display:grid;grid-template-columns:1.35fr .85fr;gap:16px}
+.extension-card{background:#fff;border:1px solid #e1dddd;border-radius:16px;padding:18px;box-shadow:0 5px 18px rgba(0,0,0,.04)}
+.extension-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}
+.extension-head h2{margin:0;font:700 22px/30px "Be Vietnam Pro",sans-serif}
+.extension-head p{margin:4px 0 0;color:#706a68;font:400 13px/20px "Be Vietnam Pro",sans-serif}
+.location-demo{min-height:330px;border-radius:14px;position:relative;overflow:hidden;background:
+linear-gradient(30deg,transparent 0 46%,rgba(255,255,255,.45) 47% 48%,transparent 49%),
+linear-gradient(120deg,transparent 0 58%,rgba(255,255,255,.5) 59% 60%,transparent 61%),
+linear-gradient(135deg,#e7efe4,#dce6dc);}
+.location-demo .road{position:absolute;background:rgba(255,255,255,.72);height:12px;border-radius:999px;transform:rotate(-18deg)}
+.location-demo .road.a{width:110%;left:-4%;top:44%}.location-demo .road.b{width:90%;left:15%;top:67%;transform:rotate(24deg)}
+.location-demo .map-pin{position:absolute;width:34px;height:34px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:#b7131a;border:3px solid #fff;box-shadow:0 8px 18px rgba(183,19,26,.24)}
+.location-demo .map-pin i{position:absolute;width:9px;height:9px;background:#fff;border-radius:50%;left:9px;top:9px}
+.location-demo .m1{left:23%;top:34%}.location-demo .m2{left:58%;top:48%}.location-demo .m3{left:68%;top:23%}.location-demo .m4{left:42%;top:72%}
+.location-demo .nearby-card{position:absolute;left:14px;right:14px;bottom:14px;background:rgba(255,255,255,.94);border:1px solid #e5deda;border-radius:12px;padding:11px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.nearby-card strong{font:700 13px/18px "Be Vietnam Pro",sans-serif}.nearby-card span{font:400 11px/15px "Be Vietnam Pro",sans-serif;color:#706a68}
+.nearby-action{background:#b7131a;color:#fff;border-radius:9px;padding:9px 12px;font:700 12px "Be Vietnam Pro",sans-serif;cursor:pointer}
+.recommend-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.rec-card{border:1px solid #e8e2e0;border-radius:12px;overflow:hidden;background:#fff;cursor:pointer;transition:.16s ease}
+.rec-card:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.06);border-color:#b8adaa}
+.rec-image{height:118px;background:linear-gradient(135deg,#d6cbc5,#a9968c)}
+.rec-body{padding:10px}.rec-price{color:#b7131a;font:700 15px/20px "Be Vietnam Pro",sans-serif}.rec-title{font:600 12px/17px "Be Vietnam Pro",sans-serif;margin-top:3px}.rec-meta{color:#777;font:400 11px/16px "Be Vietnam Pro",sans-serif;margin-top:4px}
+.criteria-line{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}.criteria-chip{background:#f6f1f0;border:1px solid #eadfdd;color:#5d5553;border-radius:999px;padding:6px 9px;font:600 11px/14px "Be Vietnam Pro",sans-serif}
+.role-section{margin-top:16px}
+.role-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.role-tab{background:#f5f3f3;border:1px solid #e3dddb;color:#5f5754;border-radius:9px;padding:9px 12px;font:700 12px/16px "Be Vietnam Pro",sans-serif;cursor:pointer}
+.role-tab.active{background:#171717;color:#fff;border-color:#171717}
+.role-panel{display:none}.role-panel.active{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}
+.role-list{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.role-item{border:1px solid #e7e1df;border-radius:11px;padding:11px;background:#fff}.role-item b{font:700 13px/18px "Be Vietnam Pro",sans-serif}.role-item span{display:block;color:#777;font:400 11px/15px "Be Vietnam Pro",sans-serif;margin-top:3px}
+.role-side{background:#fbf8f7;border:1px solid #eadfdd;border-radius:12px;padding:14px}.role-side h3{margin:0 0 8px;font:700 15px/20px "Be Vietnam Pro",sans-serif}.mini-stat{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.mini-stat div{background:#fff;border:1px solid #ebe5e2;border-radius:9px;padding:9px}.mini-stat b{display:block;font:700 18px/22px "Be Vietnam Pro",sans-serif}.mini-stat span{display:block;color:#777;font:400 10px/14px "Be Vietnam Pro",sans-serif;margin-top:2px}
+.action-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.small-action{border:1px solid #e2dbd9;background:#fff;color:#3f3937;border-radius:9px;padding:8px 10px;font:700 11px/15px "Be Vietnam Pro",sans-serif;cursor:pointer}.small-action.primary{background:#b7131a;color:#fff;border-color:#b7131a}
+.demo-modal{position:fixed;inset:0;background:rgba(18,16,16,.46);display:none;align-items:center;justify-content:center;padding:18px;z-index:120}
+.demo-modal.open{display:flex}
+.demo-dialog{width:min(720px,96vw);max-height:88vh;overflow:auto;background:#fff;border-radius:18px;border:1px solid #e4dcda;box-shadow:0 25px 70px rgba(0,0,0,.18)}
+.demo-dialog-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid #eee8e6}.demo-dialog-head h3{margin:0;font:700 18px/24px "Be Vietnam Pro",sans-serif}.close-demo{width:34px;height:34px;border-radius:9px;background:#f5f3f3;cursor:pointer}.demo-dialog-body{padding:18px}
+.detail-demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.detail-demo-photo{height:240px;border-radius:14px;background:linear-gradient(135deg,#d5cbc5,#927e73)}.detail-demo-info h4{font:700 18px/25px "Be Vietnam Pro",sans-serif;margin:0 0 6px}.detail-demo-info .price{color:#b7131a;font:700 20px/26px "Be Vietnam Pro",sans-serif}.detail-demo-info p{color:#6f6865;font:400 13px/20px "Be Vietnam Pro",sans-serif}
+.filter-toast{position:fixed;right:18px;bottom:18px;background:#171717;color:#fff;border-radius:10px;padding:10px 12px;font:600 12px/16px "Be Vietnam Pro",sans-serif;opacity:0;transform:translateY(8px);pointer-events:none;transition:.18s ease;z-index:140}.filter-toast.show{opacity:1;transform:translateY(0)}
+@media(max-width:900px){
+ .extension-grid{grid-template-columns:1fr}.recommend-row{grid-template-columns:repeat(2,1fr)}.role-panel.active{grid-template-columns:1fr}.detail-demo-grid{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+ .feature-extension{padding:0 12px 30px}.recommend-row{grid-template-columns:1fr 1fr}.rec-image{height:100px}.location-demo{min-height:270px}.role-list{grid-template-columns:1fr}.mini-stat{grid-template-columns:1fr 1fr 1fr}.demo-dialog{border-radius:15px}
+}
+</style>
+</head><body class="bg-[#F5F5F3] font-body-md text-on-surface antialiased"><style>
+.header-action{position:relative;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;color:#5b403d;transition:.16s ease;}
+.header-action:hover{background:#f5f3f3;color:#151515;}
+.header-action[data-tooltip]::after{content:attr(data-tooltip);position:absolute;top:48px;left:50%;transform:translateX(-50%) translateY(-4px);padding:6px 9px;border-radius:7px;background:#151515;color:#fff;font:600 12px/16px 'Be Vietnam Pro',sans-serif;white-space:nowrap;opacity:0;pointer-events:none;transition:.14s ease;box-shadow:0 6px 14px rgba(0,0,0,.14);z-index:80;}
+.header-action[data-tooltip]:hover::after{opacity:1;transform:translateX(-50%) translateY(0);}
+.brand-mark{width:36px;height:36px;border-radius:10px;background:#b7131a;display:grid;place-items:center;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12);}
+.brand-mark svg{width:20px;height:20px;}
+</style>
+
+<style>
+.no-scrollbar{scrollbar-width:none}.no-scrollbar::-webkit-scrollbar{display:none}
+.hero-track{position:relative;min-height:280px}.hero-slide{display:none;min-height:280px;position:relative;overflow:hidden}.hero-slide.active{display:flex}
+.hero-copy{width:53%;padding:40px 36px 44px 40px;position:relative;z-index:2}.hero-kicker{display:inline-flex;align-items:center;gap:6px;color:#B7131A;background:#fff1f0;border:1px solid #f2d0cd;padding:7px 10px;border-radius:999px;font:700 11px/1 'Be Vietnam Pro',sans-serif;letter-spacing:.03em}.hero-kicker .material-symbols-outlined{font-size:15px}.hero-copy h1{margin:16px 0 8px;font:700 32px/1.18 'Be Vietnam Pro',sans-serif;letter-spacing:-.03em;color:#161616;max-width:570px}.hero-copy p{margin:0;max-width:560px;color:#625b59;font:400 15px/1.65 'Be Vietnam Pro',sans-serif}.hero-actions{margin-top:18px}.hero-cta{display:inline-flex;align-items:center;gap:8px;border:none;background:#B7131A;color:white;padding:11px 16px;border-radius:10px;font:700 14px 'Be Vietnam Pro',sans-serif;cursor:pointer}.hero-cta .material-symbols-outlined{font-size:18px}
+.hero-art{position:absolute;inset:0 0 0 53%;overflow:hidden;background:linear-gradient(135deg,#fff6f5,#fbe4e2)}.art-one{background:radial-gradient(circle at 72% 28%,rgba(183,19,26,.16),transparent 28%),linear-gradient(135deg,#fff6f5,#f5e4df)}.city-lines{position:absolute;left:0;right:0;bottom:0;height:46%;background:repeating-linear-gradient(90deg,transparent 0 42px,rgba(255,255,255,.5) 42px 44px),linear-gradient(180deg,transparent,#ead5d1)}
+.house-card{position:absolute;bottom:45px;width:150px;height:125px;background:#fff;border:1px solid #edd8d5;border-radius:18px;box-shadow:0 14px 34px rgba(65,26,24,.12)}.house-card .roof{position:absolute;width:90px;height:90px;background:#c62b31;left:30px;top:-36px;transform:rotate(45deg);border-radius:14px 14px 6px 6px}.house-card .house-body{position:absolute;left:19px;right:19px;top:29px;bottom:12px;background:#fff5f3;border-radius:10px;border:1px solid #f0dad6;display:flex;align-items:flex-end;justify-content:center;gap:14px;padding-bottom:12px}.house-card .house-body span{width:18px;height:30px;border-radius:4px;background:#f3bdb8}.house-a{right:155px;transform:scale(1.02)}.house-b{right:22px;bottom:34px;transform:scale(.82)}.pin-float{position:absolute;right:54px;top:48px;width:48px;height:48px;border-radius:16px;background:#B7131A;color:white;display:grid;place-items:center;box-shadow:0 12px 30px rgba(183,19,26,.25)}.pin-float .material-symbols-outlined{font-size:26px}
+.art-two{background:linear-gradient(135deg,#fff8f7,#f3ecea)}.filter-card{position:absolute;left:14%;top:43px;width:230px;background:white;border:1px solid #eadfdd;border-radius:18px;padding:16px;box-shadow:0 18px 40px rgba(56,34,31,.1)}.filter-head,.filter-row{display:flex;justify-content:space-between;align-items:center}.filter-head{font:700 14px 'Be Vietnam Pro',sans-serif;color:#252120;margin-bottom:10px}.filter-head .material-symbols-outlined{font-size:18px;color:#B7131A}.filter-row{padding:10px 0;border-top:1px solid #f0eceb;font:500 12px 'Be Vietnam Pro',sans-serif;color:#5f5755}.filter-row b{color:#B7131A}.mini-map{position:absolute;right:12%;bottom:30px;width:180px;height:120px;border-radius:18px;border:1px solid #ddd5d2;background:linear-gradient(135deg,#edf4ea,#e5efe6);box-shadow:0 14px 32px rgba(49,66,44,.12);display:grid;place-items:center}.mini-map .material-symbols-outlined{color:#B7131A;font-size:40px}.map-dot{position:absolute;width:9px;height:9px;background:#B7131A;border:2px solid white;border-radius:50%;box-shadow:0 3px 6px rgba(0,0,0,.15)}.d1{left:30px;top:42px}.d2{right:52px;top:28px}.d3{right:32px;bottom:26px}
+.art-three{background:linear-gradient(135deg,#fff7f6,#f1e9e7)}.post-card{position:absolute;right:16%;top:38px;width:230px;background:white;border-radius:18px;border:1px solid #eadfdd;padding:12px;box-shadow:0 18px 40px rgba(56,34,31,.1)}.post-img{height:104px;border-radius:12px;background:linear-gradient(145deg,#d9d1cc,#9d8b84 70%,#705c53);position:relative;overflow:hidden}.post-img:after{content:"";position:absolute;right:18px;bottom:14px;width:65px;height:50px;border-radius:8px;background:#efe5df;box-shadow:-40px 8px 0 -8px #d7beb6}.post-line{height:8px;background:#ebe6e4;border-radius:999px;margin-top:10px}.post-line.long{width:78%}.post-price{margin-top:10px;color:#B7131A;font:700 16px 'Be Vietnam Pro',sans-serif}.post-badge{position:absolute;right:34%;bottom:40px;background:#fff;border:1px solid #e7dbd8;border-radius:12px;padding:8px 10px;display:flex;align-items:center;gap:6px;color:#B7131A;font:700 11px 'Be Vietnam Pro',sans-serif;box-shadow:0 12px 26px rgba(56,34,31,.08)}.post-badge .material-symbols-outlined{font-size:16px}
+.hero-nav{position:absolute;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;border:1px solid #e8dfdd;background:rgba(255,255,255,.88);display:grid;place-items:center;color:#423a38;box-shadow:0 5px 16px rgba(0,0,0,.06);cursor:pointer;z-index:4}.hero-prev{left:16px}.hero-next{right:16px}.hero-nav .material-symbols-outlined{font-size:22px}.hero-dots{position:absolute;left:40px;bottom:16px;display:flex;gap:6px;z-index:4}.dot{width:24px;height:5px;border:none;border-radius:999px;background:#d6cbca;cursor:pointer;padding:0}.dot.active{background:#B7131A}
+.search-tab{display:inline-flex;align-items:center;gap:7px;padding:9px 13px;border-radius:999px;background:#f4f1f1;color:#625957;font:600 13px 'Be Vietnam Pro',sans-serif;white-space:nowrap}.search-tab.active{background:#161616;color:white}.search-tab .material-symbols-outlined{font-size:17px}.search-segment{min-height:56px;border:1px solid #e5dfde;background:#fbfaf9;border-radius:11px;display:flex;align-items:center;gap:10px;padding:10px 12px;color:#5f5755;cursor:pointer}.search-segment:hover{border-color:#2b2422}.search-segment > div{display:flex;flex-direction:column;min-width:0;flex:1}.search-segment small{text-transform:uppercase;letter-spacing:.08em;font:700 10px/14px 'Be Vietnam Pro',sans-serif;color:#8c8380}.search-segment strong{font:600 14px/20px 'Be Vietnam Pro',sans-serif;color:#2a2523;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.search-segment .muted{color:#8f8582;font-size:18px}.dot-alert{width:8px;height:8px;background:#B7131A;border-radius:50%;margin-left:auto}.quick-pill{padding:6px 9px;background:#f5f2f1;border:1px solid #ece6e4;border-radius:999px;color:#3d3533}.quick-pill:hover{background:#eee9e7}
+@media (max-width: 900px){.hero-copy{width:66%;padding:26px 24px 36px}.hero-copy h1{font-size:25px}.hero-copy p{font-size:13px;max-width:420px}.hero-art{inset:0 0 0 62%;opacity:.6}.hero-nav{display:none}.hero-dots{left:24px}.filter-card{left:3%;transform:scale(.85);transform-origin:top left}.mini-map{right:-12%;transform:scale(.8)}.post-card{right:-4%;transform:scale(.84);transform-origin:top right}.post-badge{right:18%;transform:scale(.88)}}
+@media (max-width: 640px){.hero-track,.hero-slide{min-height:188px}.hero-copy{width:78%;padding:20px 18px 30px}.hero-kicker{padding:5px 8px;font-size:9px}.hero-copy h1{font-size:20px;margin-top:10px}.hero-copy p{font-size:11.5px;line-height:1.5}.hero-actions{margin-top:12px}.hero-cta{padding:9px 11px;font-size:12px;border-radius:9px}.hero-art{inset:0 0 0 68%;opacity:.5}.house-card{transform:scale(.58)!important;right:-26px!important;bottom:-4px!important}.pin-float{right:12px;top:30px;transform:scale(.72)}.hero-dots{left:18px;bottom:10px}.dot{width:18px;height:4px}.relative.z-10.-mt-10{margin-top:-24px}.search-tab{padding:8px 10px;font-size:11px}.search-segment{min-height:52px}.search-segment strong{font-size:13px}.quick-pill{font-size:10px;padding:5px 7px}}
+</style>
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest border-b border-[#E5E5E0]">
+  <div class="h-16 max-w-[1280px] mx-auto px-4 flex items-center gap-4">
+    <a class="flex items-center gap-2.5 shrink-0" data-path="home" href="#" aria-label="80Land - Trang chủ">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 10.5 12 3l8.5 7.5"/><path d="M5.5 9.5V20h13V9.5"/><path d="M9.5 20v-6h5v6"/></svg>
+      </div>
+      <div class="leading-none">
+        <div class="font-headline-md text-primary font-bold tracking-tight">80Land</div>
+        <div class="font-body-sm text-secondary mt-0.5">Tìm phòng nhanh</div>
+      </div>
+    </a>
+
+    <div class="hidden md:block w-px h-7 bg-[#E5E5E0]"></div>
+
+    <button class="header-action shrink-0" data-tooltip="Khu vực" aria-label="Khu vực" type="button">
+      <span class="material-symbols-outlined text-[21px]">location_on</span>
+    </button>
+
+    <label class="flex-1 max-w-[560px] min-w-0 h-11 rounded-xl border border-[#E5E5E0] bg-white flex items-center gap-2.5 px-3.5 hover:border-[#151515] focus-within:border-[#151515] transition-colors">
+      <span class="material-symbols-outlined text-[21px] text-secondary">search</span>
+      <input class="w-full bg-transparent outline-none font-body-md text-on-surface placeholder:text-[#8a8a8a]" placeholder="Tìm phòng, khu vực, quận huyện..." aria-label="Tìm kiếm phòng"/>
+    </label>
+
+    <div class="ml-auto flex items-center gap-1 shrink-0">
+      <a class="header-action" data-tooltip="Tin đã lưu" aria-label="Tin đã lưu" data-path="tin-da-luu" href="#">
+        <span class="material-symbols-outlined text-[21px]">favorite</span>
+        <span class="absolute top-1 right-1 w-4 h-4 rounded-full bg-primary text-on-primary font-label-xs flex items-center justify-center leading-none">3</span>
+      </a>
+      <a class="header-action" data-tooltip="Tin nhắn" aria-label="Tin nhắn" data-path="tin-nhan" href="#">
+        <span class="material-symbols-outlined text-[21px]">chat_bubble</span>
+      </a>
+      <a class="header-action" data-tooltip="Thông báo" aria-label="Thông báo" href="#">
+        <span class="material-symbols-outlined text-[21px]">notifications</span>
+      </a>
+      <a class="header-action" data-tooltip="Tài khoản" aria-label="Tài khoản" data-path="ca-nhan" href="#">
+        <span class="material-symbols-outlined text-[21px]">person</span>
+      </a>
+      <a class="header-action bg-primary text-white hover:bg-[#C62828] hover:text-white ml-1" data-tooltip="Đăng tin" aria-label="Đăng tin" data-path="dang-tin-moi" href="#">
+        <span class="material-symbols-outlined text-[20px]">add</span>
+      </a>
+    </div>
+  </div>
+</header><main class="w-full pt-16 bg-[#F5F5F3] min-h-screen"><div class="flex flex-col w-full">
+<!-- Top Utility Announcement & Stats Strip -->
+<div class="bg-surface-container-high text-on-surface py-2 px-4 border-b border-surface-container-highest">
+<div class="max-w-[1280px] mx-auto flex flex-wrap items-center justify-between text-body-sm gap-2">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center justify-center w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="font-label-sm text-tertiary">Cập nhật lúc 09:30 hôm nay:</span>
+<span class="text-secondary">Đã kiểm duyệt <strong class="text-on-surface font-semibold">1,420 phòng mới</strong> tại TP.HCM &amp; Hà Nội</span>
+</div>
+<div class="flex items-center gap-6 text-secondary text-body-sm">
+<div class="flex items-center gap-1.5 hover:text-on-surface cursor-pointer">
+<span class="material-symbols-outlined text-[16px] text-tertiary">shield</span>
+<span>Bảo vệ cọc 100%</span>
+</div>
+<div class="flex items-center gap-1.5 hover:text-on-surface cursor-pointer">
+<span class="material-symbols-outlined text-[16px] text-primary">campaign</span>
+<span>Báo cáo tin ảo nhận thưởng</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="font-label-sm text-on-surface">Hotline:</span>
+<span class="font-semibold text-primary">1900 8080</span>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION 1: HERO SLIDER + OMNI SEARCH -->
+<section class="w-full bg-[#F5F5F3] pb-8">
+  <div class="max-w-[1280px] mx-auto px-4">
+    <div class="relative overflow-hidden rounded-2xl border border-[#e6e2e1] bg-white shadow-sm" id="heroSlider">
+      <div class="hero-track">
+        <article class="hero-slide active">
+          <div class="hero-copy">
+            <span class="hero-kicker"><span class="material-symbols-outlined">home_work</span> 80LAND RENTAL</span>
+            <h1>Tìm nơi ở phù hợp với bạn</h1>
+            <p>Phòng trọ, căn hộ, nhà nguyên căn và ở ghép được sắp xếp để bạn tìm nhanh hơn.</p>
+            <div class="hero-actions"><button class="hero-cta">Khám phá phòng <span class="material-symbols-outlined">arrow_forward</span></button></div>
+          </div>
+          <div class="hero-art art-one" aria-hidden="true">
+            <div class="city-lines"></div>
+            <div class="house-card house-a"><div class="roof"></div><div class="house-body"><span></span><span></span></div></div>
+            <div class="house-card house-b"><div class="roof"></div><div class="house-body"><span></span><span></span></div></div>
+            <div class="pin-float"><span class="material-symbols-outlined">location_on</span></div>
+          </div>
+        </article>
+        <article class="hero-slide">
+          <div class="hero-copy">
+            <span class="hero-kicker"><span class="material-symbols-outlined">tune</span> TÌM THEO NHU CẦU</span>
+            <h1>Lọc đúng phòng, bớt mất thời gian</h1>
+            <p>Chọn khu vực, mức giá, loại hình và tiện ích để thu hẹp kết quả ngay từ đầu.</p>
+            <div class="hero-actions"><button class="hero-cta">Tìm phòng ngay <span class="material-symbols-outlined">search</span></button></div>
+          </div>
+          <div class="hero-art art-two" aria-hidden="true">
+            <div class="filter-card">
+              <div class="filter-head"><span>Bộ lọc nhanh</span><span class="material-symbols-outlined">tune</span></div>
+              <div class="filter-row"><span>📍 Bình Thạnh</span><b>✓</b></div>
+              <div class="filter-row"><span>💰 3 - 6 triệu</span><b>✓</b></div>
+              <div class="filter-row"><span>🛁 WC riêng</span><b>✓</b></div>
+            </div>
+            <div class="mini-map"><span class="material-symbols-outlined">location_on</span><span class="map-dot d1"></span><span class="map-dot d2"></span><span class="map-dot d3"></span></div>
+          </div>
+        </article>
+        <article class="hero-slide">
+          <div class="hero-copy">
+            <span class="hero-kicker"><span class="material-symbols-outlined">campaign</span> CHỦ TRỌ 80LAND</span>
+            <h1>Đăng tin gọn, tiếp cận đúng người</h1>
+            <p>Đưa tin lên hệ thống nhanh chóng và quản lý bài đăng ngay trong một nơi.</p>
+            <div class="hero-actions"><button class="hero-cta">Đăng tin miễn phí <span class="material-symbols-outlined">add</span></button></div>
+          </div>
+          <div class="hero-art art-three" aria-hidden="true">
+            <div class="post-card"><div class="post-img"></div><div class="post-line long"></div><div class="post-line"></div><div class="post-price">4,2 triệu/tháng</div></div>
+            <div class="post-badge"><span class="material-symbols-outlined">verified</span> Tin xác thực</div>
+          </div>
+        </article>
+      </div>
+      <button class="hero-nav hero-prev" aria-label="Slide trước"><span class="material-symbols-outlined">chevron_left</span></button>
+      <button class="hero-nav hero-next" aria-label="Slide tiếp theo"><span class="material-symbols-outlined">chevron_right</span></button>
+      <div class="hero-dots" role="tablist" aria-label="Hero slides"><button class="dot active" aria-label="Slide 1"></button><button class="dot" aria-label="Slide 2"></button><button class="dot" aria-label="Slide 3"></button></div>
+    </div>
+
+    <div class="relative z-10 -mt-10 mx-3 md:mx-6">
+      <div class="bg-white rounded-2xl border border-[#e1dddd] shadow-[0_10px_28px_rgba(0,0,0,.08)] p-3 md:p-4">
+        <div class="flex gap-2 overflow-x-auto pb-1 no-scrollbar border-b border-[#ebe7e6]">
+          <button class="search-tab active"><span class="material-symbols-outlined">bed</span> Phòng trọ &amp; Căn hộ</button>
+          <button class="search-tab"><span class="material-symbols-outlined">group</span> Tìm người ở ghép</button>
+          <button class="search-tab"><span class="material-symbols-outlined">home</span> Nhà nguyên căn</button>
+          <button class="search-tab"><span class="material-symbols-outlined">storefront</span> Mặt bằng &amp; Kiot</button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-2.5 mt-3">
+          <div class="lg:col-span-3 search-segment"><span class="material-symbols-outlined text-primary">location_on</span><div><small>Khu vực</small><strong>Toàn TP. Hồ Chí Minh</strong></div><span class="material-symbols-outlined muted">expand_more</span></div>
+          <div class="lg:col-span-3 search-segment"><span class="material-symbols-outlined">apartment</span><div><small>Loại hình</small><strong>Tất cả loại hình</strong></div><span class="material-symbols-outlined muted">expand_more</span></div>
+          <div class="lg:col-span-2 search-segment"><span class="material-symbols-outlined">payments</span><div><small>Mức giá</small><strong>3 - 6 triệu</strong></div><span class="material-symbols-outlined muted">expand_more</span></div>
+          <div class="lg:col-span-2 search-segment"><span class="material-symbols-outlined">tune</span><div><small>Tiện ích</small><strong>WC riêng, gác</strong></div><span class="dot-alert"></span></div>
+          <button class="lg:col-span-2 h-14 rounded-xl bg-[#B7131A] hover:bg-[#a40f15] text-white font-semibold flex items-center justify-center gap-2 transition"><span class="material-symbols-outlined">search</span>Tìm kiếm</button>
+        </div>
+        <div class="mt-3 flex flex-wrap items-center gap-2 text-xs text-[#6b6665]"><span class="font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-[15px]">local_fire_department</span>Tìm nhanh</span><a class="quick-pill" href="#">Gần ĐH Bách Khoa</a><a class="quick-pill" href="#">Studio Bình Thạnh</a><a class="quick-pill" href="#">Có ban công</a><a class="quick-pill" href="#">Pet-friendly</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- SECTION 2: FAST CATEGORY TILES -->
+<section class="w-full py-6">
+<div class="max-w-[1280px] mx-auto px-4">
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+<!-- Item 1 -->
+<a class="flex items-center gap-3 p-3 bg-surface-container-lowest rounded-xl border border-surface-container-high hover:border-on-surface transition-all group" href="#">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-colors text-primary">
+<span class="material-symbols-outlined text-[24px]">night_shelter</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-on-surface group-hover:text-primary transition-colors truncate">Phòng trọ &amp; Gác lửng</span>
+<span class="font-body-sm text-secondary">14,230 tin</span>
+</div>
+</a>
+<!-- Item 2 -->
+<a class="flex items-center gap-3 p-3 bg-surface-container-lowest rounded-xl border border-surface-container-high hover:border-on-surface transition-all group" href="#">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-colors text-primary">
+<span class="material-symbols-outlined text-[24px]">domain</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-on-surface group-hover:text-primary transition-colors truncate">Căn hộ &amp; Chung cư mini</span>
+<span class="font-body-sm text-secondary">6,840 tin</span>
+</div>
+</a>
+<!-- Item 3 -->
+<a class="flex items-center gap-3 p-3 bg-surface-container-lowest rounded-xl border border-surface-container-high hover:border-on-surface transition-all group" href="#">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-colors text-primary">
+<span class="material-symbols-outlined text-[24px]">home_work</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-on-surface group-hover:text-primary transition-colors truncate">Nhà nguyên căn &amp; Biệt thự</span>
+<span class="font-body-sm text-secondary">3,120 tin</span>
+</div>
+</a>
+<!-- Item 4 -->
+<a class="flex items-center gap-3 p-3 bg-surface-container-lowest rounded-xl border border-surface-container-high hover:border-on-surface transition-all group" href="#">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-colors text-primary">
+<span class="material-symbols-outlined text-[24px]">group</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-on-surface group-hover:text-primary transition-colors truncate">Ở ghép &amp; Sleepbox KTX</span>
+<span class="font-body-sm text-secondary">2,450 tin</span>
+</div>
+</a>
+<!-- Item 5 -->
+<a class="flex items-center gap-3 p-3 bg-surface-container-lowest rounded-xl border border-surface-container-high hover:border-on-surface transition-all group" href="#">
+<div class="w-10 h-10 rounded-lg bg-surface-container-low flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary transition-colors text-primary">
+<span class="material-symbols-outlined text-[24px]">store</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-on-surface group-hover:text-primary transition-colors truncate">Mặt bằng nhỏ &amp; Kiot</span>
+<span class="font-body-sm text-secondary">1,110 tin</span>
+</div>
+</a>
+</div>
+</div>
+</section>
+<!-- SECTION 3: CORE PROPERTY LISTINGS -->
+<section class="w-full pb-12">
+<div class="max-w-[1280px] mx-auto px-4">
+<!-- Section Controls & Breadcrumb -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between pb-4 gap-4 border-b border-surface-container-high">
+<div>
+<div class="flex items-center gap-2 text-label-xs text-secondary mb-1">
+<span>Trang chủ</span>
+<span>/</span>
+<span class="text-primary font-medium">TP. Hồ Chí Minh</span>
+<span>/</span>
+<span>Tất cả tin mới</span>
+</div>
+<h2 class="font-headline-lg text-on-surface">
+            Phòng trọ &amp; Căn hộ mới đăng tại TP. Hồ Chí Minh
+          </h2>
+</div>
+<!-- Controls: View Switcher + Sort -->
+<div class="flex flex-wrap items-center gap-3">
+<!-- View Switcher -->
+<div class="inline-flex p-1 bg-surface-container-low rounded-lg border border-surface-container-high">
+<button class="px-3 py-1.5 rounded-md bg-surface-container-lowest shadow-sm font-label-sm text-on-surface flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[18px]">grid_view</span>
+<span>Dạng lưới</span>
+</button>
+<button class="px-3 py-1.5 rounded-md font-label-sm text-secondary hover:text-on-surface flex items-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">map</span>
+<span>Bản đồ chia đôi</span>
+</button>
+</div>
+<!-- Sort Select -->
+<div class="relative">
+<select class="appearance-none bg-surface-container-lowest border border-surface-container-high text-on-surface rounded-lg pl-3 pr-8 py-2 font-label-sm focus:outline-none focus:border-on-surface">
+<option>Sắp xếp: Mới nhất</option>
+<option>Giá: Thấp đến cao</option>
+<option>Giá: Cao đến thấp</option>
+<option>Được quan tâm nhất</option>
+<option>Diện tích lớn nhất</option>
+</select>
+<span class="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-[18px] text-secondary pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Quick Criteria Chips Filter Bar -->
+<div class="flex items-center gap-2 py-3 overflow-x-auto text-label-sm no-scrollbar">
+<button class="px-3 py-1.5 rounded-full bg-on-surface text-on-primary font-semibold shrink-0">
+          Tất cả (2,842)
+        </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-lowest border border-surface-container-high text-on-surface hover:border-on-surface shrink-0 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-tertiary">verified</span>
+          Chính chủ đăng
+        </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-lowest border border-surface-container-high text-on-surface hover:border-on-surface shrink-0 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary">videocam</span>
+          Đã xác minh video
+        </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-lowest border border-surface-container-high text-on-surface hover:border-on-surface shrink-0">
+          Dưới 4 triệu
+        </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-lowest border border-surface-container-high text-on-surface hover:border-on-surface shrink-0">
+          Có gác lửng
+        </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-lowest border border-surface-container-high text-on-surface hover:border-on-surface shrink-0">
+          Giờ giấc tự do
+        </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-lowest border border-surface-container-high text-on-surface hover:border-on-surface shrink-0">
+          Có máy lạnh &amp; Tủ lạnh
+        </button>
+</div>
+<!-- 8-Card Responsive Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-2">
+<!-- CARD 1 -->
+<article class="bg-surface-container-lowest rounded-xl border border-surface-container-high overflow-hidden hover:border-on-surface hover:shadow-md transition-all flex flex-col group">
+<div class="relative aspect-[16/10] w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Modern renovated studio apartment in Binh Thanh district with wooden loft mezzanine, neat kitchenette, sunlight streaming through a glass balcony window, clean white interior, architectural interior photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9PWelSpu0zV5RXudlxAiMVBxrgzXjy7dcHioDSIYjtJpHIL_9ZaksYXeFBFX24wGHXYUaNerYk171DARCid6lj5znbVtLO-QwitS2ZVcptohXTKNp5lDuG1-AzYXq2m-CeOO7W11otpXczqMZ2U5VPIZmCpwKnoDvOFaSBmqUs5Gu_3jBDv8ZiqVdXmrPloz05hdInAzSC_dgm4HpLjZs2lrzBT1DM9btzpE88I-cJ-Y4-UbY8D4Low"/>
+<div class="absolute top-2.5 left-2.5 flex flex-col gap-1 items-start">
+<span class="px-2 py-0.5 rounded bg-tertiary text-on-tertiary text-label-xs font-bold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">verified</span> Chính chủ
+              </span>
+<span class="px-2 py-0.5 rounded bg-black/70 text-on-primary text-label-xs backdrop-blur-sm">
+                Mới đăng 15 phút
+              </span>
+</div>
+<button aria-label="Lưu tin" class="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white/90 hover:bg-white text-secondary hover:text-primary flex items-center justify-center transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+<div class="absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-black/60 text-white text-label-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">photo_camera</span> 8 ảnh
+            </div>
+</div>
+<div class="p-3.5 flex flex-col flex-1">
+<div class="flex items-baseline justify-between mb-1.5">
+<span class="font-price-display text-primary">3.8 tr<span class="text-body-sm font-normal text-secondary">/tháng</span></span>
+<span class="font-label-sm text-secondary bg-surface-container px-2 py-0.5 rounded">28 m²</span>
+</div>
+<h3 class="font-headline-md text-on-surface line-clamp-2 mb-2 group-hover:text-primary transition-colors">
+              Phòng trọ ban công thoáng mát, gác cao không đụng đầu - Gần ĐH Hutech
+            </h3>
+<div class="flex items-center gap-1 text-body-sm text-secondary mb-3">
+<span class="material-symbols-outlined text-[16px] text-primary shrink-0">location_on</span>
+<span class="truncate">Đường D2, Phường 25, Quận Bình Thạnh</span>
+</div>
+<div class="flex flex-wrap gap-1.5 mb-3 text-label-xs text-secondary">
+<span class="px-2 py-0.5 bg-surface-container rounded">Gác lửng đúc</span>
+<span class="px-2 py-0.5 bg-surface-container rounded">Máy lạnh Inverter</span>
+<span class="px-2 py-0.5 bg-surface-container rounded">Khóa vân tay</span>
+</div>
+<div class="mt-auto pt-3 border-t border-surface-container flex items-center justify-between">
+<div class="flex items-center gap-2 min-w-0">
+<div class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-label-xs font-bold text-on-surface">M</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-on-surface truncate">Chị Mai (Chủ nhà)</span>
+<span class="text-[11px] text-tertiary">Phản hồi &lt; 5p</span>
+</div>
+</div>
+<div class="flex items-center gap-1.5 shrink-0">
+<button class="w-8 h-8 rounded-lg bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface" title="Nhắn tin" type="button">
+<span class="material-symbols-outlined text-[16px]">chat</span>
+</button>
+<button class="px-2.5 py-1 rounded-lg bg-on-surface hover:bg-primary text-on-primary text-label-xs font-semibold flex items-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[14px]">call</span> Gọi
+                </button>
+</div>
+</div>
+</div>
+</article>
+<!-- CARD 2 -->
+<article class="bg-surface-container-lowest rounded-xl border border-surface-container-high overflow-hidden hover:border-on-surface hover:shadow-md transition-all flex flex-col group">
+<div class="relative aspect-[16/10] w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Chic fully furnished studio apartment with wooden dining table, warm ambient lighting, large window view of Saigon streets, grey sofa, smart TV, modern aesthetic room interior." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_jsQ_sGunsb0k8c3gYEmDiyAKGMKqlNwhnwXP83Jw6oHbf1Lib5xQxsp_1dqalIXqhy4QUv_Z8lzruYFVEb7OHF0mxoRlAfidGnuvF6xb5L5AttE5aLy4vm8-VwXAaiYjiR3eGSLBKCRfEZ-5CIDpmadDfs0Yzb85U5BUGZboc5fKb1-0N6OgYufR77g-dyJ2Vl9cUNy1zNnrweUosm5CAp2xtS8t2H4O78LaVw_xiogob_aJkUkVqw"/>
+<div class="absolute top-2.5 left-2.5 flex flex-col gap-1 items-start">
+<span class="px-2 py-0.5 rounded bg-tertiary text-on-tertiary text-label-xs font-bold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">verified</span> Chính chủ
+              </span>
+<span class="px-2 py-0.5 rounded bg-on-surface/80 text-on-primary text-label-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">videocam</span> Có video 360°
+              </span>
+</div>
+<button aria-label="Lưu tin" class="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white/90 hover:bg-white text-secondary hover:text-primary flex items-center justify-center transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+<div class="absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-black/60 text-white text-label-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">photo_camera</span> 12 ảnh
+            </div>
+</div>
+<div class="p-3.5 flex flex-col flex-1">
+<div class="flex items-baseline justify-between mb-1.5">
+<span class="font-price-display text-primary">5.2 tr<span class="text-body-sm font-normal text-secondary">/tháng</span></span>
+<span class="font-label-sm text-secondary bg-surface-container px-2 py-0.5 rounded">35 m²</span>
+</div>
+<h3 class="font-headline-md text-on-surface line-clamp-2 mb-2 group-hover:text-primary transition-colors">
+              Studio full nội thất cao cấp, giờ tự do, máy giặt riêng - Nguyễn Văn Đậu
+            </h3>
+<div class="flex items-center gap-1 text-body-sm text-secondary mb-3">
+<span class="material-symbols-outlined text-[16px] text-primary shrink-0">location_on</span>
+<span class="truncate">Nguyễn Văn Đậu, Phường 11, Bình Thạnh</span>
+</div>
+<div class="flex flex-wrap gap-1.5 mb-3 text-label-xs text-secondary">
+<span class="px-2 py-0.5 bg-surface-container rounded">Thang máy</span>
+<span class="px-2 py-0.5 bg-surface-container rounded">Máy giặt riêng</span>
+<span class="px-2 py-0.5 bg-surface-container rounded">Bảo vệ 24/7</span>
+</div>
+<div class="mt-auto pt-3 border-t border-surface-container flex items-center justify-between">
+<div class="flex items-center gap-2 min-w-0">
+<div class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-label-xs font-bold text-on-surface">T</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-on-surface truncate">Anh Tuấn Landlord</span>
+<span class="text-[11px] text-secondary">Chủ toà nhà</span>
+</div>
+</div>
+<div class="flex items-center gap-1.5 shrink-0">
+<button class="w-8 h-8 rounded-lg bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface" title="Nhắn tin" type="button">
+<span class="material-symbols-outlined text-[16px]">chat</span>
+</button>
+<button class="px-2.5 py-1 rounded-lg bg-on-surface hover:bg-primary text-on-primary text-label-xs font-semibold flex items-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[14px]">call</span> Gọi
+                </button>
+</div>
+</div>
+</div>
+</article>
+<!-- CARD 3 -->
+<article class="bg-surface-container-lowest rounded-xl border border-surface-container-high overflow-hidden hover:border-on-surface hover:shadow-md transition-all flex flex-col group">
+<div class="relative aspect-[16/10] w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Clean 1-bedroom serviced apartment near Lotte Mart District 7, wooden flooring, white pantry counter, modern bathroom visible, bright sunlit window, real estate photograph." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSYDeFO5MTC5jsj1RrcIEgHsOVdf7K4nBAi4zyLATrq_BGj82DlNvuJE_JMiC9Gt1YX9CmXPci7Of-zBjUUxuu713W01ccAJhyAzsDemewvmmrgN-BmHcYJmHzYFZe21YT_TuN0vYBtiD1bNYafUSm3no5hzV7hHqEon-no-N7thTJ4yZNhuvaqRM5tdC73j1ZMiYc6qoHbtBTA2PhGoBlEzyqWHVjvdIFZkjg6udjl0o9ejWMKGAmEg"/>
+<div class="absolute top-2.5 left-2.5 flex flex-col gap-1 items-start">
+<span class="px-2 py-0.5 rounded bg-tertiary text-on-tertiary text-label-xs font-bold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">verified</span> Đã xác thực
+              </span>
+</div>
+<button aria-label="Lưu tin" class="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white/90 hover:bg-white text-secondary hover:text-primary flex items-center justify-center transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+<div class="absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-black/60 text-white text-label-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">photo_camera</span> 6 ảnh
+            </div>
+</div>
+<div class="p-3.5 flex flex-col flex-1">
+<div class="flex items-baseline justify-between mb-1.5">
+<span class="font-price-display text-primary">6.0 tr<span class="text-body-sm font-normal text-secondary">/tháng</span></span>
+<span class="font-label-sm text-secondary bg-surface-container px-2 py-0.5 rounded">40 m²</span>
+</div>
+<h3 class="font-headline-md text-on-surface line-clamp-2 mb-2 group-hover:text-primary transition-colors">
+              Căn hộ mini 1PN riêng biệt, thang máy, an ninh 24/7 - Gần Lotte Mart Quận 7
+            </h3>
+<div class="flex items-center gap-1 text-body-sm text-secondary mb-3">
+<span class="material-symbols-outlined text-[16px] text-primary shrink-0">location_on</span>
+<span class="truncate">Nguyễn Thị Thập, Tân Hưng, Quận 7</span>
+</div>
+<div class="flex flex-wrap gap-1.5 mb-3 text-label-xs text-secondary">
+<span class="px-2 py-0.5 bg-surface-container rounded">1 Phòng ngủ riêng</span>
+<span class="px-2 py-0.5 bg-surface-container rounded">Ban công rộng</span>
+<span class="px-2 py-0.5 bg-surface-container rounded">Bếp từ âm</span>
+</div>
+<div class="mt-auto pt-3 border-t border-surface-container flex items-center justify-between">
+<div class="flex items-center gap-2 min-w-0">
+<div class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-label-xs font-bold text-on-surface">H</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-on-surface truncate">Cô Hương (Chủ nhà)</span>
+<span class="text-[11px] text-tertiary">Phản hồi &lt; 10p</span>
+</div>
+</div>
+<div class="flex items-center gap-1.5 shrink-0">
+<button class="w-8 h-8 rounded-lg bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface" title="Nhắn tin" type="button">
+<span class="material-symbols-outlined text-[16px]">chat</span>
+</button>
+<button class="px-2.5 py-1 rounded-lg bg-on-surface hover:bg-primary text-on-primary text-label-xs font-semibold flex items-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[14px]">call</span> Gọi
+                </button>
+</div>
+</div>
+</div>
+</article>
+<!-- CARD 4 -->
+<article class="bg-surface-container-lowest rounded-xl border border-surface-container-high overflow-hidden hover:border-on-surface hover:shadow-md transition-all flex flex-col group">
+<div class="relative aspect-[16/10] w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="High-end wooden dormitory sleepbox cabin room in District 10 Saigon, soft LED reading light, lockable privacy door, air conditioning, modern youth co-living space, clean perspective." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXWXAKI-LQeFFRSkgWpzeqfA2rjOhR3icTyRM6HFVZ7MrORrsrvXE6aVsdLjEeUMvqQOZJDRlPUbS-zb-yJiVmcqMJI2q6YOkCzV7vECfLwnnqEhC0yRsM-vCe7tJ3GFErYNhn2Xir6x_zLyUBesF0hiaqOd5BvDYqnn4JnPjZiPsZUFOg_U9f0vHitcyuW-tgGaJcexu-WwYCddUcnKSfAFgpfAdjYNgo644ogFGcnXZbfN70KYWZzA"/>
+<div class="absolute top-2.5 left-2.5 flex flex-col gap-1 items-start">
+<span class="px-2 py-0.5 rounded bg-tertiary text-on-tertiary text-label-xs font-bold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">verified</span> Chính chủ
+              </span>
+<span class="px-2 py-0.5 rounded bg-primary text-on-primary text-label-xs font-semibold">
+                Bao điện nước
+              </span>
+</div>
+<button aria-label="Lưu tin" class="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white/90 hover:bg-white text-secondary hover:text-primary flex items-center justify-center transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+<div class="absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-black/60 text-white text-label-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">photo_camera</span> 10 ảnh
+            </div>
+</div>
+<div class="p-3.5 flex flex-col flex-1">
+<div class="flex items-baseline justify-between mb-1.5">
+<span class="font-price-display text-primary">1.6 tr<span class="text-body-sm font-normal text-secondary">/người/tháng</span></span>
+<span class="font-label-sm text-secondary bg-surface-container px-2 py-0.5 rounded">Box đơn riêng</span>
+</div>
+<h3 class="font-headline-md text-on-surface line-clamp-2 mb-2 group-hover:text-primary transition-colors">
+              Ký túc xá cao cấp Sleepbox máy lạnh 24/24, bao điện nước - Gần ĐH Kinh Tế Q.10
+            </h3>
+<div class="flex items-center gap-1 text-body-sm text-secondary mb-3">
+<span class="material-symbols-outlined text-[16px] text-primary shrink-0">location_on</span>
+<span class="truncate">Sư Vạn Hạnh, Phường 12, Quận 10</span>
+</div>
+<div class="flex flex-wrap gap-1.5 mb-3 text-label-xs text-secondary">
+<span class="px-2 py-0.5 bg-surface-container rounded">Cửa thẻ từ</span>
+<span class="px-2 py-0.5 bg-surface-container rounded">Bếp chung cao cấp</span>
+<span class="px-2 py-0.5 bg-surface-container rounded">Dọn phòng tuần 2 lần</span>
+</div>
+<div class="mt-auto pt-3 border-t border-surface-container flex items-center justify-between">
+<div class="flex items-center gap-2 min-w-0">
+<div class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-label-xs font-bold text-on-surface">B</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-on-surface truncate">Hệ thống BoxStay</span>
+<span class="text-[11px] text-tertiary">Còn 2 box trống</span>
+</div>
+</div>
+<div class="flex items-center gap-1.5 shrink-0">
+<button class="w-8 h-8 rounded-lg bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface" title="Nhắn tin" type="button">
+<span class="material-symbols-outlined text-[16px]">chat</span>
+</button>
+<button class="px-2.5 py-1 rounded-lg bg-on-surface hover:bg-primary text-on-primary text-label-xs font-semibold flex items-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[14px]">call</span> Gọi
+                </button>
+</div>
+</div>
+</div>
+</article>
+<!-- CARD 5 -->
+<article class="bg-surface-container-lowest rounded-xl border border-surface-container-high overflow-hidden hover:border-on-surface hover:shadow-md transition-all flex flex-col group">
+<div class="relative aspect-[16/10] w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Two-storey townhouse in alleyway Tan Binh district with motorcycle parked in front, bright white facade, steel security gate, sunlit Vietnamese urban street housing photo." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkMtucZ0QBNcq0Hmfej40D5uNg4YdGeUPq8apVoB4dM1xJaSdF2_JCDRmVIUFV3dOzY16xUOptDcg5frwSTRULhzuDr11ixj79tB1uQ-0EJjrvbwn22Pf_P_V9fYUMwt8jEjh7lGLoYqlUBwpkiAEmK9ewdushVT_DDUR0eNKA0NJdQum7FIKs9JriKbnTu2ZSfaQnehQ3zCM5x7_Tvr-799stXCzu48ASWOg5s7alZlw4BMeSRUBtrg"/>
+<div class="absolute top-2.5 left-2.5 flex flex-col gap-1 items-start">
+<span class="px-2 py-0.5 rounded bg-tertiary text-on-tertiary text-label-xs font-bold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">verified</span> Chính chủ
+              </span>
+</div>
+<button aria-label="Lưu tin" class="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white/90 hover:bg-white text-secondary hover:text-primary flex items-center justify-center transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+<div class="absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-black/60 text-white text-label-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">photo_camera</span> 15 ảnh
+            </div>
+</div>
+<div class="p-3.5 flex flex-col flex-1">
+<div class="flex items-baseline justify-between mb-1.5">
+<span class="font-price-display text-primary">8.5 tr<span class="text-body-sm font-normal text-secondary">/tháng</span></span>
+<span class="font-label-sm text-secondary bg-surface-container px-2 py-0.5 rounded">65 m²</span>
+</div>
+<h3 class="font-headline-md text-on-surface line-clamp-2 mb-2 group-hover:text-primary transition-colors">
+              Nhà nguyên căn 1 trệt 1 lầu hẻm xe ba gác, 2 phòng ngủ - Tân Bình
+            </h3>
+<div class="flex items-center gap-1 text-body-sm text-secondary mb-3">
+<span class="material-symbols-outlined text-[16px] text-primary shrink-0">location_on</span>
+<span class="truncate">Trường Chinh, Phường 13, Quận Tân Bình</span>
+</div>
+<div class="flex flex-wrap gap-1.5 mb-3 text-label-xs text-secondary">
+<span class="px-2 py-0.5 bg-surface-container rounded">2 Phòng ngủ</span>
+<span class="px-2 py-0.5 bg-surface-container rounded">2 WC</span>
+<span class="px-2 py-0.5 bg-surface-container rounded">Điện nước giá dân</span>
+</div>
+<div class="mt-auto pt-3 border-t border-surface-container flex items-center justify-between">
+<div class="flex items-center gap-2 min-w-0">
+<div class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-label-xs font-bold text-on-surface">P</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-on-surface truncate">Bác Phúc (Chủ nhà)</span>
+<span class="text-[11px] text-secondary">Giao chìa khóa ngay</span>
+</div>
+</div>
+<div class="flex items-center gap-1.5 shrink-0">
+<button class="w-8 h-8 rounded-lg bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface" title="Nhắn tin" type="button">
+<span class="material-symbols-outlined text-[16px]">chat</span>
+</button>
+<button class="px-2.5 py-1 rounded-lg bg-on-surface hover:bg-primary text-on-primary text-label-xs font-semibold flex items-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[14px]">call</span> Gọi
+                </button>
+</div>
+</div>
+</div>
+</article>
+<!-- CARD 6 -->
+<article class="bg-surface-container-lowest rounded-xl border border-surface-container-high overflow-hidden hover:border-on-surface hover:shadow-md transition-all flex flex-col group">
+<div class="relative aspect-[16/10] w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Brand new bright tiled rental room with granite kitchen sink counter, ceiling fan, aluminium glass windows, sparkling clean condition in Go Vap district Saigon, realistic indoor rental photo." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDKT7KXxwgyXk28EUMLJVLweMB3omlgP2G0W39kbE-cS76DFE1kVgNvxKeVfxfml30sETiufZ3LBE1H2LN9S--ycZRHOeXJF7glOmDUcUfVaHjKnHM4QVdyeGGUI1cCGoQOf5TvvhSGhg_ee6LuylWFGGgrF6Tui8tTBuPQUW24GDjQXvJx7hzsX9usTXzRd_eehrBDVomRjWpjOxBnQSa94Sr99wLegCBI0ZT9qq2gX8zbM9faxPeYw"/>
+<div class="absolute top-2.5 left-2.5 flex flex-col gap-1 items-start">
+<span class="px-2 py-0.5 rounded bg-tertiary text-on-tertiary text-label-xs font-bold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">verified</span> Chính chủ
+              </span>
+<span class="px-2 py-0.5 rounded bg-on-surface/80 text-on-primary text-label-xs">
+                Mới xây 100%
+              </span>
+</div>
+<button aria-label="Lưu tin" class="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white/90 hover:bg-white text-secondary hover:text-primary flex items-center justify-center transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+<div class="absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-black/60 text-white text-label-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">photo_camera</span> 7 ảnh
+            </div>
+</div>
+<div class="p-3.5 flex flex-col flex-1">
+<div class="flex items-baseline justify-between mb-1.5">
+<span class="font-price-display text-primary">3.2 tr<span class="text-body-sm font-normal text-secondary">/tháng</span></span>
+<span class="font-label-sm text-secondary bg-surface-container px-2 py-0.5 rounded">24 m²</span>
+</div>
+<h3 class="font-headline-md text-on-surface line-clamp-2 mb-2 group-hover:text-primary transition-colors">
+              Phòng trọ khép kín mới xây 100%, có máy lạnh, kệ bếp đá hoa cương - Gò Vấp
+            </h3>
+<div class="flex items-center gap-1 text-body-sm text-secondary mb-3">
+<span class="material-symbols-outlined text-[16px] text-primary shrink-0">location_on</span>
+<span class="truncate">Lê Văn Thọ, Phường 9, Quận Gò Vấp</span>
+</div>
+<div class="flex flex-wrap gap-1.5 mb-3 text-label-xs text-secondary">
+<span class="px-2 py-0.5 bg-surface-container rounded">WC khép kín</span>
+<span class="px-2 py-0.5 bg-surface-container rounded">Kệ bếp đá</span>
+<span class="px-2 py-0.5 bg-surface-container rounded">Không chung chủ</span>
+</div>
+<div class="mt-auto pt-3 border-t border-surface-container flex items-center justify-between">
+<div class="flex items-center gap-2 min-w-0">
+<div class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-label-xs font-bold text-on-surface">L</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-on-surface truncate">Anh Long Quản lý</span>
+<span class="text-[11px] text-tertiary">Phản hồi tức thì</span>
+</div>
+</div>
+<div class="flex items-center gap-1.5 shrink-0">
+<button class="w-8 h-8 rounded-lg bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface" title="Nhắn tin" type="button">
+<span class="material-symbols-outlined text-[16px]">chat</span>
+</button>
+<button class="px-2.5 py-1 rounded-lg bg-on-surface hover:bg-primary text-on-primary text-label-xs font-semibold flex items-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[14px]">call</span> Gọi
+                </button>
+</div>
+</div>
+</div>
+</article>
+<!-- CARD 7 -->
+<article class="bg-surface-container-lowest rounded-xl border border-surface-container-high overflow-hidden hover:border-on-surface hover:shadow-md transition-all flex flex-col group">
+<div class="relative aspect-[16/10] w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Nordic style duplex mezzanine loft apartment in Thao Dien District 2, high ceiling with large vertical window, spiral wooden staircase, modern minimalist furniture, architectural photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1yvBlzTpY4quuuMmj6CXFBPuENLwyo3QcL-m0FR77--LVURV0urM1k3YnlrqnB2hv733WNH72et2367BznKhuvdByaIVANltVdA2TsVGwPRDeb0KbkdBTMOK2LpGzqvB30MOUIbHS00j3BRAHEpHCOHtlF-7BKWSaKpKLkJZ7PIjrdXwEOC6suJCSYVZwkO8wgEmHfydFqKwwEOdAz3ZU_4fwNh5wJq3kbV_4WxY7K3kYyGTgv8ELSA"/>
+<div class="absolute top-2.5 left-2.5 flex flex-col gap-1 items-start">
+<span class="px-2 py-0.5 rounded bg-tertiary text-on-tertiary text-label-xs font-bold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">verified</span> Đã xác thực
+              </span>
+<span class="px-2 py-0.5 rounded bg-on-surface/80 text-on-primary text-label-xs">
+                Cao cấp
+              </span>
+</div>
+<button aria-label="Lưu tin" class="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white/90 hover:bg-white text-secondary hover:text-primary flex items-center justify-center transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+<div class="absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-black/60 text-white text-label-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">photo_camera</span> 11 ảnh
+            </div>
+</div>
+<div class="p-3.5 flex flex-col flex-1">
+<div class="flex items-baseline justify-between mb-1.5">
+<span class="font-price-display text-primary">7.5 tr<span class="text-body-sm font-normal text-secondary">/tháng</span></span>
+<span class="font-label-sm text-secondary bg-surface-container px-2 py-0.5 rounded">45 m²</span>
+</div>
+<h3 class="font-headline-md text-on-surface line-clamp-2 mb-2 group-hover:text-primary transition-colors">
+              Studio duplex cửa sổ trời cực thoáng, bảo vệ 24/7 - Thảo Điền, TP. Thủ Đức
+            </h3>
+<div class="flex items-center gap-1 text-body-sm text-secondary mb-3">
+<span class="material-symbols-outlined text-[16px] text-primary shrink-0">location_on</span>
+<span class="truncate">Xuân Thủy, Thảo Điền, TP. Thủ Đức</span>
+</div>
+<div class="flex flex-wrap gap-1.5 mb-3 text-label-xs text-secondary">
+<span class="px-2 py-0.5 bg-surface-container rounded">Duplex trần cao</span>
+<span class="px-2 py-0.5 bg-surface-container rounded">Hồ bơi tầng thượng</span>
+<span class="px-2 py-0.5 bg-surface-container rounded">Cho nuôi pet</span>
+</div>
+<div class="mt-auto pt-3 border-t border-surface-container flex items-center justify-between">
+<div class="flex items-center gap-2 min-w-0">
+<div class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-label-xs font-bold text-on-surface">K</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-on-surface truncate">Kim Oanh (Chủ nhà)</span>
+<span class="text-[11px] text-tertiary">Xem phòng sau 17h</span>
+</div>
+</div>
+<div class="flex items-center gap-1.5 shrink-0">
+<button class="w-8 h-8 rounded-lg bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface" title="Nhắn tin" type="button">
+<span class="material-symbols-outlined text-[16px]">chat</span>
+</button>
+<button class="px-2.5 py-1 rounded-lg bg-on-surface hover:bg-primary text-on-primary text-label-xs font-semibold flex items-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[14px]">call</span> Gọi
+                </button>
+</div>
+</div>
+</div>
+</article>
+<!-- CARD 8 -->
+<article class="bg-surface-container-lowest rounded-xl border border-surface-container-high overflow-hidden hover:border-on-surface hover:shadow-md transition-all flex flex-col group">
+<div class="relative aspect-[16/10] w-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="Cozy budget student room in Cau Giay Hanoi with wooden study desk, book shelf, clean tiled floor, single bed with clean linen, bright natural window daylight, Vietnamese rental interior." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiMnCqXUkMtYcT20hCLJP5xrIS_hJEuRzjVvjQEMSoFn_NVaRz7jHCzFdeTiv-KNKHYR9WvkVkU2-v3_IOfx3Q6eyzDRO1oRKUc77i22wTOQooe2m3rHzgX8TWk6Br28Zq9yRDgEyXD7-FQGL-LiEzhHRMm-uqakoF4iw_f_FitkwJtA-873UOzQmWKJ1Xz1kuTpu23qZ9W_U6B-9Jc1r8Kfgp-i1_DlgCrPXdpCmop4QRrfeT2IWkWQ"/>
+<div class="absolute top-2.5 left-2.5 flex flex-col gap-1 items-start">
+<span class="px-2 py-0.5 rounded bg-tertiary text-on-tertiary text-label-xs font-bold uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">verified</span> Chính chủ
+              </span>
+<span class="px-2 py-0.5 rounded bg-primary text-on-primary text-label-xs">
+                Giá sinh viên
+              </span>
+</div>
+<button aria-label="Lưu tin" class="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white/90 hover:bg-white text-secondary hover:text-primary flex items-center justify-center transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+<div class="absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-black/60 text-white text-label-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">photo_camera</span> 5 ảnh
+            </div>
+</div>
+<div class="p-3.5 flex flex-col flex-1">
+<div class="flex items-baseline justify-between mb-1.5">
+<span class="font-price-display text-primary">2.7 tr<span class="text-body-sm font-normal text-secondary">/tháng</span></span>
+<span class="font-label-sm text-secondary bg-surface-container px-2 py-0.5 rounded">20 m²</span>
+</div>
+<h3 class="font-headline-md text-on-surface line-clamp-2 mb-2 group-hover:text-primary transition-colors">
+              Phòng trọ sinh viên giá rẻ, vệ sinh riêng, không chung chủ - Cầu Giấy, Hà Nội
+            </h3>
+<div class="flex items-center gap-1 text-body-sm text-secondary mb-3">
+<span class="material-symbols-outlined text-[16px] text-primary shrink-0">location_on</span>
+<span class="truncate">Trần Thái Tông, Dịch Vọng, Cầu Giấy</span>
+</div>
+<div class="flex flex-wrap gap-1.5 mb-3 text-label-xs text-secondary">
+<span class="px-2 py-0.5 bg-surface-container rounded">Bình nóng lạnh</span>
+<span class="px-2 py-0.5 bg-surface-container rounded">Để xe tầng 1 free</span>
+<span class="px-2 py-0.5 bg-surface-container rounded">Gần ĐH Quốc Gia</span>
+</div>
+<div class="mt-auto pt-3 border-t border-surface-container flex items-center justify-between">
+<div class="flex items-center gap-2 min-w-0">
+<div class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-label-xs font-bold text-on-surface">T</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-on-surface truncate">Bác Thành (Chính chủ)</span>
+<span class="text-[11px] text-tertiary">Ưu tiên sinh viên nữ</span>
+</div>
+</div>
+<div class="flex items-center gap-1.5 shrink-0">
+<button class="w-8 h-8 rounded-lg bg-surface-container hover:bg-surface-container-high flex items-center justify-center text-on-surface" title="Nhắn tin" type="button">
+<span class="material-symbols-outlined text-[16px]">chat</span>
+</button>
+<button class="px-2.5 py-1 rounded-lg bg-on-surface hover:bg-primary text-on-primary text-label-xs font-semibold flex items-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[14px]">call</span> Gọi
+                </button>
+</div>
+</div>
+</div>
+</article>
+</div>
+<!-- Pagination / Load More Bar -->
+<div class="mt-8 pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+<p class="font-body-sm text-secondary">
+          Hiển thị <span class="font-semibold text-on-surface">1 - 8</span> trong tổng số <span class="font-semibold text-on-surface">2,842</span> tin đăng phù hợp
+        </p>
+<div class="flex items-center gap-2">
+<button class="px-3.5 py-2 rounded-lg bg-surface-container-lowest border border-surface-container-high text-secondary hover:text-on-surface font-label-sm disabled:opacity-40" disabled="" type="button">
+            Trang trước
+          </button>
+<div class="flex items-center gap-1">
+<button class="w-9 h-9 rounded-lg bg-primary text-on-primary font-label-sm font-bold flex items-center justify-center">1</button>
+<button class="w-9 h-9 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-sm flex items-center justify-center">2</button>
+<button class="w-9 h-9 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-sm flex items-center justify-center">3</button>
+<span class="px-1 text-secondary">...</span>
+<button class="w-9 h-9 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-sm flex items-center justify-center">120</button>
+</div>
+<button class="px-3.5 py-2 rounded-lg bg-surface-container-lowest border border-surface-container-high text-on-surface hover:border-on-surface font-label-sm" type="button">
+            Trang sau
+          </button>
+</div>
+</div>
+</div>
+</section>
+
+<!-- V3 EXTENSION: requested product capabilities -->
+<section class="feature-extension" aria-label="80Land product features">
+  <div class="extension-grid">
+    <div class="extension-card">
+      <div class="extension-head">
+        <div>
+          <h2>Tìm phòng quanh vị trí của bạn</h2>
+          <p>Định vị + bản đồ để tìm phòng quanh khu vực đang đứng hoặc địa điểm mong muốn.</p>
+        </div>
+        <button class="small-action primary" id="nearMeBtn"><span class="material-symbols-outlined text-[15px] align-middle">my_location</span> Dùng vị trí của tôi</button>
+      </div>
+      <div class="location-demo" id="locationDemo">
+        <div class="road a"></div><div class="road b"></div>
+        <span class="map-pin m1"><i></i></span><span class="map-pin m2"><i></i></span>
+        <span class="map-pin m3"><i></i></span><span class="map-pin m4"><i></i></span>
+        <div class="nearby-card">
+          <div><strong id="locationLabel">Khu vực hiện tại: TP. Hồ Chí Minh</strong><br><span id="locationSub">Hiển thị phòng trọ, căn hộ và nhà cho thuê gần bạn.</span></div>
+          <button class="nearby-action" id="mapSearchBtn">Xem 24 phòng gần đây</button>
+        </div>
+      </div>
+      <div class="criteria-line">
+        <button class="criteria-chip quick-filter" data-filter="Bán kính 2 km">2 km</button>
+        <button class="criteria-chip quick-filter" data-filter="Phòng dưới 5 triệu">Dưới 5 triệu</button>
+        <button class="criteria-chip quick-filter" data-filter="Chính chủ">Chính chủ</button>
+        <button class="criteria-chip quick-filter" data-filter="WC riêng">WC riêng</button>
+      </div>
+    </div>
+
+    <div class="extension-card">
+      <div class="extension-head">
+        <div>
+          <h2>Gợi ý phòng phù hợp</h2>
+          <p>Cá nhân hóa theo lịch sử tìm kiếm, tầm giá, khu vực và tiêu chí ưu tiên.</p>
+        </div>
+        <button class="small-action" id="refreshRecommendations"><span class="material-symbols-outlined text-[15px] align-middle">refresh</span> Làm mới</button>
+      </div>
+      <div class="recommend-row">
+        <article class="rec-card demo-room" data-title="Studio Bình Thạnh">
+          <div class="rec-image"></div><div class="rec-body"><div class="rec-price">4,2 triệu</div><div class="rec-title">Studio có ban công</div><div class="rec-meta">📍 Bình Thạnh · 28 m²</div></div>
+        </article>
+        <article class="rec-card demo-room" data-title="Phòng gác Thủ Đức">
+          <div class="rec-image" style="background:linear-gradient(135deg,#cec5bf,#8f7e72)"></div><div class="rec-body"><div class="rec-price">3,8 triệu</div><div class="rec-title">Phòng có gác, giờ tự do</div><div class="rec-meta">📍 Thủ Đức · 24 m²</div></div>
+        </article>
+        <article class="rec-card demo-room" data-title="Căn hộ mini Quận 7">
+          <div class="rec-image" style="background:linear-gradient(135deg,#d8d0c9,#9b8b80)"></div><div class="rec-body"><div class="rec-price">5,0 triệu</div><div class="rec-title">Căn hộ mini thoáng</div><div class="rec-meta">📍 Quận 7 · 35 m²</div></div>
+        </article>
+      </div>
+      <div class="criteria-line">
+        <span class="criteria-chip">Dựa trên: Bình Thạnh</span>
+        <span class="criteria-chip">3–6 triệu</span>
+        <span class="criteria-chip">WC riêng</span>
+        <span class="criteria-chip">Có ban công</span>
+      </div>
+      <div class="action-row">
+        <button class="small-action primary" id="openRecommendation">Xem toàn bộ gợi ý</button>
+        <button class="small-action" id="openSavedFromRec">Lưu tìm kiếm này</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="extension-card role-section">
+    <div class="extension-head">
+      <div>
+        <h2>Luồng theo từng vai trò</h2>
+        <p>Giữ phạm vi Khách tìm phòng, Chủ trọ và Admin trong cùng một hệ thống UX.</p>
+      </div>
+      <span class="criteria-chip">Demo scope</span>
+    </div>
+    <div class="role-tabs">
+      <button class="role-tab active" data-role="renter">Khách tìm phòng</button>
+      <button class="role-tab" data-role="landlord">Chủ trọ</button>
+      <button class="role-tab" data-role="admin">Admin</button>
+    </div>
+
+    <div class="role-panel active" id="role-renter">
+      <div class="role-list">
+        <div class="role-item"><b>🔎 Tìm phòng & lọc</b><span>Khu vực, giá, loại hình, tiện ích, bán kính.</span></div>
+        <div class="role-item"><b>🗺 Bản đồ / định vị</b><span>Tìm quanh vị trí hiện tại hoặc địa điểm mong muốn.</span></div>
+        <div class="role-item"><b>✨ Gợi ý cá nhân hóa</b><span>Dựa trên lịch sử tìm kiếm và tiêu chí ưu tiên.</span></div>
+        <div class="role-item"><b>💬 Tương tác trực tiếp</b><span>Lưu tin, nhắn chủ trọ và thao tác ngay trên listing.</span></div>
+      </div>
+      <div class="role-side">
+        <h3>Luồng demo</h3>
+        <div class="mini-stat"><div><b>12</b><span>Tin đã lưu</span></div><div><b>38</b><span>Lượt xem</span></div><div><b>6</b><span>Cuộc trò chuyện</span></div></div>
+        <div class="action-row"><button class="small-action primary demo-open-detail">Mở chi tiết phòng</button><button class="small-action" data-jump="saved">Tin đã lưu</button><button class="small-action" data-jump="messages">Tin nhắn</button></div>
+      </div>
+    </div>
+
+    <div class="role-panel" id="role-landlord">
+      <div class="role-list">
+        <div class="role-item"><b>➕ Đăng tin</b><span>Tạo tin mới theo các loại phòng/nhà đang cho thuê.</span></div>
+        <div class="role-item"><b>📋 Quản lý tin</b><span>Theo dõi tin đang hiển thị, chờ duyệt và chỉnh sửa.</span></div>
+        <div class="role-item"><b>📈 Theo dõi hiệu quả</b><span>Lượt xem, khách quan tâm và trạng thái phòng.</span></div>
+        <div class="role-item"><b>💬 Khách quan tâm</b><span>Tương tác trực tiếp với người tìm phòng.</span></div>
+      </div>
+      <div class="role-side">
+        <h3>Tổng quan chủ trọ</h3>
+        <div class="mini-stat"><div><b>18</b><span>Tin hiển thị</span></div><div><b>2.4K</b><span>Lượt xem</span></div><div><b>86</b><span>Quan tâm</span></div></div>
+        <div class="action-row"><button class="small-action primary" data-jump="landlord">Mở quản lý tin</button><button class="small-action" id="newListingDemo">Đăng tin mới</button></div>
+      </div>
+    </div>
+
+    <div class="role-panel" id="role-admin">
+      <div class="role-list">
+        <div class="role-item"><b>👥 Quản lý người dùng</b><span>Kiểm soát tài khoản và trạng thái hoạt động.</span></div>
+        <div class="role-item"><b>✅ Kiểm duyệt tin</b><span>Xử lý tin chờ duyệt và nội dung vi phạm.</span></div>
+        <div class="role-item"><b>🚩 Báo cáo</b><span>Tiếp nhận và xử lý báo cáo tin ảo / vi phạm.</span></div>
+        <div class="role-item"><b>🧾 Audit & cấu hình</b><span>Theo dõi lịch sử thao tác và thiết lập hệ thống.</span></div>
+      </div>
+      <div class="role-side">
+        <h3>Admin overview</h3>
+        <div class="mini-stat"><div><b>18.2K</b><span>Người dùng</span></div><div><b>25.4K</b><span>Tin đăng</span></div><div><b>142</b><span>Chờ duyệt</span></div></div>
+        <div class="action-row"><button class="small-action primary" id="adminDemoBtn">Xem hàng chờ duyệt</button><button class="small-action" id="reportDemoBtn">Xem báo cáo</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="demo-modal" id="demoModal" role="dialog" aria-modal="true" aria-labelledby="demoTitle">
+  <div class="demo-dialog">
+    <div class="demo-dialog-head"><h3 id="demoTitle">Chi tiết phòng</h3><button class="close-demo" id="closeDemo">✕</button></div>
+    <div class="demo-dialog-body" id="demoBody"></div>
+  </div>
+</div>
+<div class="filter-toast" id="filterToast">Đã cập nhật bộ lọc</div>
+
+<!-- SECTION 4: POPULAR DISTRICT BROWSER -->
+<section class="w-full bg-surface-container-low py-10 border-y border-surface-container-high">
+<div class="max-w-[1280px] mx-auto px-4">
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-6 gap-2">
+<div>
+<div class="text-label-xs uppercase font-semibold tracking-wider text-primary mb-1">Điểm nóng thị trường</div>
+<h2 class="font-headline-lg text-on-surface">Khu vực cho thuê sôi động nhất</h2>
+</div>
+<a class="font-label-sm text-primary hover:underline flex items-center gap-1 self-start md:self-auto" href="#">
+          Xem bản đồ nhiệt giá thuê toàn quốc
+          <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
+<!-- District 1 -->
+<a class="p-4 rounded-xl bg-surface-container-lowest border border-surface-container-high hover:border-primary transition-all group flex flex-col justify-between" href="#">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">apartment</span>
+</span>
+<span class="text-label-xs font-semibold px-2 py-0.5 rounded-full bg-surface-container text-secondary">
+                1,840 tin
+              </span>
+</div>
+<h3 class="font-headline-md text-on-surface group-hover:text-primary transition-colors mb-1">
+              Quận Bình Thạnh
+            </h3>
+<p class="font-body-sm text-secondary mb-3">Trung tâm văn phòng &amp; trường đại học, kết nối Quận 1 cực nhanh</p>
+</div>
+<div class="pt-2 border-t border-surface-container flex items-baseline justify-between">
+<span class="text-label-xs text-secondary">Giá trung bình:</span>
+<span class="font-label-sm font-bold text-on-surface">Từ 3.5 - 7.5 tr</span>
+</div>
+</a>
+<!-- District 2 -->
+<a class="p-4 rounded-xl bg-surface-container-lowest border border-surface-container-high hover:border-primary transition-all group flex flex-col justify-between" href="#">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">apartment</span>
+</span>
+<span class="text-label-xs font-semibold px-2 py-0.5 rounded-full bg-surface-container text-secondary">
+                1,420 tin
+              </span>
+</div>
+<h3 class="font-headline-md text-on-surface group-hover:text-primary transition-colors mb-1">
+              Quận 7 &amp; Nhà Bè
+            </h3>
+<p class="font-body-sm text-secondary mb-3">Không gian thoáng đãng, nhiều căn hộ dịch vụ cao cấp &amp; mini</p>
+</div>
+<div class="pt-2 border-t border-surface-container flex items-baseline justify-between">
+<span class="text-label-xs text-secondary">Giá trung bình:</span>
+<span class="font-label-sm font-bold text-on-surface">Từ 4.0 - 9.0 tr</span>
+</div>
+</a>
+<!-- District 3 -->
+<a class="p-4 rounded-xl bg-surface-container-lowest border border-surface-container-high hover:border-primary transition-all group flex flex-col justify-between" href="#">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">apartment</span>
+</span>
+<span class="text-label-xs font-semibold px-2 py-0.5 rounded-full bg-surface-container text-secondary">
+                980 tin
+              </span>
+</div>
+<h3 class="font-headline-md text-on-surface group-hover:text-primary transition-colors mb-1">
+              Tân Bình &amp; Phú Nhuận
+            </h3>
+<p class="font-body-sm text-secondary mb-3">Gần sân bay Tân Sơn Nhất, phố ẩm thực sầm uất, an ninh cao</p>
+</div>
+<div class="pt-2 border-t border-surface-container flex items-baseline justify-between">
+<span class="text-label-xs text-secondary">Giá trung bình:</span>
+<span class="font-label-sm font-bold text-on-surface">Từ 3.8 - 8.0 tr</span>
+</div>
+</a>
+<!-- District 4 -->
+<a class="p-4 rounded-xl bg-surface-container-lowest border border-surface-container-high hover:border-primary transition-all group flex flex-col justify-between" href="#">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">apartment</span>
+</span>
+<span class="text-label-xs font-semibold px-2 py-0.5 rounded-full bg-surface-container text-secondary">
+                2,150 tin
+              </span>
+</div>
+<h3 class="font-headline-md text-on-surface group-hover:text-primary transition-colors mb-1">
+              TP. Thủ Đức
+            </h3>
+<p class="font-body-sm text-secondary mb-3">Làng Đại Học, Khu Công Nghệ Cao và Thảo Điền đầy đủ phân khúc</p>
+</div>
+<div class="pt-2 border-t border-surface-container flex items-baseline justify-between">
+<span class="text-label-xs text-secondary">Giá trung bình:</span>
+<span class="font-label-sm font-bold text-on-surface">Từ 2.8 - 6.5 tr</span>
+</div>
+</a>
+<!-- District 5 -->
+<a class="p-4 rounded-xl bg-surface-container-lowest border border-surface-container-high hover:border-primary transition-all group flex flex-col justify-between" href="#">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">apartment</span>
+</span>
+<span class="text-label-xs font-semibold px-2 py-0.5 rounded-full bg-surface-container text-secondary">
+                1,630 tin
+              </span>
+</div>
+<h3 class="font-headline-md text-on-surface group-hover:text-primary transition-colors mb-1">
+              Cầu Giấy (Hà Nội)
+            </h3>
+<p class="font-body-sm text-secondary mb-3">Cụm trường Đại học Sư Phạm, Quốc Gia, Ngoại Ngữ &amp; Báo Chí</p>
+</div>
+<div class="pt-2 border-t border-surface-container flex items-baseline justify-between">
+<span class="text-label-xs text-secondary">Giá trung bình:</span>
+<span class="font-label-sm font-bold text-on-surface">Từ 3.0 - 6.8 tr</span>
+</div>
+</a>
+</div>
+</div>
+</section>
+<!-- SECTION 5: TRUST & USABILITY VALUE PROPS -->
+<section class="w-full bg-surface-container-lowest py-12">
+<div class="max-w-[1280px] mx-auto px-4">
+<div class="text-center max-w-2xl mx-auto mb-10">
+<h2 class="font-headline-lg text-on-surface mb-2">
+          Tại sao hơn 500,000 người thuê tin chọn 80Land?
+        </h2>
+<p class="font-body-md text-secondary">
+          Chúng tôi xóa bỏ tình trạng tin ảo, giá ảo, lừa tiền cọc và môi giới kê giá bằng quy trình kiểm duyệt khắt khe nhất.
+        </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Value 1 -->
+<div class="p-5 rounded-xl bg-surface-container-low border border-surface-container-high flex flex-col items-start">
+<div class="w-12 h-12 rounded-xl bg-tertiary/10 text-tertiary flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-[28px]">verified_user</span>
+</div>
+<h3 class="font-headline-md text-on-surface mb-2">100% Tin thật, hình thật</h3>
+<p class="font-body-sm text-secondary leading-relaxed">
+            Đội ngũ thẩm định viên xác thực địa chỉ, chụp ảnh và quay video thực tế. Cam kết đền 500.000đ nếu phòng không giống hình ảnh.
+          </p>
+</div>
+<!-- Value 2 -->
+<div class="p-5 rounded-xl bg-surface-container-low border border-surface-container-high flex flex-col items-start">
+<div class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-[28px]">handshake</span>
+</div>
+<h3 class="font-headline-md text-on-surface mb-2">Liên hệ chính chủ</h3>
+<p class="font-body-sm text-secondary leading-relaxed">
+            Kết nối trực tiếp với chủ trọ hoặc người quản lý tòa nhà qua số điện thoại hoặc Zalo. Hoàn toàn không mất phí trung gian.
+          </p>
+</div>
+<!-- Value 3 -->
+<div class="p-5 rounded-xl bg-surface-container-low border border-surface-container-high flex flex-col items-start">
+<div class="w-12 h-12 rounded-xl bg-on-surface/10 text-on-surface flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-[28px]">gavel</span>
+</div>
+<h3 class="font-headline-md text-on-surface mb-2">Hợp đồng mẫu &amp; Pháp lý</h3>
+<p class="font-body-sm text-secondary leading-relaxed">
+            Tải mẫu hợp đồng thuê nhà chuẩn Bộ Tư Pháp hoàn toàn miễn phí. Hỗ trợ tư vấn giải quyết tranh chấp cọc và quyền lợi người thuê.
+          </p>
+</div>
+<!-- Value 4 -->
+<div class="p-5 rounded-xl bg-surface-container-low border border-surface-container-high flex flex-col items-start">
+<div class="w-12 h-12 rounded-xl bg-tertiary/10 text-tertiary flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-[28px]">reviews</span>
+</div>
+<h3 class="font-headline-md text-on-surface mb-2">Đánh giá khách quan</h3>
+<p class="font-body-sm text-secondary leading-relaxed">
+            Đọc đánh giá chân thật về an ninh, chủ trọ, tốc độ wifi và áp lực nước từ những người đã từng thuê thực tế trước khi đặt cọc.
+          </p>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 6: LANDLORD ACQUISITION CTA BANNER -->
+<section class="w-full pb-12 pt-4">
+<div class="max-w-[1280px] mx-auto px-4">
+<div class="rounded-2xl bg-on-surface text-on-primary p-6 md:p-10 flex flex-col lg:flex-row items-center justify-between gap-8 relative overflow-hidden">
+<!-- Abstract subtle geometric shape -->
+<div class="absolute -right-10 -bottom-10 w-64 h-64 rounded-full bg-primary/20 blur-3xl pointer-events-none"></div>
+<div class="max-w-2xl z-10">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary text-on-primary font-label-xs uppercase tracking-wider mb-3">
+<span class="material-symbols-outlined text-[14px]">stars</span> Dành cho chủ nhà &amp; người quản lý
+          </div>
+<h2 class="font-headline-xl text-on-primary tracking-tight mb-2">
+            Bạn có phòng trọ, căn hộ trống muốn cho thuê nhanh?
+          </h2>
+<p class="font-body-md text-secondary-fixed mb-4">
+            Đăng tin miễn phí tiếp cận hơn <strong class="text-white">50,000+ người tìm phòng mỗi ngày</strong>. Tỉ lệ lấp đầy phòng trung bình chỉ trong <strong class="text-white">7 ngày</strong>.
+          </p>
+<div class="flex flex-wrap gap-4 text-body-sm text-secondary-fixed">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-tertiary-fixed text-[18px]">check_circle</span>
+<span>Đăng tin hoàn toàn miễn phí</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-tertiary-fixed text-[18px]">check_circle</span>
+<span>Hỗ trợ chụp ảnh &amp; xác thực</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-tertiary-fixed text-[18px]">check_circle</span>
+<span>Quản lý phòng trống thông minh</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto shrink-0 z-10">
+<a class="px-6 py-3.5 rounded-lg bg-primary hover:bg-[#a01016] text-on-primary font-label-md flex items-center justify-center gap-2 transition-all shadow-md" data-path="dang-tin-moi" href="#">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+<span>Đăng tin cho thuê ngay</span>
+</a>
+<a class="px-5 py-3.5 rounded-lg bg-surface-container-highest/20 hover:bg-surface-container-highest/30 text-white font-label-md border border-white/20 flex items-center justify-center gap-2 transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">calculate</span>
+<span>Ước tính giá cho thuê</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+</div></main><footer class="w-full bg-surface-container-lowest border-t border-[#E5E5E0] mt-auto"><div class="max-w-[1280px] mx-auto px-4 py-10"><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10"><div><div class="flex items-center gap-2 mb-3"><div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[20px]">apartment</span></div><span class="font-headline-md text-primary leading-none">80Land</span></div><p class="font-body-sm text-secondary leading-relaxed mb-4">Nền tảng tìm kiếm phòng trọ và nhà cho thuê minh bạch, nhanh chóng tại Việt Nam. Kết nối trực tiếp người thuê và chủ nhà chính chủ.</p><div class="flex items-center gap-2"><span class="material-symbols-outlined text-tertiary text-[18px]">verified</span><span class="font-label-sm text-tertiary">100% Tin đăng kiểm duyệt chính chủ</span></div></div><div><h3 class="font-label-md text-on-surface mb-3.5 uppercase tracking-wide">Khu vực cho thuê sôi động</h3><ul class="space-y-2"><li><a class="font-body-sm text-secondary hover:text-primary transition-colors" data-path="thue-phong-tro" href="#">Cho thuê phòng trọ Quận Bình Thạnh</a></li><li><a class="font-body-sm text-secondary hover:text-primary transition-colors" data-path="thue-phong-tro" href="#">Phòng trọ giá tốt Quận 7</a></li><li><a class="font-body-sm text-secondary hover:text-primary transition-colors" data-path="thue-phong-tro" href="#">Thuê phòng trọ Quận Cầu Giấy</a></li><li><a class="font-body-sm text-secondary hover:text-primary transition-colors" data-path="thue-phong-tro" href="#">Căn hộ mini Nam Từ Liêm</a></li><li><a class="font-body-sm text-secondary hover:text-primary transition-colors" data-path="thue-phong-tro" href="#">Thuê nhà Quận Hải Châu (Đà Nẵng)</a></li></ul></div><div><h3 class="font-label-md text-on-surface mb-3.5 uppercase tracking-wide">Hỗ trợ &amp; Quy định</h3><ul class="space-y-2"><li><a class="font-body-sm text-secondary hover:text-primary transition-colors" data-path="kinh-nghiem-thue" href="#">Quy định đăng tin</a></li><li><a class="font-body-sm text-secondary hover:text-primary transition-colors" data-path="kinh-nghiem-thue" href="#">An toàn khi thuê phòng</a></li><li><a class="font-body-sm text-secondary hover:text-primary transition-colors" data-path="kinh-nghiem-thue" href="#">Bảng giá dịch vụ đẩy tin</a></li><li><a class="font-body-sm text-secondary hover:text-primary transition-colors" data-path="kinh-nghiem-thue" href="#">Giải quyết khiếu nại</a></li></ul></div><div><h3 class="font-label-md text-on-surface mb-3.5 uppercase tracking-wide">Chăm sóc khách hàng</h3><div class="p-3.5 rounded-lg bg-surface-container-low border border-[#E5E5E0] mb-3"><div class="font-body-sm text-secondary mb-1">Tổng đài hỗ trợ 24/7</div><a class="font-price-display text-primary block" href="#">1900 8080</a><div class="font-label-xs text-secondary mt-1">Cước gọi 1.000đ/phút</div></div><div class="flex items-center gap-2 font-body-sm text-secondary"><span class="material-symbols-outlined text-[18px]">mail</span><span>hotro@80land.vn</span></div></div></div><div class="pt-6 border-t border-[#E5E5E0] flex flex-col sm:flex-row items-center justify-between gap-4"><p class="font-body-sm text-secondary text-center sm:text-left">© 2024 80Land.vn - Kết nối người thuê và chủ nhà chính chủ. Toàn bộ bản quyền được bảo lưu.</p><div class="flex items-center gap-4"><span class="font-label-xs text-secondary">Giấy phép MXH số 188/GP-BTTTT</span></div></div></div></footer><script>
+(function(){
+  const slider=document.getElementById('heroSlider'); if(!slider)return;
+  const slides=[...slider.querySelectorAll('.hero-slide')], dots=[...slider.querySelectorAll('.dot')];
+  let i=0, timer;
+  function show(n){i=(n+slides.length)%slides.length;slides.forEach((s,idx)=>s.classList.toggle('active',idx===i));dots.forEach((d,idx)=>d.classList.toggle('active',idx===i));}
+  const reset=()=>{clearInterval(timer);timer=setInterval(()=>show(i+1),5500)};
+  slider.querySelector('.hero-prev').addEventListener('click',()=>{show(i-1);reset()});
+  slider.querySelector('.hero-next').addEventListener('click',()=>{show(i+1);reset()});
+  dots.forEach((d,idx)=>d.addEventListener('click',()=>{show(idx);reset()}));
+  reset();
+})();
+</script>
+
+<script id="80land-v3-extension-script">
+(function(){
+  const toast = document.getElementById('filterToast');
+  const modal = document.getElementById('demoModal');
+  const body = document.getElementById('demoBody');
+  const title = document.getElementById('demoTitle');
+
+  function showToast(message){
+    if(!toast) return;
+    toast.textContent = message;
+    toast.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(()=>toast.classList.remove('show'),1800);
+  }
+
+  function openDemo(kind='room', label='Chi tiết phòng'){
+    if(!modal) return;
+    title.textContent = label;
+    if(kind==='room'){
+      body.innerHTML = `
+        <div class="detail-demo-grid">
+          <div class="detail-demo-photo"></div>
+          <div class="detail-demo-info">
+            <h4>Studio full nội thất, cửa sổ lớn</h4>
+            <div class="price">4,2 triệu/tháng</div>
+            <p>📍 Phường 25, Bình Thạnh, TP.HCM</p>
+            <p>28 m² · WC riêng · Máy lạnh · Ban công</p>
+            <div class="action-row">
+              <button class="small-action primary" data-detail-action="message">💬 Nhắn chủ trọ</button>
+              <button class="small-action" data-detail-action="save">♡ Lưu tin</button>
+              <button class="small-action" data-detail-action="map">📍 Xem trên bản đồ</button>
+            </div>
+          </div>
+        </div>`;
+    } else {
+      body.innerHTML = `<div class="extension-card" style="box-shadow:none"><h4 style="margin:0 0 8px">${label}</h4><p style="color:#706a68;font:400 13px/20px 'Be Vietnam Pro',sans-serif">Đây là vùng demo tương tác cho vòng duyệt UX. Khi khách hàng xác nhận hướng, phần này sẽ được chuyển thành component và prototype Figma chính thức.</p></div>`;
+    }
+    modal.classList.add('open');
+  }
+
+  document.getElementById('nearMeBtn')?.addEventListener('click',()=>{
+    document.getElementById('locationLabel').textContent='Vị trí hiện tại: đã định vị mô phỏng';
+    document.getElementById('locationSub').textContent='Đang ưu tiên phòng trong bán kính gần bạn.';
+    showToast('Đã bật tìm quanh vị trí của bạn');
+  });
+
+  document.getElementById('mapSearchBtn')?.addEventListener('click',()=>{
+    document.getElementById('locationDemo')?.scrollIntoView({behavior:'smooth', block:'center'});
+    showToast('Đang mở danh sách 24 phòng gần đây');
+  });
+
+  document.querySelectorAll('.quick-filter').forEach(btn=>{
+    btn.addEventListener('click',()=>showToast('Đã áp dụng: '+btn.dataset.filter));
+  });
+
+  document.querySelectorAll('.demo-room').forEach(card=>{
+    card.addEventListener('click',()=>openDemo('room',card.dataset.title || 'Chi tiết phòng'));
+  });
+
+  document.getElementById('openRecommendation')?.addEventListener('click',()=>{
+    showToast('Đã mở danh sách gợi ý cá nhân hóa');
+    document.querySelector('#heroSlider')?.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+
+  document.getElementById('openSavedFromRec')?.addEventListener('click',()=>showToast('Đã lưu bộ tiêu chí tìm kiếm'));
+
+  document.getElementById('refreshRecommendations')?.addEventListener('click',()=>{
+    showToast('Đã làm mới gợi ý theo tiêu chí mới');
+  });
+
+  document.querySelectorAll('.role-tab').forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      document.querySelectorAll('.role-tab').forEach(t=>t.classList.remove('active'));
+      document.querySelectorAll('.role-panel').forEach(p=>p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('role-'+tab.dataset.role)?.classList.add('active');
+    });
+  });
+
+  document.querySelectorAll('[data-jump]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const target = document.querySelector('[data-path="'+btn.dataset.jump+'"]');
+      if(target) target.click();
+      else showToast('Đã chọn: '+btn.textContent.trim());
+    });
+  });
+
+  document.querySelectorAll('.demo-open-detail').forEach(b=>b.addEventListener('click',()=>openDemo('room','Chi tiết phòng')));
+
+  document.getElementById('newListingDemo')?.addEventListener('click',()=>openDemo('generic','Đăng tin mới'));
+  document.getElementById('adminDemoBtn')?.addEventListener('click',()=>openDemo('generic','Hàng chờ kiểm duyệt'));
+  document.getElementById('reportDemoBtn')?.addEventListener('click',()=>openDemo('generic','Báo cáo & xử lý'));
+
+  document.getElementById('closeDemo')?.addEventListener('click',()=>modal?.classList.remove('open'));
+  modal?.addEventListener('click',(e)=>{ if(e.target===modal) modal.classList.remove('open'); });
+  document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') modal?.classList.remove('open'); });
+
+  document.addEventListener('click',(e)=>{
+    const btn=e.target.closest?.('[data-detail-action]');
+    if(!btn) return;
+    if(btn.dataset.detailAction==='save') showToast('Đã lưu tin');
+    if(btn.dataset.detailAction==='message') showToast('Đã mở cuộc trò chuyện');
+    if(btn.dataset.detailAction==='map') { modal.classList.remove('open'); document.getElementById('locationDemo')?.scrollIntoView({behavior:'smooth',block:'center'}); }
+  });
+})();
+</script>
+
+
+<style id="80land-complete-app-css">
+/* =========================================================
+   80LAND V3 COMPLETE STATIC APP
+   Keeps the original Stitch V3 homepage untouched.
+   Added routes use the same visual language.
+   ========================================================= */
+#routeApp{display:none;min-height:100vh;background:#F5F5F3;color:#151515;font-family:"Be Vietnam Pro",sans-serif}
+#routeApp.route-active{display:block}
+.route-shell{max-width:1280px;margin:0 auto;padding:20px 16px 48px}
+.route-topbar{position:sticky;top:0;z-index:70;background:rgba(245,245,243,.94);backdrop-filter:blur(12px);border-bottom:1px solid #E5E5E0}
+.route-topbar-inner{max-width:1280px;margin:auto;padding:10px 16px;display:flex;align-items:center;gap:10px}
+.route-brand{display:flex;align-items:center;gap:9px;color:#B7131A;text-decoration:none;font-weight:700}
+.route-brand-mark{width:36px;height:36px;border-radius:10px;background:#B7131A;color:#fff;display:grid;place-items:center}
+.route-brand-copy small{display:block;color:#707070;font-size:10px;font-weight:500;line-height:13px}
+.route-back{margin-left:auto;border:1px solid #E5E5E0;background:#fff;border-radius:999px;height:38px;padding:0 13px;display:inline-flex;align-items:center;gap:6px;cursor:pointer;font:600 12px/1 "Be Vietnam Pro"}
+.route-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:18px;align-items:start}
+.route-side{position:sticky;top:68px;background:#fff;border:1px solid #E5E5E0;border-radius:14px;padding:10px}
+.route-side-title{padding:9px 10px 7px;color:#707070;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.route-nav{display:flex;flex-direction:column;gap:3px}
+.route-nav a{display:flex;align-items:center;gap:9px;padding:10px;border-radius:9px;color:#555;text-decoration:none;font-size:12px;font-weight:600}
+.route-nav a:hover{background:#F5F5F3;color:#151515}
+.route-nav a.active{background:#151515;color:#fff}
+.route-content{min-width:0}
+.route-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin:4px 0 16px}
+.route-heading h1{margin:0;font-size:28px;line-height:36px;font-weight:700;letter-spacing:-.02em}
+.route-heading p{margin:4px 0 0;color:#707070;font-size:12px;line-height:18px}
+.route-actions{display:flex;gap:8px;flex-wrap:wrap}
+.v3-btn{height:42px;padding:0 14px;border-radius:10px;border:1px solid #E5E5E0;background:#fff;color:#151515;font:600 12px/1 "Be Vietnam Pro";cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px}
+.v3-btn:hover{border-color:#151515}
+.v3-btn.primary{background:#E53935;border-color:#E53935;color:#fff}
+.v3-btn.dark{background:#151515;border-color:#151515;color:#fff}
+.v3-btn.ghost{border-color:transparent;background:transparent;color:#E53935}
+.v3-grid{display:grid;gap:14px}
+.v3-grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.v3-grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.v3-grid.cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.v3-card{background:#fff;border:1px solid #E5E5E0;border-radius:14px;padding:16px}
+.v3-card.flat{padding:0;overflow:hidden}
+.v3-card h2,.v3-card h3{margin:0 0 6px;font-weight:700}
+.v3-card h2{font-size:18px;line-height:25px}
+.v3-card h3{font-size:14px;line-height:20px}
+.v3-muted{color:#707070}
+.v3-kpi{padding:15px;background:#fff;border:1px solid #E5E5E0;border-radius:12px}
+.v3-kpi strong{display:block;color:#151515;font-size:23px;line-height:28px}
+.v3-kpi span{display:block;color:#707070;font-size:10px;line-height:15px;margin-top:3px}
+.v3-kpi.red strong{color:#E53935}
+.v3-kpi.green strong{color:#2E7D32}
+.v3-table{width:100%;border-collapse:collapse}
+.v3-table th,.v3-table td{padding:12px 10px;border-bottom:1px solid #EDEBE8;text-align:left;font-size:11px;vertical-align:middle}
+.v3-table th{color:#707070;font-size:10px;text-transform:uppercase;letter-spacing:.03em}
+.v3-table td strong{font-size:12px}
+.v3-badge{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:5px 8px;font-size:10px;font-weight:700}
+.v3-badge.green{background:#E8F5E9;color:#2E7D32}
+.v3-badge.red{background:#FFF1F0;color:#C62828}
+.v3-badge.dark{background:#151515;color:#fff}
+.v3-badge.gray{background:#F5F5F3;color:#555;border:1px solid #E5E5E0}
+.v3-input{height:42px;border:1px solid #E5E5E0;background:#fff;border-radius:9px;padding:0 12px;box-sizing:border-box;font:400 12px "Be Vietnam Pro";outline:none;width:100%}
+.v3-input:focus{border-color:#151515;box-shadow:0 0 0 2px rgba(21,21,21,.06)}
+.v3-label{display:block;font-size:10px;font-weight:700;color:#555;margin:0 0 6px}
+.v3-field{margin-bottom:12px}
+.v3-select{height:42px;border:1px solid #E5E5E0;background:#fff;border-radius:9px;padding:0 10px;font:400 12px "Be Vietnam Pro";width:100%}
+.v3-toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:#fff;border:1px solid #E5E5E0;border-radius:12px;padding:10px;margin-bottom:14px}
+.v3-toolbar .v3-input{max-width:340px}
+.v3-chip{border:1px solid #E5E5E0;background:#fff;border-radius:999px;height:34px;padding:0 11px;font:600 11px "Be Vietnam Pro";cursor:pointer}
+.v3-chip.active{background:#151515;color:#fff;border-color:#151515}
+.v3-listing{background:#fff;border:1px solid #E5E5E0;border-radius:14px;overflow:hidden;cursor:pointer;transition:.16s}
+.v3-listing:hover{border-color:#151515;box-shadow:0 4px 12px rgba(21,21,21,.06);transform:translateY(-1px)}
+.v3-listing-media{aspect-ratio:16/10;background:linear-gradient(135deg,#D9CDC6,#A9958A);position:relative}
+.v3-listing-media:after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.16),transparent 45%,rgba(21,21,21,.12))}
+.v3-listing-body{padding:12px}
+.v3-price{color:#E53935;font-size:17px;line-height:23px;font-weight:700}
+.v3-listing-title{font-size:13px;line-height:18px;font-weight:600;margin-top:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.v3-meta{color:#707070;font-size:10px;line-height:16px;margin-top:5px}
+.v3-specs{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+.v3-spec{font-size:9px;color:#555;background:#F5F5F3;border-radius:4px;padding:4px 6px}
+.v3-map{position:relative;overflow:hidden;min-height:420px;border-radius:14px;border:1px solid #DCE5DA;background:
+linear-gradient(30deg,transparent 0 47%,rgba(255,255,255,.5) 48% 49%,transparent 50%),
+linear-gradient(120deg,transparent 0 55%,rgba(255,255,255,.5) 56% 57%,transparent 58%),
+linear-gradient(135deg,#E7EFE4,#D8E4D8)}
+.v3-map:before,.v3-map:after{content:"";position:absolute;background:rgba(255,255,255,.72);border-radius:999px;height:10px}
+.v3-map:before{width:110%;left:-4%;top:44%;transform:rotate(-17deg)}
+.v3-map:after{width:85%;left:15%;top:69%;transform:rotate(22deg)}
+.v3-pin{position:absolute;width:28px;height:28px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:#E53935;border:2px solid #fff;box-shadow:0 5px 12px rgba(229,57,53,.2);z-index:2;cursor:pointer}
+.v3-pin i{position:absolute;width:7px;height:7px;background:#fff;border-radius:50%;left:8px;top:8px}
+.v3-map-control{position:absolute;z-index:4;right:12px;top:12px;display:flex;flex-direction:column;gap:6px}
+.v3-map-control button{width:36px;height:36px;border:1px solid #E5E5E0;background:#fff;border-radius:9px;cursor:pointer}
+.detail-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}
+.detail-gallery{background:#fff;border:1px solid #E5E5E0;border-radius:14px;padding:10px}
+.detail-main-img{aspect-ratio:16/10;border-radius:10px;background:linear-gradient(135deg,#D6CBC4,#927E73);position:relative}
+.detail-thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:7px}
+.detail-thumb{aspect-ratio:16/10;border-radius:7px;background:linear-gradient(135deg,#D6CBC4,#A7958A);border:2px solid transparent;cursor:pointer}
+.detail-thumb.active{border-color:#E53935}
+.detail-info{background:#fff;border:1px solid #E5E5E0;border-radius:14px;padding:18px}
+.detail-info h2{font-size:22px;line-height:29px;margin:0 0 7px}
+.detail-info .big-price{font-size:24px;line-height:30px;color:#E53935;font-weight:700}
+.detail-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+.detail-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:15px}
+.detail-fact{background:#F5F5F3;border-radius:8px;padding:9px}.detail-fact strong{display:block;font-size:13px}.detail-fact span{font-size:9px;color:#707070}
+.empty-state{text-align:center;padding:46px 20px;color:#707070}
+.empty-state .material-symbols-outlined{font-size:42px;color:#bbb}
+.chat-layout{display:grid;grid-template-columns:300px 1fr;min-height:580px;background:#fff;border:1px solid #E5E5E0;border-radius:14px;overflow:hidden}
+.chat-list{border-right:1px solid #E5E5E0}.chat-list-head{padding:14px;border-bottom:1px solid #E5E5E0;font-weight:700;font-size:13px}
+.chat-person{padding:13px;border-bottom:1px solid #F0EEEC;cursor:pointer}.chat-person.active{background:#F5F5F3}.chat-person strong{font-size:12px}.chat-person span{display:block;color:#707070;font-size:10px;margin-top:3px}
+.chat-window{display:flex;flex-direction:column}.chat-window-head{padding:14px;border-bottom:1px solid #E5E5E0;font-size:13px;font-weight:700}.chat-messages{flex:1;padding:16px;background:#FBFAF9;display:flex;flex-direction:column;gap:8px}.bubble{max-width:70%;padding:9px 11px;border-radius:12px;font-size:11px;line-height:17px}.bubble.them{align-self:flex-start;background:#fff;border:1px solid #E5E5E0}.bubble.me{align-self:flex-end;background:#151515;color:#fff}.chat-compose{padding:10px;border-top:1px solid #E5E5E0;display:flex;gap:8px}
+.assistant-box{display:grid;grid-template-columns:1fr 340px;gap:14px}
+.assistant-chat{background:#fff;border:1px solid #E5E5E0;border-radius:14px;min-height:560px;display:flex;flex-direction:column}
+.assistant-messages{flex:1;padding:16px;background:#FBFAF9;display:flex;flex-direction:column;gap:10px}
+.assistant-message{max-width:78%;padding:10px 12px;border-radius:12px;font-size:11px;line-height:17px}
+.assistant-message.bot{background:#fff;border:1px solid #E5E5E0}.assistant-message.user{background:#151515;color:#fff;align-self:flex-end}
+.assistant-suggest{background:#fff;border:1px solid #E5E5E0;border-radius:14px;padding:14px}
+.suggest-item{padding:10px;border:1px solid #E5E5E0;border-radius:9px;margin-top:8px;cursor:pointer}.suggest-item:hover{border-color:#151515}
+.kanban{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.kanban-col{background:#F5F5F3;border:1px solid #E5E5E0;border-radius:12px;padding:10px}.kanban-col h3{font-size:11px}.kanban-item{background:#fff;border:1px solid #E5E5E0;border-radius:9px;padding:10px;margin-top:8px}.kanban-item b{font-size:11px}.kanban-item span{display:block;color:#707070;font-size:9px;margin-top:3px}
+.province-hero{padding:22px;border-radius:14px;background:#151515;color:#fff;margin-bottom:14px;position:relative;overflow:hidden}.province-hero:after{content:"";position:absolute;width:240px;height:240px;border-radius:50%;right:-90px;top:-100px;background:rgba(229,57,53,.25)}.province-hero h2{margin:0;font-size:25px;position:relative;z-index:1}.province-hero p{margin:5px 0 0;color:#D8D5D3;font-size:11px;position:relative;z-index:1}
+.province-tabs{display:flex;gap:7px;overflow:auto;padding-bottom:2px}.province-tabs a{white-space:nowrap;padding:8px 11px;border:1px solid #E5E5E0;background:#fff;border-radius:999px;text-decoration:none;color:#555;font-size:10px;font-weight:700}.province-tabs a.active{background:#151515;color:#fff;border-color:#151515}
+.timeline{display:grid;gap:10px}.timeline-item{display:grid;grid-template-columns:70px 1fr;gap:10px}.timeline-item time{font-size:10px;color:#707070}.timeline-item>div{background:#fff;border:1px solid #E5E5E0;border-radius:10px;padding:10px}.timeline-item strong{font-size:11px}.timeline-item p{margin:3px 0 0;color:#707070;font-size:10px;line-height:15px}
+.route-footer-note{text-align:center;color:#888;font-size:10px;padding-top:22px}
+@media(max-width:900px){.route-layout{grid-template-columns:1fr}.route-side{position:static;display:flex;overflow:auto}.route-side-title{display:none}.route-nav{flex-direction:row}.route-nav a{white-space:nowrap}.detail-grid,.assistant-box{grid-template-columns:1fr}.v3-grid.cols-4{grid-template-columns:repeat(2,minmax(0,1fr))}.chat-layout{grid-template-columns:1fr}.chat-list{display:none}}
+@media(max-width:620px){.route-shell{padding:14px 12px 34px}.route-heading{align-items:flex-start;flex-direction:column}.route-heading h1{font-size:23px;line-height:30px}.v3-grid.cols-2,.v3-grid.cols-3,.v3-grid.cols-4{grid-template-columns:1fr}.v3-table{min-width:650px}.v3-card.table-wrap{overflow:auto}.detail-actions{grid-template-columns:1fr}.detail-facts{grid-template-columns:1fr 1fr}.route-topbar-inner{padding:8px 12px}.route-side{padding:6px}.route-nav a{padding:8px}.route-nav a span:last-child{display:none}.route-brand-copy{display:none}.route-back{margin-left:auto}.kanban{grid-template-columns:1fr}.province-tabs{margin-bottom:2px}}
+</style>
+
+<div id="routeApp" aria-live="polite">
+  <div class="route-topbar">
+    <div class="route-topbar-inner">
+      <a class="route-brand" href="#/" data-route="home">
+        <span class="route-brand-mark"><span class="material-symbols-outlined">apartment</span></span>
+        <span class="route-brand-copy">80Land<small>Tìm phòng nhanh</small></span>
+      </a>
+      <button class="route-back" id="routeBack"><span class="material-symbols-outlined" style="font-size:17px">arrow_back</span> Về trang chính</button>
+    </div>
+  </div>
+  <div class="route-shell">
+    <div class="route-layout">
+      <aside class="route-side">
+        <div class="route-side-title">Khách tìm phòng</div>
+        <nav class="route-nav">
+          <a href="#/search" data-route="search"><span class="material-symbols-outlined">search</span><span>Tìm phòng</span></a>
+          <a href="#/map" data-route="map"><span class="material-symbols-outlined">map</span><span>Bản đồ</span></a>
+          <a href="#/saved" data-route="saved"><span class="material-symbols-outlined">favorite</span><span>Đã lưu</span></a>
+          <a href="#/messages" data-route="messages"><span class="material-symbols-outlined">chat</span><span>Tin nhắn</span></a>
+          <a href="#/notifications" data-route="notifications"><span class="material-symbols-outlined">notifications</span><span>Thông báo</span></a>
+          <a href="#/profile" data-route="profile"><span class="material-symbols-outlined">person</span><span>Tài khoản</span></a>
+          <a href="#/assistant" data-route="assistant"><span class="material-symbols-outlined">auto_awesome</span><span>80Land Assistant</span></a>
+        </nav>
+        <div class="route-side-title">Chủ trọ</div>
+        <nav class="route-nav">
+          <a href="#/landlord/dashboard" data-route="landlord/dashboard"><span class="material-symbols-outlined">dashboard</span><span>Tổng quan</span></a>
+          <a href="#/landlord/create" data-route="landlord/create"><span class="material-symbols-outlined">add_circle</span><span>Đăng tin</span></a>
+          <a href="#/landlord/listings" data-route="landlord/listings"><span class="material-symbols-outlined">list_alt</span><span>Quản lý tin</span></a>
+          <a href="#/landlord/stats" data-route="landlord/stats"><span class="material-symbols-outlined">bar_chart</span><span>Thống kê</span></a>
+          <a href="#/landlord/leads" data-route="landlord/leads"><span class="material-symbols-outlined">group</span><span>Khách quan tâm</span></a>
+        </nav>
+        <div class="route-side-title">Admin</div>
+        <nav class="route-nav">
+          <a href="#/admin/dashboard" data-route="admin/dashboard"><span class="material-symbols-outlined">admin_panel_settings</span><span>Dashboard</span></a>
+          <a href="#/admin/users" data-route="admin/users"><span class="material-symbols-outlined">group</span><span>Người dùng</span></a>
+          <a href="#/admin/listings" data-route="admin/listings"><span class="material-symbols-outlined">inventory_2</span><span>Tin đăng</span></a>
+          <a href="#/admin/moderation" data-route="admin/moderation"><span class="material-symbols-outlined">verified_user</span><span>Kiểm duyệt</span></a>
+          <a href="#/admin/reports" data-route="admin/reports"><span class="material-symbols-outlined">flag</span><span>Báo cáo</span></a>
+          <a href="#/admin/audit" data-route="admin/audit"><span class="material-symbols-outlined">history</span><span>Audit / cấu hình</span></a>
+        </nav>
+        <div class="route-side-title">Khu vực</div>
+        <nav class="route-nav">
+          <a href="#/province/hcm" data-route="province/hcm"><span class="material-symbols-outlined">location_city</span><span>TP.HCM</span></a>
+          <a href="#/province/ha-noi" data-route="province/ha-noi"><span class="material-symbols-outlined">location_city</span><span>Hà Nội</span></a>
+          <a href="#/province/da-nang" data-route="province/da-nang"><span class="material-symbols-outlined">location_city</span><span>Đà Nẵng</span></a>
+          <a href="#/province/dong-nai" data-route="province/dong-nai"><span class="material-symbols-outlined">location_city</span><span>Đồng Nai</span></a>
+          <a href="#/province/binh-duong" data-route="province/binh-duong"><span class="material-symbols-outlined">location_city</span><span>Bình Dương</span></a>
+          <a href="#/province/can-tho" data-route="province/can-tho"><span class="material-symbols-outlined">location_city</span><span>Cần Thơ</span></a>
+          <a href="#/province/hai-phong" data-route="province/hai-phong"><span class="material-symbols-outlined">location_city</span><span>Hải Phòng</span></a>
+          <a href="#/province/long-an" data-route="province/long-an"><span class="material-symbols-outlined">location_city</span><span>Long An</span></a>
+        </nav>
+      </aside>
+      <main class="route-content" id="routeContent"></main>
+    </div>
+    <div class="route-footer-note">80Land V3 Complete Static Prototype · Demo dữ liệu cục bộ, sẵn sàng để review trước khi chuyển sang Figma.</div>
+  </div>
+</div>
+
+<style id="80land-route-polish">
+.route-page{display:none}
+.route-page.active{display:block}
+.route-hero{background:#fff;border:1px solid #E5E5E0;border-radius:16px;padding:20px;margin-bottom:14px}
+.route-hero h1{margin:0;font-size:26px;line-height:34px}.route-hero p{margin:6px 0 0;color:#707070;font-size:12px;line-height:18px}
+.route-card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.route-card{background:#fff;border:1px solid #E5E5E0;border-radius:14px;overflow:hidden}
+.route-card-media{aspect-ratio:16/10;background:linear-gradient(135deg,#D9CDC6,#A9958A);position:relative}
+.route-card-media .badge{position:absolute;top:10px;left:10px;background:#fff;color:#151515;border-radius:999px;padding:5px 8px;font-size:9px;font-weight:700}
+.route-card-body{padding:12px}.route-card-body h3{margin:0;font-size:13px;line-height:18px}.route-card-body .price{margin-top:4px;color:#E53935;font-size:17px;font-weight:700}.route-card-body .meta{margin-top:4px;color:#707070;font-size:10px;line-height:16px}
+.route-card-actions{display:flex;gap:7px;margin-top:10px}.route-card-actions button{flex:1;height:36px;border:1px solid #E5E5E0;background:#fff;border-radius:9px;font:600 11px "Be Vietnam Pro";cursor:pointer}.route-card-actions button.primary{background:#E53935;border-color:#E53935;color:#fff}
+.saved-toolbar,.profile-head,.notification-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.counter-pill{background:#F5F5F3;border:1px solid #E5E5E0;border-radius:999px;padding:6px 9px;font-size:10px;color:#555;font-weight:700}
+.detail-shell{display:grid;grid-template-columns:1.05fr .95fr;gap:14px}.detail-gallery-card{background:#fff;border:1px solid #E5E5E0;border-radius:14px;padding:10px}.detail-main-photo{aspect-ratio:16/10;border-radius:10px;background:linear-gradient(135deg,#D4C7BE,#8E7B70);position:relative;overflow:hidden}.detail-main-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.18),transparent 45%,rgba(0,0,0,.1))}.detail-tag{position:absolute;left:10px;top:10px;z-index:2;background:#fff;border-radius:999px;padding:6px 9px;font-size:9px;font-weight:700}.detail-photo-counter{position:absolute;right:10px;bottom:10px;z-index:2;background:#151515cc;color:#fff;border-radius:999px;padding:6px 9px;font-size:9px}.detail-thumbs{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:7px}.detail-thumb{aspect-ratio:16/10;border-radius:8px;background:linear-gradient(135deg,#D4C7BE,#AD9A8F);border:2px solid transparent;cursor:pointer}.detail-thumb.active{border-color:#E53935}
+.detail-panel{background:#fff;border:1px solid #E5E5E0;border-radius:14px;padding:18px}.detail-panel .eyebrow{font-size:10px;color:#707070;text-transform:uppercase;font-weight:700;letter-spacing:.06em}.detail-panel h1{font-size:24px;line-height:31px;margin:8px 0 4px}.detail-panel .price{color:#E53935;font-size:25px;font-weight:700}.detail-panel .address{font-size:12px;color:#707070;margin-top:5px}.detail-facts-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:14px}.detail-fact{background:#F5F5F3;border-radius:8px;padding:9px}.detail-fact strong{display:block;font-size:12px}.detail-fact span{font-size:9px;color:#707070}.detail-action-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}.detail-action-grid button{height:44px;border-radius:9px;border:1px solid #E5E5E0;background:#fff;font:700 12px "Be Vietnam Pro";cursor:pointer}.detail-action-grid .primary{background:#E53935;border-color:#E53935;color:#fff}.detail-section{margin-top:14px}.detail-section h2{font-size:17px;margin:0 0 8px}.detail-section p{font-size:11px;line-height:18px;color:#555}.amenities{display:flex;flex-wrap:wrap;gap:6px}.amenity{padding:7px 9px;background:#F5F5F3;border-radius:7px;font-size:10px;color:#555}
+.chat-layout2{display:grid;grid-template-columns:280px 1fr;min-height:600px;background:#fff;border:1px solid #E5E5E0;border-radius:14px;overflow:hidden}.chat-list2{border-right:1px solid #E5E5E0}.chat-row{padding:12px;border-bottom:1px solid #F0EEEC;cursor:pointer}.chat-row.active{background:#F5F5F3}.chat-row h4{margin:0;font-size:11px}.chat-row p{margin:3px 0 0;font-size:9px;color:#707070}.chat-detail{display:flex;flex-direction:column}.chat-detail-head{padding:13px;border-bottom:1px solid #E5E5E0;font-size:12px;font-weight:700}.chat-detail-body{flex:1;padding:16px;background:#FBFAF9;display:flex;flex-direction:column;gap:7px}.chat-msg{max-width:72%;padding:9px 10px;border-radius:10px;font-size:10px;line-height:15px}.chat-msg.them{background:#fff;border:1px solid #E5E5E0}.chat-msg.me{align-self:flex-end;background:#151515;color:#fff}.chat-compose2{padding:9px;border-top:1px solid #E5E5E0;display:flex;gap:7px}.chat-compose2 input{flex:1;height:38px;border:1px solid #E5E5E0;border-radius:8px;padding:0 10px;font:400 11px "Be Vietnam Pro"}.chat-compose2 button{height:38px;padding:0 13px;border:0;border-radius:8px;background:#E53935;color:#fff;font:700 11px "Be Vietnam Pro"}
+.profile-grid{display:grid;grid-template-columns:230px 1fr;gap:14px}.profile-side{background:#fff;border:1px solid #E5E5E0;border-radius:14px;padding:10px}.profile-side button{width:100%;height:38px;border:0;background:#fff;border-radius:8px;text-align:left;padding:0 10px;font:600 11px "Be Vietnam Pro";color:#555;cursor:pointer}.profile-side button.active{background:#151515;color:#fff}.profile-main{display:grid;gap:14px}.profile-cover{background:#151515;border-radius:14px;padding:18px;color:#fff;display:flex;align-items:center;gap:12px}.profile-avatar{width:56px;height:56px;border-radius:50%;background:#E53935;display:grid;place-items:center;font-size:22px;font-weight:800}.profile-cover h2{margin:0;font-size:20px}.profile-cover p{margin:3px 0 0;color:#D8D5D3;font-size:10px}.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stat-box{background:#fff;border:1px solid #E5E5E0;border-radius:12px;padding:13px}.stat-box strong{display:block;font-size:22px}.stat-box span{display:block;color:#707070;font-size:9px;margin-top:3px}.settings-list{display:grid;gap:8px}.settings-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px;border:1px solid #E5E5E0;border-radius:10px}.settings-item h4{margin:0;font-size:11px}.settings-item p{margin:2px 0 0;color:#707070;font-size:9px}.toggle{width:38px;height:22px;border-radius:999px;background:#151515;position:relative}.toggle::after{content:"";position:absolute;width:16px;height:16px;background:#fff;border-radius:50%;right:3px;top:3px}
+.notification-list2{display:grid;gap:8px}.notification-item2{display:flex;align-items:flex-start;gap:10px;background:#fff;border:1px solid #E5E5E0;border-radius:12px;padding:12px}.notification-item2.unread{border-color:#B7131A;background:#FFF8F7}.noti-icon{width:34px;height:34px;border-radius:9px;background:#F5F5F3;display:grid;place-items:center;color:#E53935}.notification-item2 h4{margin:0;font-size:11px}.notification-item2 p{margin:3px 0 0;color:#707070;font-size:9px;line-height:14px}.notification-item2 time{margin-left:auto;color:#999;font-size:9px}
+@media(max-width:900px){.detail-shell,.profile-grid,.chat-layout2{grid-template-columns:1fr}.chat-list2{display:none}.detail-facts-grid{grid-template-columns:1fr 1fr}.stat-row{grid-template-columns:1fr 1fr}.route-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.route-card-grid{grid-template-columns:1fr}.detail-action-grid{grid-template-columns:1fr}.detail-facts-grid{grid-template-columns:1fr 1fr}.stat-row{grid-template-columns:1fr 1fr}}
+</style>
+
+<div class="route-page" data-page="saved">
+  <div class="route-heading"><div><h1>Tin đã lưu</h1><p>Những phòng bạn đang cân nhắc.</p></div><span class="counter-pill" id="savedCount">3 tin đã lưu</span></div>
+  <div class="saved-toolbar"><div class="route-actions"><button class="v3-btn dark" data-action="filter-saved">Tất cả</button><button class="v3-btn" data-action="filter-saved">Phòng trọ</button><button class="v3-btn" data-action="filter-saved">Căn hộ</button></div><button class="v3-btn primary" data-route="search">+ Tìm phòng mới</button></div>
+  <div class="route-card-grid" id="savedGrid"></div>
+</div>
+<div class="route-page" data-page="messages">
+  <div class="route-heading"><div><h1>Tin nhắn</h1><p>Trao đổi trực tiếp với chủ trọ.</p></div><span class="counter-pill">6 cuộc trò chuyện</span></div>
+  <div class="chat-layout2">
+    <div class="chat-list2"><div style="padding:14px;border-bottom:1px solid #E5E5E0;font-weight:700;font-size:12px">Hộp thư</div>
+      <div class="chat-row active" data-chat="minh"><h4>Chủ trọ Minh · Quận 7</h4><p>Mình có thể xem phòng lúc 18:30.</p></div>
+      <div class="chat-row" data-chat="hoa"><h4>Chủ trọ Hoa · Thủ Đức</h4><p>Đã gửi thêm video phòng.</p></div>
+      <div class="chat-row" data-chat="lan"><h4>Chủ trọ Lan · Tân Bình</h4><p>Mình gửi địa chỉ nhé.</p></div>
+      <div class="chat-row" data-chat="nam"><h4>Nguyễn Văn A · Bình Thạnh</h4><p>Phòng còn trống không ạ?</p></div>
+    </div>
+    <div class="chat-detail">
+      <div class="chat-detail-head" id="chatTitle">Chủ trọ Minh · Căn hộ Quận 7</div>
+      <div class="chat-detail-body" id="chatBody">
+        <div class="chat-msg them">Chào bạn, mình còn phòng studio 5 triệu ở Quận 7.</div>
+        <div class="chat-msg me">Phòng còn trống không ạ? Mình có thể xem tối nay.</div>
+        <div class="chat-msg them">Được nhé, mình có thể đón bạn lúc 18:30.</div>
+      </div>
+      <form class="chat-compose2" id="chatForm"><input id="chatInput" placeholder="Nhập tin nhắn..."/><button>Gửi</button></form>
+    </div>
+  </div>
+</div>
+<div class="route-page" data-page="notifications">
+  <div class="notification-toolbar"><div><h1 style="margin:0;font-size:26px">Thông báo</h1><p style="margin:4px 0 0;color:#707070;font-size:12px">Tin đăng, gợi ý và hoạt động tài khoản.</p></div><button class="v3-btn" data-action="mark-read">Đánh dấu đã đọc</button></div>
+  <div class="notification-list2">
+    <div class="notification-item2 unread"><div class="noti-icon"><span class="material-symbols-outlined" style="font-size:18px">favorite</span></div><div><h4>Có người quan tâm tin của bạn</h4><p>Studio Bình Thạnh vừa được lưu vào danh sách yêu thích.</p></div><time>5 phút</time></div>
+    <div class="notification-item2 unread"><div class="noti-icon"><span class="material-symbols-outlined" style="font-size:18px">auto_awesome</span></div><div><h4>3 phòng mới phù hợp</h4><p>Hệ thống tìm thấy 3 phòng trong tầm giá và khu vực bạn ưu tiên.</p></div><time>1 giờ</time></div>
+    <div class="notification-item2"><div class="noti-icon"><span class="material-symbols-outlined" style="font-size:18px">verified</span></div><div><h4>Tin đăng đã được xác thực</h4><p>Thông tin tin đăng đã hoàn tất bước kiểm duyệt.</p></div><time>Hôm qua</time></div>
+    <div class="notification-item2"><div class="noti-icon"><span class="material-symbols-outlined" style="font-size:18px">shield</span></div><div><h4>Nhắc nhở an toàn</h4><p>Không chuyển cọc trước khi kiểm tra phòng và xác minh người cho thuê.</p></div><time>2 ngày</time></div>
+  </div>
+</div>
+<div class="route-page" data-page="profile">
+  <div class="profile-head"><div><h1 style="margin:0;font-size:26px">Tài khoản</h1><p style="margin:4px 0 0;color:#707070;font-size:12px">Quản lý thông tin và hoạt động của bạn trên 80Land.</p></div><button class="v3-btn primary" data-action="edit-profile">Chỉnh sửa hồ sơ</button></div>
+  <div class="profile-grid">
+    <aside class="profile-side"><button class="active">Tổng quan</button><button data-route="saved">Tin đã lưu</button><button data-route="messages">Tin nhắn</button><button data-route="notifications">Thông báo</button><button>Ví</button><button>Kiếm tiền</button><button>Cài đặt</button><button data-route="home">Đăng xuất</button></aside>
+    <main class="profile-main">
+      <div class="profile-cover"><div class="profile-avatar">QT</div><div><h2>Quang Tuấn</h2><p>Thành viên 80Land · Khu vực ưu tiên: TP.HCM, Đồng Nai</p></div></div>
+      <div class="stat-row"><div class="stat-box"><strong>12</strong><span>Tin đã lưu</span></div><div class="stat-box"><strong>38</strong><span>Đã xem</span></div><div class="stat-box"><strong>6</strong><span>Cuộc trò chuyện</span></div><div class="stat-box"><strong>2,4tr</strong><span>Số dư ví</span></div></div>
+      <div class="v3-card"><h2>Sở thích tìm phòng</h2><p class="v3-muted" style="font-size:11px;margin-top:0">Được dùng để cá nhân hóa gợi ý.</p><div class="v3-specs"><span class="v3-spec">TP.HCM</span><span class="v3-spec">Đồng Nai</span><span class="v3-spec">3–6 triệu</span><span class="v3-spec">WC riêng</span><span class="v3-spec">Có ban công</span></div></div>
+      <div class="v3-card"><h2>Cài đặt nhanh</h2><div class="settings-list"><div class="settings-item"><div><h4>Gợi ý phòng cá nhân hóa</h4><p>Nhận phòng phù hợp với nhu cầu.</p></div><span class="toggle"></span></div><div class="settings-item"><div><h4>Thông báo tin mới</h4><p>Báo khi có phòng mới trong khu vực quan tâm.</p></div><span class="toggle"></span></div><div class="settings-item"><div><h4>Tin nhắn từ chủ trọ</h4><p>Ưu tiên thông báo cuộc trò chuyện mới.</p></div><span class="toggle"></span></div></div></div>
+    </main>
+  </div>
+</div>
+<div class="route-page" data-page="property">
+  <div class="route-heading"><div><h1>Chi tiết phòng</h1><p>Xem thông tin, tiện ích, vị trí và liên hệ chủ trọ.</p></div><button class="v3-btn" data-route="search">← Quay lại kết quả</button></div>
+  <div class="detail-shell">
+    <div>
+      <div class="detail-gallery-card"><div class="detail-main-photo" id="detailMainPhoto"><span class="detail-tag">Tin xác thực</span><span class="detail-photo-counter" id="detailCounter">1 / 5</span></div><div class="detail-thumbs" id="detailThumbs"></div></div>
+      <div class="v3-card detail-section"><h2>Vị trí</h2><div class="v3-map" style="min-height:250px"><div class="v3-map-control"><button data-route="map">⛶</button><button data-action="nearby">⌖</button></div><span class="v3-pin" style="left:34%;top:38%"><i></i></span><span class="v3-pin" style="left:62%;top:54%"><i></i></span><span class="v3-pin" style="left:49%;top:70%"><i></i></span></div><p style="margin:8px 0 0;font-size:10px;color:#707070">Phường 25, Bình Thạnh, TP.HCM · ước tính 8 phút tới khu trung tâm.</p></div>
+    </div>
+    <aside class="detail-panel"><div class="eyebrow">Phòng trọ · Bình Thạnh</div><h1>Studio full nội thất, cửa sổ lớn, có ban công</h1><div class="price">4,2 triệu/tháng</div><div class="address">📍 Phường 25, Bình Thạnh, TP.HCM</div><div class="detail-facts-grid"><div class="detail-fact"><strong>28 m²</strong><span>Diện tích</span></div><div class="detail-fact"><strong>1 phòng</strong><span>Không gian</span></div><div class="detail-fact"><strong>WC riêng</strong><span>Tiện ích</span></div><div class="detail-fact"><strong>Máy lạnh</strong><span>Thiết bị</span></div></div><div class="detail-action-grid"><button class="primary" data-route="messages">💬 Nhắn chủ trọ</button><button data-action="save-detail">♡ Lưu tin</button></div><div class="detail-section"><h2>Mô tả</h2><p>Phòng sạch, thoáng, đầy đủ nội thất cơ bản. Phù hợp sinh viên và người đi làm, giờ giấc tự do, khu vực an ninh.</p></div><div class="detail-section"><h2>Tiện ích</h2><div class="amenities"><span class="amenity">✓ Wifi</span><span class="amenity">✓ Máy giặt</span><span class="amenity">✓ Chỗ để xe</span><span class="amenity">✓ Ban công</span><span class="amenity">✓ Máy lạnh</span><span class="amenity">✓ Không chung chủ</span></div></div><div class="detail-section"><h2>Chủ trọ</h2><div class="settings-item"><div><h4>Minh · 4,9/5 ★</h4><p>Phản hồi trong 10 phút · 26 tin đã đăng</p></div><button class="v3-btn" data-route="messages">Nhắn</button></div></div></aside>
+  </div>
+  <div class="detail-section"><div class="saved-toolbar"><div><h2 style="margin:0;font-size:18px">Phòng tương tự</h2><p style="margin:3px 0 0;font-size:10px;color:#707070">Cùng khu vực, mức giá và tiện ích tương tự.</p></div><button class="v3-btn" data-route="search">Xem thêm</button></div><div class="route-card-grid"><div class="route-card" data-route="property"><div class="route-card-media"></div><div class="route-card-body"><div class="price">3,9 triệu/tháng</div><h3>Phòng có gác, gần trung tâm</h3><div class="meta">📍 Bình Thạnh · 24 m²</div></div></div><div class="route-card" data-route="property"><div class="route-card-media"></div><div class="route-card-body"><div class="price">4,6 triệu/tháng</div><h3>Studio ban công thoáng</h3><div class="meta">📍 Thủ Đức · 28 m²</div></div></div><div class="route-card" data-route="property"><div class="route-card-media"></div><div class="route-card-body"><div class="price">5,0 triệu/tháng</div><h3>Căn hộ mini full nội thất</h3><div class="meta">📍 Quận 7 · 35 m²</div></div></div></div></div>
+</div>
+<div id="staticToast" class="filter-toast"></div>
+
+<script id="80land-static-router">
+(function(){
+  const app=document.getElementById('routeApp');
+  const content=document.getElementById('routeContent');
+  const homeSections=[...document.querySelectorAll('body > main, body > footer')];
+  const templates={};
+  document.querySelectorAll('.route-page[data-page]').forEach(p=>templates[p.dataset.page]=p.outerHTML);
+  // Remove template nodes from initial DOM, the router will render them into routeContent.
+  document.querySelectorAll('#routeApp > .route-page').forEach(p=>p.remove());
+  const toast=document.getElementById('staticToast');
+  const savedKey='80land_saved_rooms';
+  let saved=JSON.parse(localStorage.getItem(savedKey)||'["room1","room2","room3"]');
+  function save(){localStorage.setItem(savedKey,JSON.stringify(saved));}
+  const roomData={
+    room1:{title:'Studio full nội thất, cửa sổ lớn, có ban công',price:'4,2 triệu/tháng',meta:'📍 Bình Thạnh · 28 m² · WC riêng'},
+    room2:{title:'Phòng có gác, gần Phạm Văn Đồng',price:'3,8 triệu/tháng',meta:'📍 Thủ Đức · 24 m² · Máy lạnh'},
+    room3:{title:'Căn hộ mini thoáng, gần trung tâm',price:'5,0 triệu/tháng',meta:'📍 Quận 7 · 35 m² · Ban công'},
+    room4:{title:'Phòng mới, giờ giấc tự do',price:'3,2 triệu/tháng',meta:'📍 Tân Bình · 22 m² · WC riêng'}
+  };
+  const routes={
+    search:()=>`<div class="route-heading"><div><h1>Tìm phòng</h1><p>Khám phá phòng trọ, căn hộ và nhà cho thuê theo nhu cầu.</p></div><button class="v3-btn" data-route="map">🗺 Xem bản đồ</button></div><div class="route-toolbar v3-toolbar"><input class="v3-input" placeholder="Tìm phòng, khu vực, quận huyện..." value="Phòng trọ, căn hộ"><button class="v3-chip active">Phòng trọ</button><button class="v3-chip">Căn hộ</button><button class="v3-chip">Nhà nguyên căn</button><button class="v3-btn primary" data-route="assistant">✨ Gợi ý phù hợp</button></div><div class="route-card-grid">${Object.entries(roomData).map(([id,r])=>roomCard(id,r)).join('')}</div>`,
+    map:()=>`<div class="route-heading"><div><h1>Tìm phòng trên bản đồ</h1><p>Chọn khu vực hoặc tìm quanh vị trí hiện tại.</p></div><button class="v3-btn" data-route="search">☷ Danh sách</button></div><div class="v3-map" style="min-height:640px"><div class="v3-map-control"><button data-action="nearby">⌖</button><button>＋</button><button>−</button></div><span class="v3-pin" style="left:18%;top:28%"><i></i></span><span class="v3-pin" style="left:31%;top:47%"><i></i></span><span class="v3-pin" style="left:57%;top:35%"><i></i></span><span class="v3-pin" style="left:67%;top:60%"><i></i></span><span class="v3-pin" style="left:45%;top:72%"><i></i></span><div class="v3-card" style="position:absolute;left:14px;bottom:14px;width:350px"><h3>24 phòng gần bạn</h3><p class="v3-muted" style="font-size:10px">Bán kính 2 km · 3–6 triệu · WC riêng</p><div style="margin-top:10px" class="route-actions"><button class="v3-btn primary" data-route="search">Xem danh sách</button><button class="v3-btn" data-action="nearby">⌖ Định vị tôi</button></div></div></div>`,
+    assistant:()=>`<div class="route-heading"><div><h1>80Land Assistant</h1><p>Tìm phòng theo nhu cầu bằng một cuộc hội thoại đơn giản.</p></div><button class="v3-btn" data-route="search">Tìm thủ công</button></div><div class="assistant-box"><div class="assistant-chat"><div class="assistant-messages"><div class="assistant-message bot">Bạn đang muốn tìm phòng ở khu vực nào?</div><div class="assistant-message user">Bình Thạnh, khoảng 3–5 triệu, cần WC riêng và có ban công.</div><div class="assistant-message bot">Mình đã lọc theo 4 tiêu chí. Dưới đây là những phòng phù hợp nhất.</div></div><div class="chat-compose2"><input value="Bình Thạnh, 3–5 triệu, WC riêng"/><button data-route="search">Tìm giúp tôi</button></div></div><div class="assistant-suggest"><h3 style="margin:0;font-size:14px">Gợi ý</h3>${Object.entries(roomData).slice(0,3).map(([id,r])=>`<div class="suggest-item" data-route="property" data-room="${id}"><b>${r.title}</b><div style="font-size:9px;color:#707070;margin-top:3px">${r.price} · ${r.meta}</div></div>`).join('')}</div></div>`,
+    'landlord/dashboard':()=>landlordDashboard(),
+    'landlord/create':()=>landlordCreate(),
+    'landlord/listings':()=>landlordListings(),
+    'landlord/stats':()=>landlordStats(),
+    'landlord/leads':()=>landlordLeads(),
+    'admin/dashboard':()=>adminDashboard(),
+    'admin/users':()=>adminUsers(),
+    'admin/listings':()=>adminListings(),
+    'admin/moderation':()=>adminModeration(),
+    'admin/reports':()=>adminReports(),
+    'admin/audit':()=>adminAudit(),
+  };
+  function roomCard(id,r){return `<article class="route-card" data-route="property" data-room="${id}"><div class="route-card-media"><span class="badge">Tin xác thực</span></div><div class="route-card-body"><div class="price">${r.price}</div><h3>${r.title}</h3><div class="meta">${r.meta}</div><div class="route-card-actions"><button data-action="save-room" data-room="${id}">${saved.includes(id)?'♥ Đã lưu':'♡ Lưu tin'}</button><button class="primary" data-route="property" data-room="${id}">Xem chi tiết</button></div></div></article>`}
+  function landlordDashboard(){return `<div class="route-heading"><div><h1>Dashboard chủ trọ</h1><p>Tổng quan hoạt động và hiệu quả tin đăng.</p></div><button class="v3-btn primary" data-route="landlord/create">＋ Đăng tin mới</button></div><div class="v3-grid cols-4"><div class="v3-kpi red"><strong>18</strong><span>Tin đang hiển thị</span></div><div class="v3-kpi"><strong>2.4K</strong><span>Lượt xem</span></div><div class="v3-kpi green"><strong>86</strong><span>Khách quan tâm</span></div><div class="v3-kpi"><strong>12,6tr</strong><span>Doanh thu tháng</span></div></div><div class="v3-card" style="margin-top:14px"><div class="saved-toolbar"><div><h2 style="margin:0">Tin đăng gần đây</h2><p class="v3-muted" style="font-size:10px">Theo dõi trạng thái và hiệu quả.</p></div><button class="v3-btn" data-route="landlord/listings">Mở quản lý tin</button></div><table class="v3-table"><thead><tr><th>Tin đăng</th><th>Trạng thái</th><th>Lượt xem</th><th>Quan tâm</th></tr></thead><tbody><tr><td><strong>Studio Bình Thạnh</strong></td><td><span class="v3-badge green">Đang hiển thị</span></td><td>428</td><td>18</td></tr><tr><td><strong>Phòng gác Thủ Đức</strong></td><td><span class="v3-badge green">Đang hiển thị</span></td><td>315</td><td>12</td></tr><tr><td><strong>Căn hộ Quận 7</strong></td><td><span class="v3-badge red">Chờ duyệt</span></td><td>0</td><td>0</td></tr></tbody></table></div>`}
+  function landlordCreate(){return `<div class="route-heading"><div><h1>Đăng tin mới</h1><p>Tạo tin rõ ràng để người tìm phòng dễ hiểu và dễ liên hệ.</p></div><button class="v3-btn" data-route="landlord/listings">Danh sách tin</button></div><div class="v3-card"><div class="v3-grid cols-2"><div><label class="v3-label">Tiêu đề tin</label><input class="v3-input" value="Studio full nội thất, có ban công"><label class="v3-label" style="margin-top:10px">Giá thuê</label><input class="v3-input" value="4200000"><label class="v3-label" style="margin-top:10px">Khu vực</label><input class="v3-input" value="Bình Thạnh, TP.HCM"></div><div><label class="v3-label">Loại hình</label><select class="v3-select"><option>Phòng trọ</option><option>Căn hộ</option><option>Nhà nguyên căn</option></select><label class="v3-label" style="margin-top:10px">Tiện ích</label><div class="v3-specs"><span class="v3-spec">WC riêng</span><span class="v3-spec">Máy lạnh</span><span class="v3-spec">Ban công</span><span class="v3-spec">Không chung chủ</span></div><label class="v3-label" style="margin-top:10px">Ảnh</label><div style="height:130px;background:#F5F5F3;border:1px dashed #D6D1CE;border-radius:10px;display:grid;place-items:center;color:#777;font-size:11px">+ Kéo thả ảnh vào đây</div></div></div><div class="route-actions" style="margin-top:16px"><button class="v3-btn primary" data-action="publish-demo">Đăng tin</button><button class="v3-btn">Lưu nháp</button></div></div>`}
+  function landlordListings(){return `<div class="route-heading"><div><h1>Quản lý tin</h1><p>Chỉnh sửa, ẩn, gia hạn và theo dõi từng tin đăng.</p></div><button class="v3-btn primary" data-route="landlord/create">＋ Đăng tin</button></div><div class="v3-card table-wrap"><table class="v3-table"><thead><tr><th>Tin đăng</th><th>Trạng thái</th><th>Ngày đăng</th><th>Lượt xem</th><th>Thao tác</th></tr></thead><tbody>${[['Studio Bình Thạnh','green','Đang hiển thị','12/09/2026','428'],['Phòng gác Thủ Đức','green','Đang hiển thị','10/09/2026','315'],['Căn hộ Quận 7','red','Chờ duyệt','26/09/2026','0'],['Phòng gần ĐH Bách Khoa','green','Đang hiển thị','04/09/2026','218']].map(r=>`<tr><td><strong>${r[0]}</strong></td><td><span class="v3-badge ${r[1]}">${r[2]}</span></td><td>${r[3]}</td><td>${r[4]}</td><td><button class="v3-chip">⋮</button></td></tr>`).join('')}</tbody></table></div>`}
+  function landlordStats(){return `<div class="route-heading"><div><h1>Thống kê</h1><p>Theo dõi lượt xem, quan tâm và hiệu quả từng tin.</p></div></div><div class="v3-grid cols-4"><div class="v3-kpi"><strong>2.4K</strong><span>Lượt xem</span></div><div class="v3-kpi"><strong>86</strong><span>Khách quan tâm</span></div><div class="v3-kpi"><strong>6.2%</strong><span>Tỷ lệ liên hệ</span></div><div class="v3-kpi red"><strong>+18%</strong><span>So với tháng trước</span></div></div><div class="v3-card" style="margin-top:14px;min-height:280px"><h2>Xu hướng 30 ngày</h2><div style="height:200px;margin-top:12px;border-radius:10px;background:linear-gradient(180deg,#FFF8F7,#fff);position:relative;overflow:hidden"><svg viewBox="0 0 800 180" width="100%" height="100%" preserveAspectRatio="none"><polyline fill="none" stroke="#E53935" stroke-width="4" points="0,150 80,132 160,138 240,108 320,120 400,82 480,100 560,62 640,78 720,42 800,55"/></svg></div></div>`}
+  function landlordLeads(){return `<div class="route-heading"><div><h1>Khách quan tâm</h1><p>Những người đã lưu tin hoặc chủ động liên hệ.</p></div></div><div class="v3-grid cols-3"><div class="v3-card"><h3>Nguyễn Văn A</h3><p class="v3-muted" style="font-size:10px">Studio Bình Thạnh · Đã nhắn</p><div class="route-actions" style="margin-top:10px"><button class="v3-btn primary" data-route="messages">Mở chat</button><button class="v3-btn">Gọi</button></div></div><div class="v3-card"><h3>Mai Linh</h3><p class="v3-muted" style="font-size:10px">Phòng gác Thủ Đức · Đã lưu</p><div class="route-actions" style="margin-top:10px"><button class="v3-btn primary">Phản hồi</button><button class="v3-btn">Xem hồ sơ</button></div></div><div class="v3-card"><h3>Huyền Trang</h3><p class="v3-muted" style="font-size:10px">Căn hộ Quận 7 · Đã xem</p><div class="route-actions" style="margin-top:10px"><button class="v3-btn primary">Nhắn</button><button class="v3-btn">Chi tiết</button></div></div></div>`}
+  function adminDashboard(){return `<div class="route-heading"><div><h1>Admin Dashboard</h1><p>Kiểm duyệt và quản lý toàn bộ hệ thống 80Land.</p></div></div><div class="v3-grid cols-4"><div class="v3-kpi"><strong>18.2K</strong><span>Người dùng</span></div><div class="v3-kpi"><strong>25.4K</strong><span>Tin đăng</span></div><div class="v3-kpi red"><strong>142</strong><span>Chờ duyệt</span></div><div class="v3-kpi"><strong>23</strong><span>Báo cáo</span></div></div><div class="v3-card" style="margin-top:14px"><h2>Việc cần xử lý</h2><table class="v3-table"><thead><tr><th>Đối tượng</th><th>Loại</th><th>Trạng thái</th><th>Thao tác</th></tr></thead><tbody><tr><td><strong>Tin #80L-1420</strong></td><td>Tin đăng</td><td><span class="v3-badge red">Chờ duyệt</span></td><td>Kiểm tra</td></tr><tr><td><strong>Tài khoản #9921</strong></td><td>User</td><td><span class="v3-badge green">Bình thường</span></td><td>Xem</td></tr><tr><td><strong>Báo cáo #183</strong></td><td>Report</td><td><span class="v3-badge red">Cần xử lý</span></td><td>Mở</td></tr></tbody></table></div>`}
+  function adminUsers(){return `<div class="route-heading"><div><h1>Người dùng</h1><p>Quản lý tài khoản và trạng thái hoạt động.</p></div><input class="v3-input" style="max-width:300px" placeholder="Tìm người dùng..."/></div><div class="v3-card"><table class="v3-table"><thead><tr><th>Người dùng</th><th>Vai trò</th><th>Trạng thái</th><th>Hoạt động gần nhất</th></tr></thead><tbody><tr><td><strong>Quang Tuấn</strong></td><td>Người thuê</td><td><span class="v3-badge green">Hoạt động</span></td><td>2 phút trước</td></tr><tr><td><strong>Minh Nguyễn</strong></td><td>Chủ trọ</td><td><span class="v3-badge green">Hoạt động</span></td><td>10 phút trước</td></tr><tr><td><strong>Tài khoản #9921</strong></td><td>Người thuê</td><td><span class="v3-badge gray">Tạm khóa</span></td><td>2 ngày</td></tr></tbody></table></div>`}
+  function adminListings(){return `<div class="route-heading"><div><h1>Tin đăng</h1><p>Toàn bộ tin đăng trong hệ thống.</p></div><button class="v3-btn" data-route="admin/moderation">Kiểm duyệt</button></div><div class="v3-card"><table class="v3-table"><thead><tr><th>Tin</th><th>Chủ trọ</th><th>Khu vực</th><th>Trạng thái</th></tr></thead><tbody><tr><td><strong>Studio Bình Thạnh</strong></td><td>Minh</td><td>Bình Thạnh</td><td><span class="v3-badge green">Đang hiển thị</span></td></tr><tr><td><strong>Căn hộ Quận 7</strong></td><td>Hoa</td><td>Quận 7</td><td><span class="v3-badge red">Chờ duyệt</span></td></tr><tr><td><strong>Phòng gác Thủ Đức</strong></td><td>Lan</td><td>Thủ Đức</td><td><span class="v3-badge green">Đang hiển thị</span></td></tr></tbody></table></div>`}
+  function adminModeration(){return `<div class="route-heading"><div><h1>Kiểm duyệt</h1><p>Kiểm tra nội dung và xác thực trước khi hiển thị.</p></div><span class="counter-pill">142 chờ duyệt</span></div><div class="v3-grid cols-2"><div class="v3-card"><h3>Tin #80L-1420</h3><p class="v3-muted" style="font-size:10px">Studio full nội thất · Bình Thạnh · 4,2 triệu</p><div class="route-actions"><button class="v3-btn primary" data-action="approve-demo">Duyệt</button><button class="v3-btn" data-action="reject-demo">Từ chối</button></div></div><div class="v3-card"><h3>Tin #80L-1421</h3><p class="v3-muted" style="font-size:10px">Căn hộ mini · Quận 7 · 5,0 triệu</p><div class="route-actions"><button class="v3-btn primary">Duyệt</button><button class="v3-btn">Yêu cầu bổ sung</button></div></div></div>`}
+  function adminReports(){return `<div class="route-heading"><div><h1>Báo cáo</h1><p>Tiếp nhận và xử lý báo cáo tin ảo, vi phạm.</p></div></div><div class="v3-card"><table class="v3-table"><thead><tr><th>Mã</th><th>Nội dung</th><th>Người báo cáo</th><th>Mức độ</th><th>Trạng thái</th></tr></thead><tbody><tr><td>#183</td><td>Tin đăng sai giá</td><td>Nguyễn Văn A</td><td><span class="v3-badge red">Cao</span></td><td>Đang xử lý</td></tr><tr><td>#182</td><td>Ảnh không đúng thực tế</td><td>Mai Linh</td><td><span class="v3-badge gray">Trung bình</span></td><td>Chờ phân công</td></tr></tbody></table></div>`}
+  function adminAudit(){return `<div class="route-heading"><div><h1>Audit / cấu hình</h1><p>Theo dõi thao tác quản trị và thiết lập hệ thống.</p></div></div><div class="timeline"><div class="timeline-item"><time>09:42</time><div><strong>Admin #03 duyệt Tin #80L-1420</strong><p>Thay đổi trạng thái từ “Chờ duyệt” → “Đang hiển thị”.</p></div></div><div class="timeline-item"><time>09:34</time><div><strong>Admin #02 cập nhật bộ lọc tiện ích</strong><p>Thêm “Không chung chủ” vào bộ tiêu chí mặc định.</p></div></div><div class="timeline-item"><time>09:10</time><div><strong>Admin #01 mở báo cáo #183</strong><p>Bắt đầu kiểm tra nội dung tin bị báo cáo.</p></div></div></div>`}
+  function provincePage(slug){const names={'hcm':'TP.HCM','ha-noi':'Hà Nội','da-nang':'Đà Nẵng','dong-nai':'Đồng Nai','binh-duong':'Bình Dương','can-tho':'Cần Thơ','hai-phong':'Hải Phòng','long-an':'Long An'};const n=names[slug]||'TP.HCM';return `<div class="province-hero"><h2>Tìm phòng tại ${n}</h2><p>Khám phá phòng trọ, căn hộ và nhà cho thuê theo khu vực, giá và nhu cầu.</p><div class="route-actions" style="margin-top:12px"><button class="v3-btn primary" data-route="search">🔎 Tìm phòng tại ${n}</button><button class="v3-btn" data-route="map">🗺 Xem bản đồ</button></div></div><div class="province-tabs"><a class="active" href="#">Tất cả</a><a href="#">Gần trung tâm</a><a href="#">Dưới 5 triệu</a><a href="#">Có ban công</a><a href="#">WC riêng</a></div><div style="margin-top:14px"><div class="saved-toolbar"><div><h2 style="margin:0;font-size:18px">Gợi ý nổi bật</h2><p style="margin:3px 0 0;font-size:10px;color:#707070">Các tin mẫu theo khu vực ${n}.</p></div><button class="v3-btn" data-route="search">Xem tất cả</button></div><div class="route-card-grid">${Object.entries(roomData).map(([id,r])=>roomCard(id,r)).join('')}</div></div>`}
+
+  function showToast(msg){toast.textContent=msg;toast.classList.add('show');clearTimeout(window.__t);window.__t=setTimeout(()=>toast.classList.remove('show'),1700)}
+  function render(route){
+    const [base,...rest]=route.split('/');
+    let key=route;
+    if(base==='property') key='property';
+    if(base==='province') key='province';
+    if(base==='landlord' && !routes[route]) key='landlord/dashboard';
+    if(base==='admin' && !routes[route]) key='admin/dashboard';
+    let body='';
+    if(key==='saved'||key==='messages'||key==='notifications'||key==='profile'||key==='property') body=templates[key]||'';
+    else if(key==='province') body=provincePage(rest[0]);
+    else if(routes[key]) body=routes[key]();
+    else body=routes.search();
+    content.innerHTML=body;
+    const renderedRoutePage=content.querySelector('.route-page');
+    if(renderedRoutePage) renderedRoutePage.classList.add('active');
+    app.classList.add('route-active');
+    document.querySelectorAll('body > main, body > footer').forEach(el=>el.style.display='none');
+    document.querySelectorAll('.route-nav a').forEach(a=>a.classList.toggle('active',a.dataset.route===route || (route.startsWith(a.dataset.route+'/'))));
+    bind();
+    if(key==='saved') renderSaved();
+    if(key==='property') initDetail();
+    history.replaceState({},'', '#/'+route);
+    window.scrollTo(0,0);
+  }
+  function renderSaved(){const g=document.getElementById('savedGrid'); if(!g)return; g.innerHTML=saved.map(id=>roomData[id]).filter(Boolean).map((r)=>roomCard(Object.keys(roomData).find(k=>roomData[k]===r),r)).join('') || '<div class="empty-state"><span class="material-symbols-outlined">favorite_border</span><p>Bạn chưa lưu phòng nào.</p></div>';document.getElementById('savedCount').textContent=`${saved.length} tin đã lưu`}
+  function initDetail(){
+    const thumbs=document.getElementById('detailThumbs'); if(!thumbs)return;
+    thumbs.innerHTML=Array.from({length:5},(_,i)=>`<div class="detail-thumb ${i===0?'active':''}" data-photo="${i+1}"></div>`).join('');
+    thumbs.querySelectorAll('.detail-thumb').forEach(t=>t.addEventListener('click',()=>{thumbs.querySelectorAll('.detail-thumb').forEach(x=>x.classList.remove('active'));t.classList.add('active');document.getElementById('detailCounter').textContent=`${t.dataset.photo} / 5`;document.getElementById('detailMainPhoto').style.background=`linear-gradient(135deg, hsl(${18+iHue(t.dataset.photo)}, 22%, 78%), hsl(${10+iHue(t.dataset.photo)}, 18%, 50%))`}));
+  }
+  function iHue(i){return Number(i)*6}
+  function bind(){
+    content.querySelectorAll('[data-route]').forEach(el=>{if(el.dataset.bound) return;el.dataset.bound='1';el.addEventListener('click',(e)=>{e.preventDefault();const route=el.dataset.route;show(route)})});
+    content.querySelectorAll('[data-action="save-room"]').forEach(b=>{b.addEventListener('click',()=>{const id=b.dataset.room;if(!saved.includes(id))saved.push(id);else saved=saved.filter(x=>x!==id);save();b.textContent=saved.includes(id)?'♥ Đã lưu':'♡ Lưu tin';showToast(saved.includes(id)?'Đã lưu tin':'Đã bỏ lưu tin');if(location.hash==='#/saved')renderSaved()})});
+    content.querySelectorAll('[data-action="save-detail"]').forEach(b=>b.addEventListener('click',()=>{if(!saved.includes('room1'))saved.push('room1');save();b.textContent='♥ Đã lưu';showToast('Đã lưu phòng vào Tin đã lưu')}));
+    content.querySelectorAll('[data-action="nearby"]').forEach(b=>b.addEventListener('click',()=>showToast('Đã bật định vị mô phỏng quanh bạn')));
+    content.querySelectorAll('[data-action="mark-read"]').forEach(b=>b.addEventListener('click',()=>{content.querySelectorAll('.notification-item2.unread').forEach(x=>x.classList.remove('unread'));showToast('Đã đánh dấu thông báo đã đọc')}));
+    content.querySelectorAll('.chat-row').forEach(row=>row.addEventListener('click',()=>{content.querySelectorAll('.chat-row').forEach(x=>x.classList.remove('active'));row.classList.add('active');document.getElementById('chatTitle').textContent=row.querySelector('h4').textContent;document.getElementById('chatBody').innerHTML='<div class="chat-msg them">Mình đang xem tin của bạn trên 80Land.</div><div class="chat-msg me">Mình muốn hỏi thêm về phòng và thời gian xem.</div><div class="chat-msg them">Bạn có thể xem phòng chiều nay nhé.</div>'}));
+    const form=document.getElementById('chatForm'); if(form&&!form.dataset.bound){form.dataset.bound='1';form.addEventListener('submit',e=>{e.preventDefault();const inp=document.getElementById('chatInput');if(!inp.value.trim())return;const msg=document.createElement('div');msg.className='chat-msg me';msg.textContent=inp.value;document.getElementById('chatBody').appendChild(msg);inp.value='';setTimeout(()=>{const reply=document.createElement('div');reply.className='chat-msg them';reply.textContent='Mình đã nhận tin nhắn và sẽ phản hồi sớm nhé.';document.getElementById('chatBody').appendChild(reply)},500)})}
+    content.querySelectorAll('[data-action="publish-demo"]').forEach(b=>b.addEventListener('click',()=>showToast('Đã tạo tin mẫu và chuyển sang trạng thái chờ duyệt')));
+    content.querySelectorAll('[data-action="approve-demo"]').forEach(b=>b.addEventListener('click',()=>{b.textContent='Đã duyệt';b.disabled=true;showToast('Tin đã được duyệt')}));
+    content.querySelectorAll('[data-action="reject-demo"]').forEach(b=>b.addEventListener('click',()=>showToast('Đã chuyển tin sang trạng thái cần bổ sung')));
+    content.querySelectorAll('[data-action="edit-profile"]').forEach(b=>b.addEventListener('click',()=>showToast('Mở form chỉnh sửa hồ sơ')));
+  }
+  document.getElementById('routeBack')?.addEventListener('click',()=>{location.hash='';location.reload()});
+  function onHash(){const raw=location.hash.replace(/^#\//,'');if(!raw){app.classList.remove('route-active');document.querySelectorAll('body > main, body > footer').forEach(el=>el.style.display='');return;}render(raw)}
+  document.addEventListener('click',e=>{const a=e.target.closest('[data-route]');if(a&&a.closest('#routeApp')){const r=a.dataset.route;if(r==='home'){location.hash='';return;}if(r==='property'){e.preventDefault();location.hash='#/property';}}});
+  window.addEventListener('hashchange',onHash);onHash();
+
+  document.addEventListener('click', function(e){
+    const listing=e.target.closest('.v3-listing');
+    if(listing && !e.target.closest('button,a,input')){
+      location.hash='#/property';
+    }
+  });
+})();
+</script>
+</body></html>
